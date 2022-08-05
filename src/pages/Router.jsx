@@ -4,6 +4,7 @@ import PrivateRoute from '../components/PrivateRoute'
 import { AuthContextProvider } from '../context/auth.context'
 import Login from './login/Login'
 import Register from './register/Register'
+import Workout from './workout/Workout'
 
 const Router = () => {
     return (
@@ -20,10 +21,7 @@ const Router = () => {
 
                         {/* Private routes */}
                         <Route element={<PrivateRoute />}>
-                            <Route
-                                path='/workout'
-                                element={<h1> Workout </h1>}
-                            />
+                            <Route path='/workout' element={<Workout />} />
                         </Route>
                     </Routes>
                 </AuthContextProvider>
