@@ -23,6 +23,8 @@
         "react/jsx-uses-react": "error",
         "react/prop-types": "off",
         "react/no-deprecated": "warn",
+        "multiline": "off",
+        "singleline": "off",
         "indent": ["error", 4],
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "single"],

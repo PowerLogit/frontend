@@ -1,10 +1,15 @@
 import style from './header.module.css'
 import { Link, NavLink } from 'react-router-dom'
-
-const isAuthenticated = false
+import { AuthContext } from '../../context/auth.context'
+import { useContext } from 'react'
 
 const Header = () => {
-    const pages = [{ title: 'Home', url: '/' }]
+    const { isAuthenticated, user, logOut } = useContext(AuthContext)
+
+    const pages = [
+        { title: 'Home', url: '/' },
+        { title: 'Workout', url: '/workout' },
+    ]
 
     return (
         <div className={style.header}>
@@ -32,8 +37,8 @@ const Header = () => {
             <div className={style.social}>
                 {isAuthenticated ? (
                     <>
-                        <span> Hi user </span>
-                        <button onClick={() => null}>Cerrar sesion</button>
+                        <span>{user?.name}</span>
+                        <button onClick={() => logOut()}>Cerrar sesion</button>
                     </>
                 ) : (
                     <>
