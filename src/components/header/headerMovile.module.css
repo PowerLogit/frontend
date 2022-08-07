@@ -1,0 +1,50 @@
+.topnav {
+    overflow: hidden;
+    position: relative;
+    background-color: #000900;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.topnav a {
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+}
+
+.title span {
+    color: #fff;
+    font-size: 1.25rem;
+}
+
+.title span:last-child {
+    color: rgb(226, 24, 88);
+}
+
+.active {
+    color: rgb(226, 24, 88) !important;
+}
+
+.links button {
+    background-color: #181c18;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    text-align: left;
+}
+
+.topnav a.icon {
+    background: black;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.links a:hover,
+a.icon:hover {
+    background-color: #2e2e2e;
+}
