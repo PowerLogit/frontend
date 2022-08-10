@@ -1,28 +1,14 @@
-import { useEffect, useState } from 'react'
 import style from './Workout.module.css'
-import { getWorkoutService } from '../../services/workout.service'
-import { HttpStatusCode } from '../../constant/HttpStatusCode'
 import WorkoutFilters from './components/WorkoutFilters'
 import WorkoutRows from './components/WorkoutRows'
-import UseWorkoutFilters from './UseWorkoutFilters'
+import UseWorkoutFilters from './libs/hooks/UseWorkoutFilters'
+import UseWorkout from './libs/hooks/UseWorkout'
 
 const Workout = () => {
-    const [workout, setWorkout] = useState({
-        data: [],
-        loading: false,
-        error: null,
-    })
-
     const { sortBy, ...setFiltersFn } = UseWorkoutFilters()
+    const { workout } = UseWorkout()
 
-    useEffect(() => {
-        getWorkout(workout, setWorkout, {
-            startDate: '01/01/2022',
-            endDate: '12/31/2022',
-        })
-    }, [])
-
-    let workoutsFiltered = sortWorkout(workout.data, sortBy)
+    let workoutsFiltered = sortWorkout(workout, sortBy)
 
     return (
         <div className={style.wrapper}>
@@ -44,28 +30,6 @@ const sortWorkout = (workouts, sortBy) => {
 
         default:
             return sortedWorkout
-    }
-}
-
-const getWorkout = async (workout, setWorkout, params) => {
-    setWorkout({ ...workout, loading: true })
-
-    try {
-        const { data, status, error } = await getWorkoutService(params)
-
-        if (status !== HttpStatusCode.OK) throw new Error(error)
-
-        setWorkout({
-            ...workout,
-            data,
-            loading: false,
-        })
-    } catch (error) {
-        setWorkout({
-            ...workout,
-            loading: false,
-            error: error.message,
-        })
     }
 }
 
