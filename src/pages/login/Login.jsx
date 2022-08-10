@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import style from './login.module.css'
+import style from './Login.module.css'
 import { AuthContext } from '../../context/auth.context'
 
 const Login = () => {
@@ -25,42 +25,29 @@ const Login = () => {
 
     return (
         <div className={style.wrapper}>
-            <div className={style.box}>
-                <div className={style.form}>
-                    <h1>Login</h1>
+            <h1>Login</h1>
+            <div className={style.form}>
+                <label>Email:</label>
+                <input
+                    type='text'
+                    name='email'
+                    onChange={handleChange}
+                    value={credential.email}
+                />
 
-                    <label>Email:</label>
-                    <input
-                        type='text'
-                        name='email'
-                        onChange={handleChange}
-                        value={credential.email}
-                    />
+                <label>Password:</label>
+                <input
+                    type='password'
+                    name='password'
+                    onChange={handleChange}
+                    value={credential.password}
+                />
 
-                    <label>Password:</label>
-                    <input
-                        type='password'
-                        name='password'
-                        onChange={handleChange}
-                        value={credential.password}
-                    />
+                {error && <p className={style.error}>{error}</p>}
 
-                    {error && <p className={style.error}>{error}</p>}
-
-                    <button
-                        type='submit'
-                        onClick={handleSubmit}
-                        disabled={loading}
-                    >
-                        {loading ? 'Loading...' : 'Login'}
-                    </button>
-                </div>
-                <div className={style.img}>
-                    <img
-                        src='https://sc01.alicdn.com/kf/H289eaf13768442f8b7865309a649ab37x.jpg'
-                        alt=''
-                    />
-                </div>
+                <button type='submit' onClick={handleSubmit} disabled={loading}>
+                    {loading ? 'Loading...' : 'Login'}
+                </button>
             </div>
         </div>
     )

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { AuthContext } from '../../context/auth.context'
-import style from './register.module.css'
+import style from './Register.module.css'
 import uuid from 'uuid-random'
 
 const Register = () => {

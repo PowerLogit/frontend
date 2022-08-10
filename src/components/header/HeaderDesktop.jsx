@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { AuthContext } from '../../context/auth.context'
-import style from './headerDesktop.module.css'
+import style from './HeaderDesktop.module.css'
 
 const HeaderDesktop = ({ pages }) => {
     const { isAuthenticated, user, logOut } = useContext(AuthContext)

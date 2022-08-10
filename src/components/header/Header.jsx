@@ -1,4 +1,4 @@
-import style from './header.module.css'
+import style from './Header.module.css'
 import HeaderMovile from './HeaderMovile'
 import HeaderDesktop from './HeaderDesktop'
 import { useEffect, useState } from 'react'

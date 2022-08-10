@@ -36,15 +36,10 @@
     text-align: left;
 }
 
-.topnav a.icon {
+.topnav button.icon {
     background: black;
     display: block;
     position: absolute;
     right: 0;
     top: 0;
-}
-
-.links a:hover,
-a.icon:hover {
-    background-color: #2e2e2e;
 }
