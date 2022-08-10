@@ -1,0 +1,48 @@
+.card {
+    padding: 20px;
+    width: 238px;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+
+    /*background: rgb(31, 162, 162);*/
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.card:hover {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card div:first-of-type {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.button {
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (min-width: 375px) {
+    .card {
+        width: 270px;
+    }
+}
+
+@media screen and (min-width: 425px) {
+    .card {
+        width: 320px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .card {
+        width: 350px;
+        padding: 25px;
+    }
+}
