@@ -7,6 +7,7 @@
         "eslint:recommended",
         "plugin:react/jsx-runtime",
         "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
         "prettier"
     ],
     "parserOptions": {
@@ -18,7 +19,7 @@
     },
     "plugins": ["react", "prettier"],
     "rules": {
-        "prettier/prettier": "error",
+        "prettier/prettier": "warn",
         "react/react-in-jsx-scope": "off",
         "react/jsx-uses-react": "error",
         "react/prop-types": "off",

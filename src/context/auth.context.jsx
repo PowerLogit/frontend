@@ -57,7 +57,7 @@ export const AuthContextProvider = ({ children }) => {
         }
 
         if (auth.token) getUserProfile(auth.token)
-    }, [])
+    }, [auth.token])
 
     const navigate = useNavigate()
 
