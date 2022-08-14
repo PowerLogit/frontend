@@ -4,6 +4,7 @@ import PrivateRoute from '../components/PrivateRoute'
 import { AuthContextProvider } from '../context/auth.context'
 import Login from './login/Login'
 import Register from './register/Register'
+import { WorkoutContextProvider } from './workout/libs/context/Workout.context'
 import Workout from './workout/Workout'
 
 const Router = () => {
@@ -21,7 +22,14 @@ const Router = () => {
 
                         {/* Private routes */}
                         <Route element={<PrivateRoute />}>
-                            <Route path='/workout' element={<Workout />} />
+                            <Route
+                                path='/workout'
+                                element={
+                                    <WorkoutContextProvider>
+                                        <Workout />
+                                    </WorkoutContextProvider>
+                                }
+                            />
                         </Route>
                     </Routes>
                 </AuthContextProvider>

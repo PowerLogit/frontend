@@ -1,27 +1,39 @@
-import { useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { HttpStatusCode } from '../../../../constant/HttpStatusCode'
 import { getWorkoutService } from '../../../../services/workout.service'
 
-const UseWorkout = () => {
-    const [workout, setWorkout] = useState({
-        data: [],
-        loading: false,
-        error: null,
-    })
+const initialState = {
+    data: [],
+    loading: false,
+    error: null,
+}
+
+export const WorkoutContext = createContext()
+
+export const WorkoutContextProvider = ({ children }) => {
+    const [workouts, setWorkouts] = useState(initialState)
+
+    const deleteWorkouts = (id) => {
+        setWorkouts({
+            ...workouts,
+            data: workouts.data.filter((workout) => workout.id !== id),
+        })
+    }
 
     useEffect(() => {
-        getWorkout(workout, setWorkout, {
+        getWorkout(workouts, setWorkouts, {
             startDate: '01/01/2022',
             endDate: '12/31/2022',
         })
     }, [])
 
-    return {
-        workout: workout.data,
-        loading: workout.loading,
-        error: workout.error,
-        setWorkout,
-    }
+    return (
+        <WorkoutContext.Provider
+            value={{ ...workouts, setWorkouts, deleteWorkouts }}
+        >
+            {children}
+        </WorkoutContext.Provider>
+    )
 }
 
 const getWorkout = async (workout, setWorkout, params) => {
@@ -45,5 +57,3 @@ const getWorkout = async (workout, setWorkout, params) => {
         })
     }
 }
-
-export default UseWorkout

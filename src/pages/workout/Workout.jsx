@@ -2,13 +2,14 @@ import style from './Workout.module.css'
 import WorkoutFilters from './components/WorkoutFilters'
 import WorkoutRows from './components/WorkoutRows'
 import UseWorkoutFilters from './libs/hooks/UseWorkoutFilters'
-import UseWorkout from './libs/hooks/UseWorkout'
+import { WorkoutContext } from './libs/context/Workout.context'
+import { useContext } from 'react'
 
 const Workout = () => {
     const { sortBy, ...setFiltersFn } = UseWorkoutFilters()
-    const { workout } = UseWorkout()
+    const { data } = useContext(WorkoutContext)
 
-    let workoutsFiltered = sortWorkout(workout, sortBy)
+    let workoutsFiltered = sortWorkout(data, sortBy)
 
     return (
         <div className={style.wrapper}>
