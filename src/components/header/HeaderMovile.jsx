@@ -59,7 +59,7 @@ const HeaderMovile = ({ pages }) => {
                 ))}
                 {!isAuthenticated ? (
                     <button>
-                        <Link to={'/login'}> Identificarse </Link>
+                        <Link to={'/authenticate'}> Identificarse </Link>
                     </button>
                 ) : (
                     <button onClick={() => logOut()}>

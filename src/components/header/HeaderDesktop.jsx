@@ -36,7 +36,7 @@ const HeaderDesktop = ({ pages }) => {
                     </>
                 ) : (
                     <>
-                        <Link to={'/login'}> Identificarse </Link>
+                        <Link to={'/authenticate'}> Identificarse </Link>
                     </>
                 )}
             </div>

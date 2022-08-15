@@ -1,0 +1,28 @@
+.wrapper {
+    padding: 0px 20px;
+    max-width: 400px;
+    margin: auto;
+}
+
+.wrapperButton {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+}
+
+@media screen and (min-width: 375px) {
+    .wrapperButton button {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 425px) {
+    .wrapper {
+        padding: 0px 30px;
+    }
+
+    .wrapperButton {
+        gap: 2rem;
+    }
+}

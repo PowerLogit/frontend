@@ -1,13 +1,17 @@
 import { useContext, useState } from 'react'
-import style from './Login.module.css'
-import { AuthContext } from '../../context/auth.context'
+import style from './Register.module.css'
+import uuid from 'uuid-random'
+import { AuthContext } from '../../../../context/auth.context'
+import Button from '../../../../components/ui/components/buttons/Button'
 
-const Login = () => {
-    const { login, loading, error } = useContext(AuthContext)
+const Register = () => {
+    const { register, loading, error } = useContext(AuthContext)
 
     const [credential, setCredential] = useState({
-        email: 'test@test.com',
-        password: 'Administrador1234',
+        id: uuid(),
+        name: '',
+        email: '',
+        password: '',
     })
 
     const handleChange = (e) => {
@@ -20,13 +24,20 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        login(credential)
+        register(credential)
     }
 
     return (
         <div className={style.wrapper}>
-            <h1>Login</h1>
             <div className={style.form}>
+                <label>Name:</label>
+                <input
+                    type='text'
+                    name='name'
+                    onChange={handleChange}
+                    value={credential.name}
+                />
+
                 <label>Email:</label>
                 <input
                     type='text'
@@ -45,12 +56,12 @@ const Login = () => {
 
                 {error && <p className={style.error}>{error}</p>}
 
-                <button type='submit' onClick={handleSubmit} disabled={loading}>
+                <Button type='submit' onClick={handleSubmit} disabled={loading}>
                     {loading ? 'Loading...' : 'Login'}
-                </button>
+                </Button>
             </div>
         </div>
     )
 }
 
-export default Login
+export default Register

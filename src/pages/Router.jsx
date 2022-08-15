@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from '../components/header/Header'
 import PrivateRoute from '../components/PrivateRoute'
 import { AuthContextProvider } from '../context/auth.context'
-import Login from './login/Login'
-import Register from './register/Register'
+import Authenticate from './auth/Authenticate'
 import { WorkoutContextProvider } from './workout/libs/context/Workout.context'
 import Workout from './workout/Workout'
 
@@ -16,8 +15,10 @@ const Router = () => {
                     <Routes>
                         {/* Public routes */}
                         <Route path='/' element={<h1> Home </h1>} />
-                        <Route path='/register' element={<Register />} />
-                        <Route path='/login' element={<Login />} />
+                        <Route
+                            path='/authenticate'
+                            element={<Authenticate />}
+                        />
                         <Route path='*' element={<h1> 404 </h1>} />
 
                         {/* Private routes */}
