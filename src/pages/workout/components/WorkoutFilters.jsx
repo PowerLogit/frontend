@@ -1,3 +1,4 @@
+import { SORT_OPTION } from '../libs/constant/workout.sortOption'
 import './WorkoutFilters.module.css'
 
 const WorkoutFilters = ({ sortBy, setSortBy }) => {
@@ -7,8 +8,8 @@ const WorkoutFilters = ({ sortBy, setSortBy }) => {
                 value={sortBy}
                 onChange={(ev) => setSortBy(Number(ev.target.value))}
             >
-                <option value={0}>Por defecto</option>
-                <option value={1}>Descendente</option>
+                <option value={SORT_OPTION.DEFAULT}>Por defecto</option>
+                <option value={SORT_OPTION.DATE_DESC}>Descendente</option>
             </select>
         </form>
     )
