@@ -10,7 +10,7 @@ const WorkoutCard = ({ workout }) => {
     const { deleteWorkouts } = useContext(WorkoutContext)
 
     return (
-        <div className={style.card}>
+        <div className={style.wrapper}>
             <div>
                 <p>
                     {name}: {sets}x{reps}x{weight} Kg

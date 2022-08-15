@@ -10,7 +10,7 @@ const WorkoutRows = ({ workouts }) => {
     if (!workouts.length > 0) return <p>Sin ejercicios</p>
 
     return (
-        <div className={style.container}>
+        <div className={style.wrapper}>
             {workouts.map((workout) => (
                 <WorkoutCard key={workout.id} workout={workout} />
             ))}
