@@ -34,13 +34,19 @@
     color: var(--color-red);
 }
 
+.pink {
+    color: var(--color-pink);
+}
+
 .black,
-.red {
+.red,
+.pink {
     background-color: transparent;
 }
 
 .black:disabled,
-.red:disabled {
+.red:disabled,
+.pink:disabled {
     color: var(--color-lightgray);
 }
 
@@ -52,12 +58,18 @@
     background-color: var(--color-red);
 }
 
+.pinkFilled {
+    background-color: var(--color-pink);
+}
+
 .redFilled,
-.blackFilled {
+.blackFilled,
+.pinkFilled {
     color: var(--color-white);
 }
 
 .redFilled:disabled,
-.blackFilled:disabled {
+.blackFilled:disabled,
+.pinkFilled:disabled {
     background-color: var(--color-lightgray);
 }

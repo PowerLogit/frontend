@@ -9,6 +9,10 @@ const CLASSNAMES = {
         normal: style.red,
         filled: style.redFilled,
     },
+    pink: {
+        normal: style.pink,
+        filled: style.pinkFilled,
+    },
 }
 
 const IconButton = ({

@@ -24,7 +24,7 @@ a {
 }
 
 .title span:last-child {
-    color: rgb(226, 24, 88);
+    color: var(--color-pink);
 }
 
 .social {
@@ -41,14 +41,14 @@ a {
 
 .links a:hover,
 .social a:hover {
-    color: rgb(108, 26, 26);
-    background: rgb(255, 255, 255);
+    color: var(--color-black);
+    background: var(--color-pink);
 }
 
 .active {
-    color: rgb(226, 24, 88);
+    color: var(--color-pink);
     padding: 1.83rem 25px 1.5rem 25px;
-    border-bottom: 0.3rem solid rgb(226, 24, 88);
+    border-bottom: 0.3rem solid var(--color-pink);
 }
 
 @media (max-width: 1440px) {
