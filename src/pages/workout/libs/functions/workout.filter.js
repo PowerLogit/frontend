@@ -1,4 +1,4 @@
-import { SORT_OPTION } from '../constant/workout.sortOption'
+import { SORT_OPTION } from '../constant/workoutSortOption'
 
 export const sortWorkout = (workouts, sortBy) => {
     const sortedWorkout = [...workouts]
@@ -18,5 +18,9 @@ export const paginateWorkout = (workouts, page, limit) => {
     const startIndex = (page - 1) * limit
     const endIndex = startIndex + limit
 
-    return workouts.slice(startIndex, endIndex)
+    const totalPages = Math.ceil(workouts.length / limit)
+
+    const paginatedWorkouts = workouts.slice(startIndex, endIndex)
+
+    return { paginatedWorkouts, totalPages }
 }

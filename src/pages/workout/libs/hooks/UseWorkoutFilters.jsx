@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { SORT_OPTION } from '../constant/workout.sortOption'
+import { SORT_OPTION } from '../constant/workoutSortOption'
 
-const UseWorkoutFilters = () => {
+const useWorkoutFilters = () => {
     const [filters, setFilters] = useState({
         sortBy: SORT_OPTION.DEFAULT,
         page: 1,
@@ -23,4 +23,4 @@ const UseWorkoutFilters = () => {
     }
 }
 
-export default UseWorkoutFilters
+export default useWorkoutFilters

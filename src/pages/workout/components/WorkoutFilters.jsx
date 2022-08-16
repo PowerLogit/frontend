@@ -1,4 +1,4 @@
-import { SORT_OPTION } from '../libs/constant/workout.sortOption'
+import { SORT_OPTION } from '../libs/constant/workoutSortOption'
 import './WorkoutFilters.module.css'
 
 const WorkoutFilters = ({ sortBy, setSortBy }) => {

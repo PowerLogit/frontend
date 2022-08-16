@@ -1,13 +1,10 @@
-import { useContext } from 'react'
-import IconButton from '../../../components/ui/components/buttons/IconButton'
-import PencilIcon from '../../../components/ui/svg/PencilIcon'
-import TrashIcon from '../../../components/ui/svg/TrashIcon'
-import { WorkoutContext } from '../libs/context/Workout.context'
+import IconButton from '@ui/components/buttons/IconButton'
+import PencilIcon from '@ui/svg/PencilIcon'
+import TrashIcon from '@ui/svg/TrashIcon'
 import style from './WorkoutCard.module.css'
 
-const WorkoutCard = ({ workout }) => {
+const WorkoutCard = ({ workout, deleteWorkouts }) => {
     const { id, name, sets, reps, weight, date } = workout
-    const { deleteWorkouts } = useContext(WorkoutContext)
 
     return (
         <div className={style.wrapper}>
