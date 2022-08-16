@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react'
 import style from './Register.module.css'
 import uuid from 'uuid-random'
-import { AuthContext } from '../../../../context/auth.context'
-import Button from '../../../../components/ui/components/buttons/Button'
+import Button from '@ui/components/buttons/Button'
+import { AuthContext } from '@auth/context/auth.context'
 
 const Register = () => {
     const { register, loading, error } = useContext(AuthContext)

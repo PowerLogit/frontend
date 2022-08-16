@@ -1,6 +1,6 @@
-import api from '../config/axios'
+import api from '@api/axios'
 
-export const getWorkoutService = async (params) => {
+export const fetchWorkoutService = async (params) => {
     try {
         const Authorization = localStorage.getItem('Authorization')
 

@@ -8,12 +8,12 @@ const UseWorkoutFilters = () => {
         itemPerPage: 3,
     })
 
-    const setSortBy = (sortBy) => setFilters({ ...filters, sortBy })
+    const setSortBy = (sortBy) => setFilters({ ...filters, page: 1, sortBy })
 
     const setPage = (newPage) => setFilters({ ...filters, page: newPage })
 
     const setItemPerPage = (newItemPerPage) =>
-        setFilters({ ...filters, itemPerPage: newItemPerPage })
+        setFilters({ ...filters, page: 1, itemPerPage: newItemPerPage })
 
     return {
         filters,

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
-import Button from '../../../../components/ui/components/buttons/Button'
-import { AuthContext } from '../../../../context/auth.context'
+import Button from '@ui/components/buttons/Button'
+import { AuthContext } from '@auth/context/auth.context'
 import style from './Login.module.css'
 
 const Login = () => {

@@ -1,10 +1,10 @@
 import style from './HeaderMovile.module.css'
 import { Link, NavLink } from 'react-router-dom'
 import { useContext, useEffect, useRef, useState } from 'react'
-import { AuthContext } from '../../context/auth.context'
-import IconButton from '../ui/components/buttons/IconButton'
-import ListIcon from '../ui/svg/ListIcon'
-import CrossIcon from '../ui/svg/CrossIcon'
+import { AuthContext } from '@auth/context/auth.context'
+import IconButton from '@ui/components/buttons/IconButton'
+import ListIcon from '@ui/svg/ListIcon'
+import CrossIcon from '@ui/svg/CrossIcon'
 
 const HeaderMovile = ({ pages }) => {
     const [isOpen, setIsOpen] = useState(false)

@@ -1,4 +1,4 @@
-import api from '../config/axios'
+import api from '@api/axios'
 
 export const loginService = async (credential) => {
     try {

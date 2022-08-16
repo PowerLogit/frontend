@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { HttpStatusCode } from '../constant/HttpStatusCode'
+import { HttpStatusCode } from '@constant/HttpStatusCode'
 import {
     loginService,
     profileService,
     registerService,
 } from '../services/auth.service'
-import { Autorization } from '../services/authorization.service'
+import { Autorization } from '@api/services/authorization.service'
 
 const initialState = {
     isAuthenticated: false,

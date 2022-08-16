@@ -2,7 +2,7 @@ import style from './Authenticate.module.css'
 import { useState } from 'react'
 import Login from './components/login/Login'
 import Register from './components/register/Register'
-import Button from '../../components/ui/components/buttons/Button'
+import Button from '@ui/components/buttons/Button'
 
 const Authenticate = () => {
     const [formVariant, setFormVariant] = useState('login')
