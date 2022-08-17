@@ -13,6 +13,7 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 0 320px;
+    margin-bottom: 1.5rem;
     height: 5rem;
     background-color: #000900;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);

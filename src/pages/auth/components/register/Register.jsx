@@ -57,7 +57,7 @@ const Register = () => {
                 {error && <p className={style.error}>{error}</p>}
 
                 <Button type='submit' onClick={handleSubmit} disabled={loading}>
-                    {loading ? 'Loading...' : 'Login'}
+                    {loading ? 'Loading...' : 'Register'}
                 </Button>
             </div>
         </div>
