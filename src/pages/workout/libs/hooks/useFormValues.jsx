@@ -9,19 +9,19 @@ import {
 const useFormValues = () => {
     const [fomrValues, setFormValues] = useState({
         name: {
-            value: 'SQLB',
+            value: '',
             error: undefined,
         },
         sets: {
-            value: 1,
+            value: '',
             error: undefined,
         },
         reps: {
-            value: 1,
+            value: '',
             error: undefined,
         },
         weight: {
-            value: 100,
+            value: '',
             error: undefined,
         },
         date: normalizeDateISO(new Date()),
@@ -65,8 +65,19 @@ const useFormValues = () => {
 
     const setDate = (newDate) => setFormValues({ ...fomrValues, date: newDate })
 
+    const isFormValid =
+        !fomrValues.name.value ||
+        fomrValues.name.error ||
+        !fomrValues.sets.value ||
+        fomrValues.sets.error ||
+        !fomrValues.reps.value ||
+        fomrValues.reps.error ||
+        !fomrValues.weight.value ||
+        fomrValues.weight.error
+
     return {
         fomrValues,
+        isFormValid,
         setFormValues,
         settersFormValues: { setName, setSets, setReps, setWeight, setDate },
     }

@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
-import { HttpStatusCode } from '@constant/HttpStatusCode'
-import { paginateWorkout, sortWorkout } from '../functions/workout.filter'
-import { fetchWorkoutService } from '../services/workout.service'
+import { getWorkoutService } from '../services/workout.service'
 
 const initialState = {
     data: [],
@@ -9,7 +7,7 @@ const initialState = {
     error: null,
 }
 
-const useWorkout = (filters) => {
+const useWorkout = () => {
     const [workouts, setWorkouts] = useState(initialState)
 
     const setData = (newData) =>
@@ -17,6 +15,9 @@ const useWorkout = (filters) => {
 
     const setError = (newError) =>
         setWorkouts({ data: [], loading: false, error: newError })
+
+    const reloadWorkouts = () =>
+        setWorkouts({ data: [], loading: true, error: null })
 
     const deleteWorkouts = (id) => {
         setWorkouts({
@@ -26,28 +27,39 @@ const useWorkout = (filters) => {
     }
 
     useEffect(() => {
-        fetchWorkouts(setData, setError, {
+        /*fetchWorkouts(setData, setError, {
             startDate: '01/01/2022',
             endDate: '12/31/2022',
-        })
-    }, [])
+        })*/
 
-    const { paginatedWorkouts, totalPages } = getWorkoutToDisplay(
-        workouts.data,
-        filters
-    )
+        if (!workouts.loading) return
+
+        const controller = new AbortController()
+
+        loadWorkout(setData, setError, controller.signal)
+
+        return () => controller.abort()
+    }, [workouts.loading])
 
     return {
-        workouts: paginatedWorkouts,
-        loading: workouts.loading,
-        error: workouts.error,
-        totalPages,
+        workouts: workouts.data,
+        workoutsLoading: workouts.loading,
+        workoutsError: workouts.error,
         setWorkouts,
+        reloadWorkouts,
         deleteWorkouts,
     }
 }
 
-const fetchWorkouts = async (setData, setError, params) => {
+const loadWorkout = async (setData, setError, signal) => {
+    const { workout, error, aborted } = await getWorkoutService(signal)
+
+    if (aborted) return
+    if (workout) setData(workout)
+    else setError(error)
+}
+
+/*const fetchWorkouts = async (setData, setError, params) => {
     try {
         const { data, status, error } = await fetchWorkoutService(params)
 
@@ -62,18 +74,6 @@ const fetchWorkouts = async (setData, setError, params) => {
 
         setError(message)
     }
-}
-
-const getWorkoutToDisplay = (workouts, { sortBy, page, itemPerPage }) => {
-    const workoutsFiltered = sortWorkout(workouts, sortBy)
-
-    const { paginatedWorkouts, totalPages } = paginateWorkout(
-        workoutsFiltered,
-        page,
-        itemPerPage
-    )
-
-    return { paginatedWorkouts, totalPages }
-}
+}*/
 
 export default useWorkout

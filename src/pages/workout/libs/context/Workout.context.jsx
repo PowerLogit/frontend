@@ -1,10 +1,11 @@
 import { createContext, useEffect, useState } from 'react'
-import { HttpStatusCode } from '../../../../constant/HttpStatusCode'
-import { getWorkoutService } from '../../../../services/workout.service'
+import { HttpStatusCode } from '@constant/HttpStatusCode'
+import { paginateWorkout, sortWorkout } from '../functions/workout.filter'
+import { fetchWorkoutService } from '../services/workout.service'
 
 const initialState = {
     data: [],
-    loading: false,
+    loading: true,
     error: null,
 }
 
@@ -21,11 +22,13 @@ export const WorkoutContextProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        getWorkout(workouts, setWorkouts, {
+        fetchWorkouts(setWorkouts, {
             startDate: '01/01/2022',
             endDate: '12/31/2022',
         })
     }, [])
+
+    // const { data, totalPages } = getWorkoutToDisplay(workouts.data, filters)
 
     return (
         <WorkoutContext.Provider
@@ -36,24 +39,34 @@ export const WorkoutContextProvider = ({ children }) => {
     )
 }
 
-const getWorkout = async (workout, setWorkout, params) => {
-    setWorkout({ ...workout, loading: true })
-
+const fetchWorkouts = async (setWorkouts, params) => {
     try {
-        const { data, status, error } = await getWorkoutService(params)
+        const { data, status, error } = await fetchWorkoutService(params)
 
         if (status !== HttpStatusCode.OK) throw new Error(error)
 
-        setWorkout({
-            ...workout,
+        setWorkouts((prevWorkouts) => ({
+            ...prevWorkouts,
             data,
             loading: false,
-        })
+        }))
     } catch (error) {
-        setWorkout({
-            ...workout,
+        setWorkouts((prevWorkouts) => ({
+            ...prevWorkouts,
             loading: false,
             error: error.message,
-        })
+        }))
     }
+}
+
+const getWorkoutToDisplay = (workouts, { sortBy, page, itemPerPage }) => {
+    const workoutsFiltered = sortWorkout(workouts, sortBy)
+
+    const { paginatedWorkouts, totalPages } = paginateWorkout(
+        workoutsFiltered,
+        page,
+        itemPerPage
+    )
+
+    return { workouts: paginatedWorkouts, totalPages }
 }
