@@ -16,9 +16,9 @@ const ListPagination = ({
                     value={itemPerPage}
                     onChange={(ev) => setItemPerPage(Number(ev.target.value))}
                 >
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
                     <option value={3}>3</option>
+                    <option value={6}>6</option>
+                    <option value={9}>9</option>
                 </Select>
                 <p>Elementos por pagina</p>
             </div>
