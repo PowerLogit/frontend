@@ -51,11 +51,16 @@ const fetchWorkouts = async (setData, setError, params) => {
     try {
         const { data, status, error } = await fetchWorkoutService(params)
 
-        if (status !== HttpStatusCode.OK) throw new Error(error)
+        if (status !== HttpStatusCode.OK)
+            throw new Error(JSON.stringify({ error, status }))
 
         setData(data)
     } catch (error) {
-        setError(error.message)
+        const { error: message, status } = JSON.parse(error.message)
+
+        if (status === HttpStatusCode.NOT_FOUND) return setData([])
+
+        setError(message)
     }
 }
 
