@@ -53,7 +53,7 @@ export const getWorkoutService = async (signal) => {
     }
 }
 
-export const createWorkoutService = async (payload) => {
+export const createWorkoutService = async (workout) => {
     try {
         const Authorization = localStorage.getItem('Authorization')
 
@@ -63,7 +63,7 @@ export const createWorkoutService = async (payload) => {
                 'Content-Type': 'application/json',
                 Authorization,
             },
-            body: JSON.stringify(payload),
+            body: JSON.stringify(workout),
         })
 
         return res
@@ -72,8 +72,8 @@ export const createWorkoutService = async (payload) => {
     }
 }
 
-export const editWorkoutService = async (payload) => {
-    const { id, ...rest } = payload
+export const editWorkoutService = async (workout) => {
+    const { id, ...rest } = workout
     const Authorization = localStorage.getItem('Authorization')
 
     try {
@@ -84,6 +84,24 @@ export const editWorkoutService = async (payload) => {
                 Authorization,
             },
             body: JSON.stringify(rest),
+        })
+
+        return res
+    } catch (error) {
+        return error.message
+    }
+}
+
+export const deleteWorkoutService = async (id) => {
+    const Authorization = localStorage.getItem('Authorization')
+
+    try {
+        const res = await fetch(`http://192.168.0.90:3100/api/workout/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization,
+            },
         })
 
         return res

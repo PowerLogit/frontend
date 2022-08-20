@@ -11,6 +11,7 @@ import WorkoutCreateForm from './components/forms/WorkoutCreateForm'
 import { paginateWorkout, sortWorkout } from './libs/functions/workout.filter'
 import WorkoutFormLayaut from './components/forms/WorkoutFormLayaut'
 import WorkoutEditForm from './components/forms/WorkoutEditForm'
+import WorkoutDeleteForm from './components/forms/WorkoutDeleteForm'
 
 const Workout = () => {
     const {
@@ -62,6 +63,13 @@ const Workout = () => {
                     {currentForm === WORKOUT_FORM.EDIT && (
                         <WorkoutEditForm
                             onSuccess={onSuccess}
+                            workout={currentWorkout}
+                        />
+                    )}
+                    {currentForm === WORKOUT_FORM.DELETE && (
+                        <WorkoutDeleteForm
+                            onSuccess={onSuccess}
+                            onCancel={setFiltersForm}
                             workout={currentWorkout}
                         />
                     )}

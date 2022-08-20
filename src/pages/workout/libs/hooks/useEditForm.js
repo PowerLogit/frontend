@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { normalizeDateISO } from '../functions/normaliceDate'
 import {
     validateName,
     validateReps,
@@ -90,16 +91,6 @@ const getInitialState = (workout) => ({
     },
     date: normalizeDateISO(workout.date),
 })
-
-const normalizeDateISO = (date) => {
-    const newDate = new Date(date).toLocaleString('es-ES', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-    })
-
-    return newDate.split('/').reverse().join('-')
-}
 
 const isInitialValues = (fomrValues, workout) =>
     fomrValues.name.value === workout.name &&

@@ -1,10 +1,11 @@
 import IconButton from '@ui/components/buttons/IconButton'
 import PencilIcon from '@ui/svg/PencilIcon'
 import TrashIcon from '@ui/svg/TrashIcon'
+import { normalizeDateUTC } from '../libs/functions/normaliceDate'
 import style from './WorkoutCard.module.css'
 
 const WorkoutCard = ({ workout, setEditForm, setDelteForm }) => {
-    const { id, name, sets, reps, weight, date } = workout
+    const { name, sets, reps, weight, date } = workout
 
     return (
         <div className={style.wrapper}>
@@ -12,38 +13,23 @@ const WorkoutCard = ({ workout, setEditForm, setDelteForm }) => {
                 <p>
                     {name}: {sets}x{reps}x{weight} Kg
                 </p>
-                <p>{normalizeDate(date)}</p>
+                <p>{normalizeDateUTC(date)}</p>
             </div>
             <div>
                 <IconButton
                     icon={PencilIcon}
                     className={style.button}
-                    onClick={() =>
-                        setEditForm({ id, name, sets, reps, weight, date })
-                    }
+                    onClick={() => setEditForm(workout)}
                 />
                 <IconButton
                     icon={TrashIcon}
                     className={style.button}
                     kind='red'
-                    onClick={() =>
-                        setDelteForm({ id, name, sets, reps, weight })
-                    }
+                    onClick={() => setDelteForm(workout)}
                 />
             </div>
         </div>
     )
-}
-
-const normalizeDate = (date) => {
-    const newDate = new Date(date).toLocaleString('es-ES', {
-        weekday: 'short',
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-    })
-
-    return newDate.charAt(0).toUpperCase() + newDate.slice(1)
 }
 
 export default WorkoutCard

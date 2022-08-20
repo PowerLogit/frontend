@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { normalizeDateISO } from '../functions/normaliceDate'
 import {
     validateName,
     validateReps,
@@ -84,15 +85,5 @@ const getInitialState = () => ({
     },
     date: normalizeDateISO(new Date()),
 })
-
-const normalizeDateISO = (date) => {
-    const newDate = new Date(date).toLocaleString('es-ES', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-    })
-
-    return newDate.split('/').reverse().join('-')
-}
 
 export default useCreateForm
