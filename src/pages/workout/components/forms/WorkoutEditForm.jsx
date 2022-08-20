@@ -1,13 +1,14 @@
+import style from './WorkoutEditForm.module.css'
 import InputText from '@ui/components/form/InputText'
-import style from './WorkoutCreateForm.module.css'
 import Button from '@ui/components/buttons/Button'
-import useCreateForm from '../../libs/hooks/useCreateForm'
-import { createWorkoutService } from '../../libs/services/workout.service'
+import useEditForm from '../../libs/hooks/useEditForm'
+import { editWorkoutService } from '../../libs/services/workout.service'
 import { useState } from 'react'
 
-const WorkoutCreateForm = ({ onSuccess }) => {
+const WorkoutEditForm = ({ onSuccess, workout }) => {
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const { fomrValues, isFormInvalid, settersFormValues } = useCreateForm()
+    const { fomrValues, isFormInvalid, settersFormValues } =
+        useEditForm(workout)
 
     const { setName, setSets, setReps, setWeight, setDate } = settersFormValues
     const { name, sets, reps, weight, date } = fomrValues
@@ -60,32 +61,31 @@ const WorkoutCreateForm = ({ onSuccess }) => {
                 />
             </div>
             <Button type='submit' disabled={isFormInvalid || isSubmitting}>
-                {isSubmitting ? 'Cargando...' : 'Crear'}
+                {isSubmitting ? 'Cargando...' : 'Editar'}
             </Button>
         </form>
     )
 }
 
-const handleSubmit = async (ev, fomrValues, setIsSubmitting, onSuccess) => {
+const handleSubmit = async (ev, workout, setIsSubmitting, onSuccess) => {
     ev.preventDefault()
     setIsSubmitting(true)
 
-    const { name, sets, reps, weight, date } = fomrValues
-
-    const workout = {
-        id: crypto.randomUUID(),
-        name: name.value,
-        sets: Number(sets.value),
-        reps: Number(reps.value),
-        weight: Number(weight.value),
-        date: date,
+    const newWorkout = {
+        id: workout.id,
+        name: workout.name.value,
+        sets: Number(workout.sets.value),
+        reps: Number(workout.reps.value),
+        weight: Number(workout.weight.value),
+        date: workout.date,
     }
 
-    const res = await createWorkoutService(workout)
+    const res = await editWorkoutService(newWorkout)
+    console.log(res)
 
     if (!res.ok) setIsSubmitting(false)
 
     onSuccess()
 }
 
-export default WorkoutCreateForm
+export default WorkoutEditForm

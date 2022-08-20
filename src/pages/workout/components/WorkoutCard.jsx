@@ -3,7 +3,7 @@ import PencilIcon from '@ui/svg/PencilIcon'
 import TrashIcon from '@ui/svg/TrashIcon'
 import style from './WorkoutCard.module.css'
 
-const WorkoutCard = ({ workout, deleteWorkouts }) => {
+const WorkoutCard = ({ workout, setEditForm, setDelteForm }) => {
     const { id, name, sets, reps, weight, date } = workout
 
     return (
@@ -18,13 +18,17 @@ const WorkoutCard = ({ workout, deleteWorkouts }) => {
                 <IconButton
                     icon={PencilIcon}
                     className={style.button}
-                    onClick={() => console.log(id)}
+                    onClick={() =>
+                        setEditForm({ id, name, sets, reps, weight, date })
+                    }
                 />
                 <IconButton
                     icon={TrashIcon}
                     className={style.button}
                     kind='red'
-                    onClick={() => deleteWorkouts(id)}
+                    onClick={() =>
+                        setDelteForm({ id, name, sets, reps, weight })
+                    }
                 />
             </div>
         </div>

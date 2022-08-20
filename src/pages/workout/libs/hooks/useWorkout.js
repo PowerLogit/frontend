@@ -1,14 +1,8 @@
 import { useEffect, useState } from 'react'
 import { getWorkoutService } from '../services/workout.service'
 
-const initialState = {
-    data: [],
-    loading: true,
-    error: null,
-}
-
 const useWorkout = () => {
-    const [workouts, setWorkouts] = useState(initialState)
+    const [workouts, setWorkouts] = useState(INITIAL_STATE)
 
     const setData = (newData) =>
         setWorkouts({ data: newData, loading: false, error: null })
@@ -49,6 +43,12 @@ const useWorkout = () => {
         reloadWorkouts,
         deleteWorkouts,
     }
+}
+
+const INITIAL_STATE = {
+    data: [],
+    loading: true,
+    error: null,
 }
 
 const loadWorkout = async (setData, setError, signal) => {

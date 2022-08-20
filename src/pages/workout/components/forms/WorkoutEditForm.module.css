@@ -1,0 +1,39 @@
+.row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.input {
+    width: 45%;
+}
+
+.row ~ .row {
+    margin: 1.5rem 0;
+    flex-direction: row;
+}
+
+.row ~ .row .input {
+    width: 20%;
+    margin-right: 35px;
+}
+
+input[type='date'] {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button[type='submit'] {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .row {
+        flex-direction: row;
+        align-items: center;
+    }
+}

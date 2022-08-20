@@ -10,9 +10,18 @@ import { WORKOUT_FORM } from './libs/constant/workoutForm'
 import WorkoutCreateForm from './components/forms/WorkoutCreateForm'
 import { paginateWorkout, sortWorkout } from './libs/functions/workout.filter'
 import WorkoutFormLayaut from './components/forms/WorkoutFormLayaut'
+import WorkoutEditForm from './components/forms/WorkoutEditForm'
 
 const Workout = () => {
-    const { currentForm, setFiltersForm, setCreateForm } = useFormWorkout()
+    const {
+        currentForm,
+        currentWorkout,
+        setFiltersForm,
+        setCreateForm,
+        setEditForm,
+        setDelteForm,
+    } = useFormWorkout()
+
     const {
         filters,
         pagination,
@@ -21,13 +30,8 @@ const Workout = () => {
         ressetFilters,
     } = useWorkoutFilters()
 
-    const {
-        workouts,
-        workoutsLoading,
-        workoutsError,
-        reloadWorkouts,
-        deleteWorkouts,
-    } = useWorkout()
+    const { workouts, workoutsLoading, workoutsError, reloadWorkouts } =
+        useWorkout()
 
     const { paginatedWorkouts, totalPages } = getWorkoutToDisplay(
         workouts,
@@ -44,23 +48,31 @@ const Workout = () => {
     return (
         <div className={style.wrapper}>
             <h1>Workout</h1>
-            {currentForm === WORKOUT_FORM.FILTERS && (
+            {currentForm === WORKOUT_FORM.FILTERS ? (
                 <WorkoutFilters
                     {...filters}
                     {...filtersSetters}
                     slot={<Button onClick={setCreateForm}> Crear </Button>}
                 />
-            )}
-            {currentForm === WORKOUT_FORM.CREATE && (
+            ) : (
                 <WorkoutFormLayaut onClose={setFiltersForm}>
-                    <WorkoutCreateForm onSuccess={onSuccess} />
+                    {currentForm === WORKOUT_FORM.CREATE && (
+                        <WorkoutCreateForm onSuccess={onSuccess} />
+                    )}
+                    {currentForm === WORKOUT_FORM.EDIT && (
+                        <WorkoutEditForm
+                            onSuccess={onSuccess}
+                            workout={currentWorkout}
+                        />
+                    )}
                 </WorkoutFormLayaut>
             )}
             <WorkoutRows
                 workouts={paginatedWorkouts}
                 loading={workoutsLoading}
                 error={workoutsError}
-                deleteWorkouts={deleteWorkouts}
+                setEditForm={setEditForm}
+                setDelteForm={setDelteForm}
             />
             <ListPagination
                 {...pagination}

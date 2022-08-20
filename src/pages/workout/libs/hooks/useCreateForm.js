@@ -6,26 +6,8 @@ import {
     validateWeight,
 } from '../validations/workout.validation'
 
-const useFormValues = () => {
-    const [fomrValues, setFormValues] = useState({
-        name: {
-            value: '',
-            error: undefined,
-        },
-        sets: {
-            value: '',
-            error: undefined,
-        },
-        reps: {
-            value: '',
-            error: undefined,
-        },
-        weight: {
-            value: '',
-            error: undefined,
-        },
-        date: normalizeDateISO(new Date()),
-    })
+const useCreateForm = () => {
+    const [fomrValues, setFormValues] = useState(() => getInitialState())
 
     const setName = (newName) => {
         const error = validateName(newName)
@@ -65,7 +47,7 @@ const useFormValues = () => {
 
     const setDate = (newDate) => setFormValues({ ...fomrValues, date: newDate })
 
-    const isFormValid =
+    const isFormInvalid =
         !fomrValues.name.value ||
         fomrValues.name.error ||
         !fomrValues.sets.value ||
@@ -77,11 +59,31 @@ const useFormValues = () => {
 
     return {
         fomrValues,
-        isFormValid,
+        isFormInvalid,
         setFormValues,
         settersFormValues: { setName, setSets, setReps, setWeight, setDate },
     }
 }
+
+const getInitialState = () => ({
+    name: {
+        value: '',
+        error: undefined,
+    },
+    sets: {
+        value: '',
+        error: undefined,
+    },
+    reps: {
+        value: '',
+        error: undefined,
+    },
+    weight: {
+        value: '',
+        error: undefined,
+    },
+    date: normalizeDateISO(new Date()),
+})
 
 const normalizeDateISO = (date) => {
     const newDate = new Date(date).toLocaleString('es-ES', {
@@ -93,4 +95,4 @@ const normalizeDateISO = (date) => {
     return newDate.split('/').reverse().join('-')
 }
 
-export default useFormValues
+export default useCreateForm

@@ -1,7 +1,13 @@
 import WorkoutCard from './WorkoutCard'
 import style from './WorkoutRows.module.css'
 
-const WorkoutRows = ({ workouts, loading, error, deleteWorkouts }) => {
+const WorkoutRows = ({
+    workouts,
+    loading,
+    error,
+    setEditForm,
+    setDelteForm,
+}) => {
     if (error) return <p> Error al cargar los workouts </p>
     if (loading) return <p>Cargando ...</p>
     if (!workouts.length > 0) return <p>Sin ejercicios</p>
@@ -12,7 +18,8 @@ const WorkoutRows = ({ workouts, loading, error, deleteWorkouts }) => {
                 <WorkoutCard
                     key={workout.id}
                     workout={workout}
-                    deleteWorkouts={deleteWorkouts}
+                    setEditForm={setEditForm}
+                    setDelteForm={setDelteForm}
                 />
             ))}
         </div>

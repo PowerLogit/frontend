@@ -72,6 +72,26 @@ export const createWorkoutService = async (payload) => {
     }
 }
 
+export const editWorkoutService = async (payload) => {
+    const { id, ...rest } = payload
+    const Authorization = localStorage.getItem('Authorization')
+
+    try {
+        const res = await fetch(`http://192.168.0.90:3100/api/workout/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization,
+            },
+            body: JSON.stringify(rest),
+        })
+
+        return res
+    } catch (error) {
+        return error.message
+    }
+}
+
 /*const createWorkoutService = async (payload) => {
     try {
         const Authorization = localStorage.getItem('Authorization')

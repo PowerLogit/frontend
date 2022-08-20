@@ -1,12 +1,6 @@
 import { useState } from 'react'
 import { SORT_OPTION } from '../constant/workoutSortOption'
 
-const INITIAL_STATE = {
-    sortBy: SORT_OPTION.DEFAULT,
-    page: 1,
-    itemPerPage: 3,
-}
-
 const useWorkoutFilters = () => {
     const [filters, setFilters] = useState(INITIAL_STATE)
 
@@ -36,6 +30,12 @@ const useWorkoutFilters = () => {
         },
         ressetFilters,
     }
+}
+
+const INITIAL_STATE = {
+    sortBy: SORT_OPTION.DEFAULT,
+    page: 1,
+    itemPerPage: 3,
 }
 
 export default useWorkoutFilters
