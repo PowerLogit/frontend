@@ -7,7 +7,7 @@ const ListPagination = ({
     setPage,
     itemPerPage,
     setItemPerPage,
-    totalPages,
+    totalWorkouts,
 }) => {
     return (
         <div className={style.wrapper}>
@@ -25,7 +25,7 @@ const ListPagination = ({
             <PageSelector
                 page={page}
                 setPage={setPage}
-                totalPages={totalPages}
+                totalPages={Math.ceil(totalWorkouts / itemPerPage)}
             />
         </div>
     )

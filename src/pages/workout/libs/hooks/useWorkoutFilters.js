@@ -11,16 +11,10 @@ const useWorkoutFilters = () => {
     const setItemPerPage = (newItemPerPage) =>
         setFilters({ ...filters, page: 1, itemPerPage: newItemPerPage })
 
-    const ressetFilters = () => setFilters(INITIAL_STATE)
+    const ressetFilters = () => setFilters({ ...INITIAL_STATE })
 
     return {
-        filters: {
-            sortBy: filters.sortBy,
-        },
-        pagination: {
-            page: filters.page,
-            itemPerPage: filters.itemPerPage,
-        },
+        filters,
         filtersSetters: {
             setSortBy,
         },

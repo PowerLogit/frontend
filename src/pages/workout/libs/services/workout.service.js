@@ -1,9 +1,10 @@
 import api from '@api/axios'
+import { API_BACKEND } from '@config/common'
+
+const Authorization = localStorage.getItem('Authorization')
 
 export const fetchWorkoutService = async (params) => {
     try {
-        const Authorization = localStorage.getItem('Authorization')
-
         const res = await api.get('/workout', {
             headers: { Authorization },
             params,
@@ -21,11 +22,11 @@ export const fetchWorkoutService = async (params) => {
     }
 }
 
-export const getWorkoutService = async (signal) => {
-    try {
-        const Authorization = localStorage.getItem('Authorization')
+export const getWorkoutService = async (signal, filters) => {
+    const url = findAllUrl(filters)
 
-        const res = await fetch('http://192.168.0.90:3100/api/workout', {
+    try {
+        const res = await fetch(url, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization,
@@ -38,7 +39,8 @@ export const getWorkoutService = async (signal) => {
         if (res.ok) workout = await res.json()
 
         return {
-            workout,
+            workout: workout.data,
+            count: res.ok ? workout.count : 0,
             error: !res.ok,
             aborted: false,
         }
@@ -47,6 +49,7 @@ export const getWorkoutService = async (signal) => {
 
         return {
             workout: undefined,
+            count: 0,
             error: !isAborted,
             aborted: isAborted,
         }
@@ -55,9 +58,7 @@ export const getWorkoutService = async (signal) => {
 
 export const createWorkoutService = async (workout) => {
     try {
-        const Authorization = localStorage.getItem('Authorization')
-
-        const res = await fetch('http://192.168.0.90:3100/api/workout', {
+        const res = await fetch(`http://${API_BACKEND}/api/workout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -74,10 +75,9 @@ export const createWorkoutService = async (workout) => {
 
 export const editWorkoutService = async (workout) => {
     const { id, ...rest } = workout
-    const Authorization = localStorage.getItem('Authorization')
 
     try {
-        const res = await fetch(`http://192.168.0.90:3100/api/workout/${id}`, {
+        const res = await fetch(`http://${API_BACKEND}/api/workout/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -93,10 +93,8 @@ export const editWorkoutService = async (workout) => {
 }
 
 export const deleteWorkoutService = async (id) => {
-    const Authorization = localStorage.getItem('Authorization')
-
     try {
-        const res = await fetch(`http://192.168.0.90:3100/api/workout/${id}`, {
+        const res = await fetch(`http://${API_BACKEND}/api/workout/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -108,6 +106,21 @@ export const deleteWorkoutService = async (id) => {
     } catch (error) {
         return error.message
     }
+}
+
+const findAllUrl = (filters) => {
+    const url = new URL(`http://${API_BACKEND}/api/workout`)
+    const params = {
+        _page: filters.page,
+        _limit: filters.itemPerPage,
+        _sort: filters.sortBy,
+    }
+
+    Object.keys(params).forEach((key) =>
+        url.searchParams.append(key, params[key])
+    )
+
+    return url.href
 }
 
 /*const createWorkoutService = async (payload) => {

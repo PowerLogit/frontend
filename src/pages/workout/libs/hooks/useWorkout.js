@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react'
 import { getWorkoutService } from '../services/workout.service'
 
-const useWorkout = () => {
+const useWorkout = (filters) => {
     const [workouts, setWorkouts] = useState(INITIAL_STATE)
 
-    const setData = (newData) =>
-        setWorkouts({ data: newData, loading: false, error: null })
+    const setData = (newData, newCount) => {
+        setWorkouts({
+            data: newData,
+            count: newCount,
+            loading: false,
+            error: null,
+        })
+    }
 
     const setError = (newError) =>
-        setWorkouts({ data: [], loading: false, error: newError })
-
-    const reloadWorkouts = () =>
-        setWorkouts({ data: [], loading: true, error: null })
+        setWorkouts({ data: [], count: 0, loading: false, error: newError })
 
     const deleteWorkouts = (id) => {
         setWorkouts({
@@ -25,37 +28,38 @@ const useWorkout = () => {
             startDate: '01/01/2022',
             endDate: '12/31/2022',
         })*/
-
-        if (!workouts.loading) return
-
         const controller = new AbortController()
 
-        loadWorkout(setData, setError, controller.signal)
+        loadWorkout(setData, setError, controller.signal, filters)
 
         return () => controller.abort()
-    }, [workouts.loading])
+    }, [filters])
 
     return {
         workouts: workouts.data,
+        workoutsCount: workouts.count,
         workoutsLoading: workouts.loading,
         workoutsError: workouts.error,
         setWorkouts,
-        reloadWorkouts,
         deleteWorkouts,
     }
 }
 
 const INITIAL_STATE = {
     data: [],
+    count: 0,
     loading: true,
     error: null,
 }
 
-const loadWorkout = async (setData, setError, signal) => {
-    const { workout, error, aborted } = await getWorkoutService(signal)
+const loadWorkout = async (setData, setError, signal, pagination) => {
+    const { workout, count, error, aborted } = await getWorkoutService(
+        signal,
+        pagination
+    )
 
     if (aborted) return
-    if (workout) setData(workout)
+    if (workout) setData(workout, count)
     else setError(error)
 }
 
