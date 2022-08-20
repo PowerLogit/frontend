@@ -37,7 +37,7 @@ const useWorkout = (filters) => {
 
     return {
         workouts: workouts.data,
-        workoutsCount: workouts.count,
+        totalWorkouts: workouts.count,
         workoutsLoading: workouts.loading,
         workoutsError: workouts.error,
         setWorkouts,

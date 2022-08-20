@@ -1,15 +1,22 @@
 import { useState } from 'react'
+import { PAGINATION } from '@constant/pagination'
 import { SORT_OPTION } from '../constant/workoutSortOption'
 
 const useWorkoutFilters = () => {
     const [filters, setFilters] = useState(INITIAL_STATE)
 
-    const setSortBy = (sortBy) => setFilters({ ...filters, page: 1, sortBy })
+    const setSortBy = (sortBy) =>
+        setFilters({ ...filters, page: PAGINATION.DEFAULT_PAGE, sortBy })
 
     const setPage = (newPage) => setFilters({ ...filters, page: newPage })
 
-    const setItemPerPage = (newItemPerPage) =>
-        setFilters({ ...filters, page: 1, itemPerPage: newItemPerPage })
+    const setItemPerPage = (newItemPerPage) => {
+        setFilters({
+            ...filters,
+            page: PAGINATION.DEFAULT_PAGE,
+            itemPerPage: newItemPerPage,
+        })
+    }
 
     const ressetFilters = () => setFilters({ ...INITIAL_STATE })
 
@@ -28,8 +35,8 @@ const useWorkoutFilters = () => {
 
 const INITIAL_STATE = {
     sortBy: SORT_OPTION.DEFAULT,
-    page: 1,
-    itemPerPage: 3,
+    page: PAGINATION.DEFAULT_PAGE,
+    itemPerPage: PAGINATION.DEFAULT_ITEM_PER_PAGE,
 }
 
 export default useWorkoutFilters

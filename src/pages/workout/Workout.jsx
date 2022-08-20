@@ -11,7 +11,7 @@ const Workout = () => {
     const { filters, filtersSetters, paginationSetters, ressetFilters } =
         useWorkoutFilters()
 
-    const { workouts, workoutsCount, workoutsLoading, workoutsError } =
+    const { workouts, totalWorkouts, workoutsLoading, workoutsError } =
         useWorkout(filters)
 
     return (
@@ -31,7 +31,7 @@ const Workout = () => {
                 page={filters.page}
                 itemPerPage={filters.itemPerPage}
                 {...paginationSetters}
-                totalWorkouts={workoutsCount}
+                totalWorkouts={totalWorkouts}
             />
         </div>
     )

@@ -1,6 +1,7 @@
 import style from './ListPagination.module.css'
 import Select from '../form/Select'
 import PageSelector from './PageSelector'
+import { PAGINATION } from '@constant/pagination'
 
 const ListPagination = ({
     page,
@@ -16,9 +17,11 @@ const ListPagination = ({
                     value={itemPerPage}
                     onChange={(ev) => setItemPerPage(Number(ev.target.value))}
                 >
-                    <option value={3}>3</option>
-                    <option value={6}>6</option>
-                    <option value={9}>9</option>
+                    {PAGINATION.ITEM_PER_PAGE_OPTIONS.map((value) => (
+                        <option key={value} value={value}>
+                            {value}
+                        </option>
+                    ))}
                 </Select>
                 <p>Elementos por pagina</p>
             </div>
