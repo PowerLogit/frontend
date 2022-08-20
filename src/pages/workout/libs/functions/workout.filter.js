@@ -1,6 +1,6 @@
 import { SORT_OPTION } from '../constant/workoutSortOption'
 
-export const sortWorkout = (workouts, sortBy) => {
+const sortWorkout = (workouts, sortBy) => {
     const sortedWorkout = [...workouts]
 
     switch (sortBy) {
@@ -14,13 +14,29 @@ export const sortWorkout = (workouts, sortBy) => {
     }
 }
 
-export const paginateWorkout = (workouts, page, limit) => {
+const paginateWorkout = (workouts, page, limit) => {
     const startIndex = (page - 1) * limit
     const endIndex = startIndex + limit
 
     const totalPages = Math.ceil(workouts.length / limit)
 
     const paginatedWorkouts = workouts.slice(startIndex, endIndex)
+
+    return { paginatedWorkouts, totalPages }
+}
+
+export const getWorkoutToDisplay = (
+    workouts,
+    { sortBy },
+    { page, itemPerPage }
+) => {
+    const workoutsFiltered = sortWorkout(workouts, sortBy)
+
+    const { paginatedWorkouts, totalPages } = paginateWorkout(
+        workoutsFiltered,
+        page,
+        itemPerPage
+    )
 
     return { paginatedWorkouts, totalPages }
 }

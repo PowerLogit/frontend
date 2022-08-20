@@ -3,9 +3,11 @@ import style from './WorkoutCreateForm.module.css'
 import Button from '@ui/components/buttons/Button'
 import useCreateForm from '../../libs/hooks/useCreateForm'
 import { createWorkoutService } from '../../libs/services/workout.service'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 
-const WorkoutCreateForm = ({ onSuccess }) => {
+const WorkoutCreateForm = () => {
+    const { onSuccess } = useContext(WorkoutFormsContext)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const { fomrValues, isFormInvalid, settersFormValues } = useCreateForm()
 

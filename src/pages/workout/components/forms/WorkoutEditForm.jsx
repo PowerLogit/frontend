@@ -3,12 +3,14 @@ import InputText from '@ui/components/form/InputText'
 import Button from '@ui/components/buttons/Button'
 import useEditForm from '../../libs/hooks/useEditForm'
 import { editWorkoutService } from '../../libs/services/workout.service'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 
-const WorkoutEditForm = ({ onSuccess, workout }) => {
+const WorkoutEditForm = () => {
+    const { currentWorkout, onSuccess } = useContext(WorkoutFormsContext)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const { fomrValues, isFormInvalid, settersFormValues } =
-        useEditForm(workout)
+        useEditForm(currentWorkout)
 
     const { setName, setSets, setReps, setWeight, setDate } = settersFormValues
     const { name, sets, reps, weight, date } = fomrValues

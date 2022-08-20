@@ -1,12 +1,15 @@
 import style from './WorkoutDeleteForm.module.css'
 import Button from '@ui/components/buttons/Button'
 import { deleteWorkoutService } from '../../libs/services/workout.service'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { normalizeDateUTC } from '../../libs/functions/normaliceDate'
+import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 
-const WorkoutDeleteForm = ({ onSuccess, onCancel, workout }) => {
+const WorkoutDeleteForm = () => {
+    const { currentWorkout, setFiltersForm, onSuccess } =
+        useContext(WorkoutFormsContext)
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const { id, name, sets, reps, weight, date } = workout
+    const { id, name, sets, reps, weight, date } = currentWorkout
 
     return (
         <form
@@ -22,7 +25,7 @@ const WorkoutDeleteForm = ({ onSuccess, onCancel, workout }) => {
                 <Button
                     kind='secondary'
                     disabled={isSubmitting}
-                    onClick={onCancel}
+                    onClick={setFiltersForm}
                 >
                     {isSubmitting ? 'Cargando...' : 'Cancelar'}
                 </Button>
