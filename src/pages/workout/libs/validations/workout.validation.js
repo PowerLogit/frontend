@@ -10,14 +10,16 @@ export const validateName = (name) => {
     if (!REGEX.NAME.test(name)) return 'Longitud entre 1 y 50 caracteres'
 }
 
-export const validateSets = (name) => {
-    if (!REGEX.SETS.test(name)) return 'Longitud entre 1 y 2 numeros'
+export const validateSets = (set) => {
+    if (!REGEX.SETS.test(set)) return 'Valor entre 1 y 99'
 }
 
-export const validateReps = (name) => {
-    if (!REGEX.REPS.test(name)) return 'Longitud entre 1 y 3 numeros'
+export const validateReps = (rep) => {
+    if (!REGEX.REPS.test(rep)) return 'Valor entre 1 y 999'
 }
 
-export const validateWeight = (name) => {
-    if (!REGEX.WEIGHT.test(name)) return 'Longitud 1 y 4 numeros'
+export const validateWeight = (weight) => {
+    if (!REGEX.WEIGHT.test(weight)) return 'Valor entre 1 y 1500'
+    if (weight < 1) return 'Peso minimo 1kg'
+    if (weight > 1500) return 'Peso maximo 1500kg'
 }
