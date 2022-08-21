@@ -1,47 +1,30 @@
-import style from './header.module.css'
-import { Link, NavLink } from 'react-router-dom'
+import style from './Header.module.css'
+import HeaderMovile from './HeaderMovile'
+import HeaderDesktop from './HeaderDesktop'
+import { useEffect, useState } from 'react'
+import useWindowSize from '../../hooks/useWindowSize'
 
-const isAuthenticated = false
+const pages = [
+    { title: 'Workout', url: '/workout' },
+    { title: 'Calculadora', url: '/calc' },
+    { title: 'Aproximaciones', url: '/aprox' },
+]
 
 const Header = () => {
-    const pages = [{ title: 'Home', url: '/' }]
+    const { width } = useWindowSize()
+    const [isMovile, setIsMovile] = useState(width <= 768)
+
+    useEffect(() => {
+        setIsMovile(width <= 768)
+    }, [width])
 
     return (
         <div className={style.header}>
-            <div className={style.title}>
-                <NavLink to={'/'}>
-                    <span>Power</span>
-                    <span>Log</span>
-                </NavLink>
-            </div>
-
-            <div className={style.links}>
-                {pages.map(({ url, title }, index) => (
-                    <NavLink
-                        key={index}
-                        to={url}
-                        className={({ isActive }) =>
-                            isActive ? style.active : ''
-                        }
-                    >
-                        {title}
-                    </NavLink>
-                ))}
-            </div>
-
-            <div className={style.social}>
-                {isAuthenticated ? (
-                    <>
-                        <span> Hi user </span>
-                        <button onClick={() => null}>Cerrar sesion</button>
-                    </>
-                ) : (
-                    <>
-                        <Link to={'/register'}> Register </Link>
-                        <Link to={'/login'}> Login </Link>
-                    </>
-                )}
-            </div>
+            {isMovile ? (
+                <HeaderMovile pages={pages} />
+            ) : (
+                <HeaderDesktop pages={pages} />
+            )}
         </div>
     )
 }

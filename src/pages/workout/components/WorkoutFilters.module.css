@@ -1,0 +1,17 @@
+.wrapper {
+    padding-bottom: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.wrapper select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    background: #fafafa;
+    color: var(--color-black);
+}

@@ -1,0 +1,25 @@
+.wrapper {
+    padding: 20px;
+
+    background: #ddd;
+    border-radius: 0.5rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.wrapper:hover {
+    background: #ccc;
+    box-shadow: var(--shadow-sm);
+}
+
+p {
+    margin: 10px 5px;
+}
+
+p:last-of-type {
+    font-size: 1rem;
+}
