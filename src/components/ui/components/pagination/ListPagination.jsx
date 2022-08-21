@@ -2,12 +2,12 @@ import style from './ListPagination.module.css'
 import Select from '../form/Select'
 import PageSelector from './PageSelector'
 import { PAGINATION } from '@constant/pagination'
+import { setItemPerPage, setPage } from '@workout/libs/actions/filters.action'
 
 const ListPagination = ({
     page,
-    setPage,
     itemPerPage,
-    setItemPerPage,
+    dispatchFilters,
     totalWorkouts,
 }) => {
     return (
@@ -15,7 +15,9 @@ const ListPagination = ({
             <div className={style.itemPerPage}>
                 <Select
                     value={itemPerPage}
-                    onChange={(ev) => setItemPerPage(Number(ev.target.value))}
+                    onChange={(ev) =>
+                        dispatchFilters(setItemPerPage(Number(ev.target.value)))
+                    }
                 >
                     {PAGINATION.ITEM_PER_PAGE_OPTIONS.map((value) => (
                         <option key={value} value={value}>
@@ -27,7 +29,7 @@ const ListPagination = ({
             </div>
             <PageSelector
                 page={page}
-                setPage={setPage}
+                setPage={(newPage) => dispatchFilters(setPage(newPage))}
                 totalPages={Math.ceil(totalWorkouts / itemPerPage)}
             />
         </div>

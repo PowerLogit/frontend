@@ -1,52 +1,12 @@
-import { useState } from 'react'
+import { useReducer } from 'react'
 import { normalizeDateISO } from '../functions/normaliceDate'
-import {
-    validateName,
-    validateReps,
-    validateSets,
-    validateWeight,
-} from '../validations/workout.validation'
+import { createFormReducer } from '../reducers/useCreateForm.reducer'
 
 const useCreateForm = () => {
-    const [fomrValues, setFormValues] = useState(() => getInitialState())
-
-    const setName = (newName) => {
-        const error = validateName(newName)
-
-        setFormValues({
-            ...fomrValues,
-            name: { value: newName, error },
-        })
-    }
-
-    const setSets = (newSets) => {
-        const error = validateSets(newSets)
-
-        setFormValues({
-            ...fomrValues,
-            sets: { value: newSets, error },
-        })
-    }
-
-    const setReps = (newReps) => {
-        const error = validateReps(newReps)
-
-        setFormValues({
-            ...fomrValues,
-            reps: { value: newReps, error },
-        })
-    }
-
-    const setWeight = (newWeight) => {
-        const error = validateWeight(newWeight)
-
-        setFormValues({
-            ...fomrValues,
-            weight: { value: newWeight, error },
-        })
-    }
-
-    const setDate = (newDate) => setFormValues({ ...fomrValues, date: newDate })
+    const [fomrValues, dispatchFormValues] = useReducer(
+        createFormReducer,
+        INITIAL_STATE
+    )
 
     const isFormInvalid =
         !fomrValues.name.value ||
@@ -61,12 +21,11 @@ const useCreateForm = () => {
     return {
         fomrValues,
         isFormInvalid,
-        setFormValues,
-        settersFormValues: { setName, setSets, setReps, setWeight, setDate },
+        dispatchFormValues,
     }
 }
 
-const getInitialState = () => ({
+const INITIAL_STATE = {
     name: {
         value: '',
         error: undefined,
@@ -84,6 +43,6 @@ const getInitialState = () => ({
         error: undefined,
     },
     date: normalizeDateISO(new Date()),
-})
+}
 
 export default useCreateForm

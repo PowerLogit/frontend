@@ -1,52 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer } from 'react'
+import { remplace } from '../actions/editForm.action'
 import { normalizeDateISO } from '../functions/normaliceDate'
-import {
-    validateName,
-    validateReps,
-    validateSets,
-    validateWeight,
-} from '../validations/workout.validation'
+import { editFormReducer } from '../reducers/useEditForm.reducer'
 
 const useEditForm = (workout) => {
-    const [fomrValues, setFormValues] = useState(() => getInitialState(workout))
-
-    const setName = (newName) => {
-        const error = validateName(newName)
-
-        setFormValues({
-            ...fomrValues,
-            name: { value: newName, error },
-        })
-    }
-
-    const setSets = (newSets) => {
-        const error = validateSets(newSets)
-
-        setFormValues({
-            ...fomrValues,
-            sets: { value: newSets, error },
-        })
-    }
-
-    const setReps = (newReps) => {
-        const error = validateReps(newReps)
-
-        setFormValues({
-            ...fomrValues,
-            reps: { value: newReps, error },
-        })
-    }
-
-    const setWeight = (newWeight) => {
-        const error = validateWeight(newWeight)
-
-        setFormValues({
-            ...fomrValues,
-            weight: { value: newWeight, error },
-        })
-    }
-
-    const setDate = (newDate) => setFormValues({ ...fomrValues, date: newDate })
+    const [fomrValues, dispatchFormValues] = useReducer(
+        editFormReducer,
+        workout,
+        getInitialState
+    )
 
     const isFormInvalid =
         isInitialValues(fomrValues, workout) ||
@@ -60,14 +22,13 @@ const useEditForm = (workout) => {
         fomrValues.weight.error
 
     useEffect(() => {
-        setFormValues(getInitialState(workout))
+        dispatchFormValues(remplace(getInitialState(workout)))
     }, [workout])
 
     return {
         fomrValues,
         isFormInvalid,
-        setFormValues,
-        settersFormValues: { setName, setSets, setReps, setWeight, setDate },
+        dispatchFormValues,
     }
 }
 
@@ -94,9 +55,9 @@ const getInitialState = (workout) => ({
 
 const isInitialValues = (fomrValues, workout) =>
     fomrValues.name.value === workout.name &&
-    fomrValues.sets.value === workout.sets &&
-    fomrValues.reps.value === workout.reps &&
-    fomrValues.weight.value === workout.weight &&
+    Number(fomrValues.sets.value) === workout.sets &&
+    Number(fomrValues.reps.value) === workout.reps &&
+    Number(fomrValues.weight.value) === workout.weight &&
     fomrValues.date === normalizeDateISO(workout.date)
 
 export default useEditForm

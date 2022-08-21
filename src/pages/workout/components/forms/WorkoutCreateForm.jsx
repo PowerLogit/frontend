@@ -5,14 +5,21 @@ import useCreateForm from '../../libs/hooks/useCreateForm'
 import { createWorkoutService } from '../../libs/services/workout.service'
 import { useContext, useState } from 'react'
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
+import {
+    setDate,
+    setName,
+    setReps,
+    setSets,
+    setWeight,
+} from '../../libs/actions/createForm.action'
 
 const WorkoutCreateForm = () => {
     const { onSuccess } = useContext(WorkoutFormsContext)
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const { fomrValues, isFormInvalid, settersFormValues } = useCreateForm()
 
-    const { setName, setSets, setReps, setWeight, setDate } = settersFormValues
+    const { fomrValues, isFormInvalid, dispatchFormValues } = useCreateForm()
     const { name, sets, reps, weight, date } = fomrValues
+
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     return (
         <form
@@ -26,13 +33,17 @@ const WorkoutCreateForm = () => {
                     placeholder='SQLB'
                     value={name.value}
                     error={name.error}
-                    onChange={(ev) => setName(ev.target.value)}
+                    onChange={(ev) =>
+                        dispatchFormValues(setName(ev.target.value))
+                    }
                     className={style.input}
                 />
                 <input
                     type='date'
                     value={date}
-                    onChange={(ev) => setDate(ev.target.value)}
+                    onChange={(ev) =>
+                        dispatchFormValues(setDate(ev.target.value))
+                    }
                 />
             </div>
             <div className={style.row}>
@@ -41,7 +52,9 @@ const WorkoutCreateForm = () => {
                     placeholder='4'
                     value={sets.value}
                     error={sets.error}
-                    onChange={(ev) => setSets(ev.target.value)}
+                    onChange={(ev) =>
+                        dispatchFormValues(setSets(ev.target.value))
+                    }
                     className={style.input}
                 />
                 <InputText
@@ -49,7 +62,9 @@ const WorkoutCreateForm = () => {
                     placeholder='4'
                     value={reps.value}
                     error={reps.error}
-                    onChange={(ev) => setReps(ev.target.value)}
+                    onChange={(ev) =>
+                        dispatchFormValues(setReps(ev.target.value))
+                    }
                     className={style.input}
                 />
                 <InputText
@@ -57,7 +72,9 @@ const WorkoutCreateForm = () => {
                     placeholder='110'
                     value={weight.value}
                     error={weight.error}
-                    onChange={(ev) => setWeight(ev.target.value)}
+                    onChange={(ev) =>
+                        dispatchFormValues(setWeight(ev.target.value))
+                    }
                     className={style.input}
                 />
             </div>

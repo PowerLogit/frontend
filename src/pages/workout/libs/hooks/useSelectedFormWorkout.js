@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { WORKOUT_FORM } from '../constant/workoutForm'
 
-const useFormWorkout = () => {
+const useSelectedFormWorkout = () => {
     const [currentForm, setCurrentForm] = useState(INITIAL_STATE)
 
     const setFiltersForm = () => setCurrentForm(INITIAL_STATE)
@@ -25,4 +25,4 @@ const INITIAL_STATE = {
     form: WORKOUT_FORM.FILTERS,
 }
 
-export default useFormWorkout
+export default useSelectedFormWorkout

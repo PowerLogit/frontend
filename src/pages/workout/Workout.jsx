@@ -1,15 +1,22 @@
 import style from './Workout.module.css'
 import WorkoutFilters from './components/WorkoutFilters'
 import WorkoutRows from './components/WorkoutRows'
-import useWorkoutFilters from './libs/hooks/useWorkoutFilters'
 import ListPagination from '@ui/components/pagination/ListPagination'
 import useWorkout from './libs/hooks/useWorkout'
 import WorkoutFormContainer from './components/forms/WorkoutFormContainer'
 import WorkoutFormsProvider from './libs/providers/WorkoutFormsContext.provider'
+import {
+    filterReducer,
+    FILTERS_INITIAL_STATE,
+} from './libs/reducers/useFilters.reducer'
+import { useReducer } from 'react'
+import { reset } from './libs/actions/filters.action'
 
 const Workout = () => {
-    const { filters, filtersSetters, paginationSetters, ressetFilters } =
-        useWorkoutFilters()
+    const [filters, dispatchFilters] = useReducer(
+        filterReducer,
+        FILTERS_INITIAL_STATE
+    )
 
     const { workouts, totalWorkouts, workoutsLoading, workoutsError } =
         useWorkout(filters)
@@ -17,10 +24,14 @@ const Workout = () => {
     return (
         <div className={style.wrapper}>
             <h1>Workout</h1>
-            <WorkoutFormsProvider ressetFilters={ressetFilters}>
-                <WorkoutFilters sortBy={filters.sortBy} {...filtersSetters} />
+            <WorkoutFormsProvider
+                ressetFilters={() => dispatchFilters(reset())}
+            >
+                <WorkoutFilters
+                    sortBy={filters.sortBy}
+                    dispatchFilters={dispatchFilters}
+                />
                 <WorkoutFormContainer />
-
                 <WorkoutRows
                     workouts={workouts}
                     loading={workoutsLoading}
@@ -30,7 +41,7 @@ const Workout = () => {
             <ListPagination
                 page={filters.page}
                 itemPerPage={filters.itemPerPage}
-                {...paginationSetters}
+                dispatchFilters={dispatchFilters}
                 totalWorkouts={totalWorkouts}
             />
         </div>

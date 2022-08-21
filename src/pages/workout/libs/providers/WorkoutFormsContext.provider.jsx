@@ -1,8 +1,8 @@
 import { WorkoutFormsContext } from '../context/WorkoutForms.context'
-import useFormWorkout from '../hooks/useFormWorkout'
+import useSelectedFormWorkout from '../hooks/useSelectedFormWorkout'
 
 const WorkoutFormsProvider = ({ ressetFilters, children }) => {
-    const { setFiltersForm, ...restFormWorkout } = useFormWorkout()
+    const { setFiltersForm, ...restFormWorkout } = useSelectedFormWorkout()
 
     const onSuccess = () => {
         ressetFilters()
