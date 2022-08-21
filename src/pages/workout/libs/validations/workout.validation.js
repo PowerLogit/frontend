@@ -12,10 +12,12 @@ export const validateName = (name) => {
 
 export const validateSets = (set) => {
     if (!REGEX.SETS.test(set)) return 'Valor entre 1 y 99'
+    if (set < 1) return 'Series minimas 1'
 }
 
 export const validateReps = (rep) => {
     if (!REGEX.REPS.test(rep)) return 'Valor entre 1 y 999'
+    if (rep < 1) return 'Repes minimas 1'
 }
 
 export const validateWeight = (weight) => {
