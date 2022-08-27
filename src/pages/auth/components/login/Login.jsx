@@ -1,10 +1,12 @@
-import { useContext, useState } from 'react'
 import Button from '@ui/components/buttons/Button'
-import { AuthContext } from '@auth/context/auth.context'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuthContext } from '../../libs/context/auth.context'
 import style from './Login.module.css'
 
 const Login = () => {
-    const { login, loading, error } = useContext(AuthContext)
+    const { login, loading, error, setterAuth } = useAuthContext()
+    const navigate = useNavigate()
 
     const [credential, setCredential] = useState({
         email: 'test@test.com',
@@ -21,7 +23,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        login(credential)
+        login(credential, navigate, setterAuth)
     }
 
     return (

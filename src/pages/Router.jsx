@@ -1,9 +1,9 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Header from '@components/header/Header'
-import PrivateRoute from '@components/PrivateRoute'
-import { AuthContextProvider } from '@auth/context/auth.context'
 import Authenticate from '@auth/Authenticate'
+import PrivateRoute from '@auth/components/PrivateRoute'
+import { AuthContextProvider } from '@auth/libs/provider/auth.provider'
+import Header from '@components/header/Header'
 import Workout from '@workout/Workout'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 const Router = () => {
     return (

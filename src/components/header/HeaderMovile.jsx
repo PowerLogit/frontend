@@ -1,14 +1,16 @@
-import style from './HeaderMovile.module.css'
-import { Link, NavLink } from 'react-router-dom'
-import { useContext, useEffect, useRef, useState } from 'react'
-import { AuthContext } from '@auth/context/auth.context'
+import { useAuthContext } from '@auth/libs/context/auth.context'
+import { pages } from '@constant/pagesNavbar'
 import IconButton from '@ui/components/buttons/IconButton'
-import ListIcon from '@ui/svg/ListIcon'
 import CrossIcon from '@ui/svg/CrossIcon'
+import ListIcon from '@ui/svg/ListIcon'
+import { useEffect, useRef, useState } from 'react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import style from './HeaderMovile.module.css'
 
-const HeaderMovile = ({ pages }) => {
+const HeaderMovile = () => {
     const [isOpen, setIsOpen] = useState(false)
-    const { isAuthenticated, logOut } = useContext(AuthContext)
+    const { isAuthenticated, setError, logOut } = useAuthContext()
+    const navigate = useNavigate()
     const refClassName = useRef(style.links)
 
     const iconButton = !isOpen ? ListIcon : CrossIcon
@@ -62,7 +64,7 @@ const HeaderMovile = ({ pages }) => {
                         <Link to={'/authenticate'}> Identificarse </Link>
                     </button>
                 ) : (
-                    <button onClick={() => logOut()}>
+                    <button onClick={() => logOut(setError, navigate)}>
                         <a>Cerrar sesision</a>
                     </button>
                 )}

@@ -4,29 +4,17 @@ import HeaderDesktop from './HeaderDesktop'
 import { useEffect, useState } from 'react'
 import useWindowSize from '../../hooks/useWindowSize'
 
-const pages = [
-    { title: 'Workout', url: '/workout' },
-    { title: 'Calculadora', url: '/calc' },
-    { title: 'Aproximaciones', url: '/aprox' },
-]
-
 const Header = () => {
     const { width } = useWindowSize()
-    const [isMovile, setIsMovile] = useState(width <= 768)
+    const [isDesktop, setIsDesktop] = useState(width > 768)
+
+    const renderHeader = isDesktop ? <HeaderDesktop /> : <HeaderMovile />
 
     useEffect(() => {
-        setIsMovile(width <= 768)
+        setIsDesktop(width > 768)
     }, [width])
 
-    return (
-        <div className={style.header}>
-            {isMovile ? (
-                <HeaderMovile pages={pages} />
-            ) : (
-                <HeaderDesktop pages={pages} />
-            )}
-        </div>
-    )
+    return <div className={style.header}>{renderHeader}</div>
 }
 
 export default Header

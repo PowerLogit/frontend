@@ -1,11 +1,13 @@
-import { useContext, useState } from 'react'
-import style from './Register.module.css'
-import uuid from 'uuid-random'
 import Button from '@ui/components/buttons/Button'
-import { AuthContext } from '@auth/context/auth.context'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import uuid from 'uuid-random'
+import { useAuthContext } from '../../libs/context/auth.context'
+import style from './Register.module.css'
 
 const Register = () => {
-    const { register, loading, error } = useContext(AuthContext)
+    const { register, loading, error, setterAuth } = useAuthContext()
+    const navigate = useNavigate()
 
     const [credential, setCredential] = useState({
         id: uuid(),
@@ -24,7 +26,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        register(credential)
+        register(credential, navigate, setterAuth)
     }
 
     return (

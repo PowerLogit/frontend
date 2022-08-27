@@ -1,10 +1,12 @@
-import { useContext } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { AuthContext } from '@auth/context/auth.context'
+import { useAuthContext } from '@auth/libs/context/auth.context'
+import { pages } from '@constant/pagesNavbar'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import style from './HeaderDesktop.module.css'
 
-const HeaderDesktop = ({ pages }) => {
-    const { isAuthenticated, user, logOut } = useContext(AuthContext)
+const HeaderDesktop = () => {
+    const { isAuthenticated, user, setError, logOut } = useAuthContext()
+    const navigate = useNavigate()
+
     return (
         <div className={style.header}>
             <div className={style.title}>
@@ -32,7 +34,9 @@ const HeaderDesktop = ({ pages }) => {
                 {isAuthenticated ? (
                     <>
                         <span>{user?.name}</span>
-                        <button onClick={() => logOut()}>Cerrar sesion</button>
+                        <button onClick={() => logOut(setError, navigate)}>
+                            Cerrar sesion
+                        </button>
                     </>
                 ) : (
                     <>
