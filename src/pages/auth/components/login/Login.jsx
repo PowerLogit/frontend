@@ -1,11 +1,15 @@
 import Button from '@ui/components/buttons/Button'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { HttpStatusCode } from '@constant/HttpStatusCode'
+import { setBearer } from '@helpers/bearer.helper'
 import { useAuthContext } from '../../libs/context/auth.context'
+import { getRedirectPath } from '../../libs/helpers/redirectPath.helper'
+import { loginService } from '../../libs/services/auth.service'
 import style from './Login.module.css'
 
 const Login = () => {
-    const { login, loading, error, setterAuth } = useAuthContext()
+    const { loading, error, setIsNewAuth, setError } = useAuthContext()
     const navigate = useNavigate()
 
     const [credential, setCredential] = useState({
@@ -23,7 +27,19 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        login(credential, navigate, setterAuth)
+        try {
+            const { data, status, error } = await loginService(credential)
+
+            if (status !== HttpStatusCode.OK) throw new Error(error)
+
+            setBearer(data)
+
+            setIsNewAuth()
+
+            navigate(getRedirectPath())
+        } catch (error) {
+            setError(error.message)
+        }
     }
 
     return (

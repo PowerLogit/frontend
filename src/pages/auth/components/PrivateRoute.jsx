@@ -6,12 +6,11 @@ const PrivateRoute = () => {
     const location = useLocation()
 
     if (loading) return <h3>Loading...</h3>
+    if (isAuthenticated) return <Outlet />
 
-    return isAuthenticated ? (
-        <Outlet />
-    ) : (
-        <Navigate to='/authenticate' state={{ from: location }} replace />
-    )
+    localStorage.setItem('redirectPath', location.pathname)
+
+    return <Navigate to='/authenticate' state={{ from: location }} replace />
 }
 
 export default PrivateRoute

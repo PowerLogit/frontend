@@ -1,14 +1,11 @@
-import { Autorization } from '@api/services/authorization.service'
 import { HttpStatusCode } from '@constant/HttpStatusCode'
-import { useCallback, useEffect, useState } from 'react'
-import {
-    loginService,
-    profileService,
-    registerService,
-} from '../services/auth.service'
+import { useEffect, useState } from 'react'
+import { removeBearer } from '../../../../helpers/bearer.helper'
+import { INITIAL_STATE_AUTH } from '../context/auth.context'
+import { profileService } from '../services/auth.service'
 
 const useAuth = () => {
-    const [auth, setAuth] = useState(() => getInitialState())
+    const [auth, setAuth] = useState(INITIAL_STATE_AUTH)
 
     const setLoading = () =>
         setAuth({
@@ -16,15 +13,14 @@ const useAuth = () => {
             loading: true,
         })
 
-    const setIsAuth = (newUser) =>
+    const setIsNewAuth = () =>
         setAuth({
             ...auth,
-            user: newUser,
             loading: false,
             isAuthenticated: true,
         })
 
-    const setError = (newError = true) =>
+    const setError = (newError) =>
         setAuth({
             ...auth,
             loading: false,
@@ -32,112 +28,40 @@ const useAuth = () => {
             isAuthenticated: false,
             token: null,
         })
-
-    const setProfile = useCallback((newUser) => {
-        setAuth((prevAuth) => ({
-            ...prevAuth,
-            user: newUser,
-            loading: false,
-            isAuthenticated: true,
-        }))
-    }, [])
-
-    const setProfileError = useCallback((newError = true) => {
-        setAuth((prevAuth) => ({
-            ...prevAuth,
-            loading: false,
-            error: newError,
-            isAuthenticated: false,
-            token: null,
-        }))
-    }, [])
 
     useEffect(() => {
-        if (auth.token) profile(auth.token, setProfile, setProfileError)
-    }, [auth.token, setProfile, setProfileError])
+        async function getProfile(bearer) {
+            try {
+                const { data, status } = await profileService(bearer)
+                if (status !== HttpStatusCode.OK) throw new Error()
+
+                setAuth((prevAuth) => ({
+                    ...prevAuth,
+                    user: data,
+                    loading: false,
+                    isAuthenticated: true,
+                }))
+            } catch (error) {
+                removeBearer()
+                setAuth((prevAuth) => ({
+                    ...prevAuth,
+                    loading: false,
+                    isAuthenticated: false,
+                    token: null,
+                }))
+            }
+        }
+
+        if (auth.token) getProfile(auth.token)
+    }, [auth.token])
 
     return {
         auth,
         setterAuth: {
             setLoading,
-            setIsAuth,
+            setIsNewAuth,
             setError,
         },
-        setLoading,
-        setError,
-        fnAuth: {
-            register,
-            login,
-            logOut,
-        },
-    }
-}
-
-export const INITIAL_STATE_AUTH = {
-    user: null,
-    loading: false,
-    error: null,
-    token: null,
-    isAuthenticated: false,
-}
-
-const getInitialState = () => ({
-    ...INITIAL_STATE_AUTH,
-    token: localStorage.getItem('Authorization'),
-    loading: !!localStorage.getItem('Authorization'),
-})
-
-const register = async (credential, navigate, setterAuth) => {
-    setterAuth.setLoading()
-
-    try {
-        const { data, status, error } = await registerService(credential)
-
-        if (status !== HttpStatusCode.CREATED) throw new Error(error)
-
-        Autorization.set(data)
-
-        setterAuth.setIsAuth()
-        navigate('/')
-    } catch (error) {
-        setterAuth.setError(error.message)
-    }
-}
-
-const login = async (credential, navigate, setterAuth) => {
-    setterAuth.setLoading()
-
-    try {
-        const { data, status, error } = await loginService(credential)
-
-        if (status !== HttpStatusCode.OK) throw new Error(error)
-
-        Autorization.set(data)
-
-        setterAuth.setIsAuth()
-        navigate('/')
-    } catch (error) {
-        setterAuth.setError(error.message)
-    }
-}
-
-const logOut = (setError, navigate) => {
-    Autorization.remove()
-    setError()
-    navigate('/')
-}
-
-const profile = async (bearer, setIsAuth, setError) => {
-    try {
-        const { data, status } = await profileService(bearer)
-
-        if (status !== HttpStatusCode.OK) throw new Error()
-
-        setIsAuth(data)
-    } catch (error) {
-        Autorization.remove()
-
-        setError()
     }
 }
 

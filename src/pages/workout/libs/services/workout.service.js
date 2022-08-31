@@ -1,9 +1,9 @@
 import api from '@api/axios'
 import { API_BACKEND } from '@config/common'
 
-const Authorization = localStorage.getItem('Authorization')
-
 export const fetchWorkoutService = async (params) => {
+    const Authorization = localStorage.getItem('Authorization')
+
     try {
         const res = await api.get('/workout', {
             headers: { Authorization },
@@ -23,6 +23,7 @@ export const fetchWorkoutService = async (params) => {
 }
 
 export const getWorkoutService = async (signal, filters) => {
+    const Authorization = localStorage.getItem('Authorization')
     const url = findAllUrl(filters)
 
     try {
@@ -57,6 +58,8 @@ export const getWorkoutService = async (signal, filters) => {
 }
 
 export const createWorkoutService = async (workout) => {
+    const Authorization = localStorage.getItem('Authorization')
+
     try {
         const res = await fetch(`http://${API_BACKEND}/api/workout`, {
             method: 'POST',
@@ -75,6 +78,7 @@ export const createWorkoutService = async (workout) => {
 
 export const editWorkoutService = async (workout) => {
     const { id, ...rest } = workout
+    const Authorization = localStorage.getItem('Authorization')
 
     try {
         const res = await fetch(`http://${API_BACKEND}/api/workout/${id}`, {
@@ -93,6 +97,8 @@ export const editWorkoutService = async (workout) => {
 }
 
 export const deleteWorkoutService = async (id) => {
+    const Authorization = localStorage.getItem('Authorization')
+
     try {
         const res = await fetch(`http://${API_BACKEND}/api/workout/${id}`, {
             method: 'DELETE',

@@ -1,5 +1,12 @@
 import { createContext, useContext } from 'react'
-import { INITIAL_STATE_AUTH } from '../hooks/useAuth'
+
+export const INITIAL_STATE_AUTH = {
+    user: null,
+    loading: !!localStorage.getItem('Authorization'),
+    error: null,
+    token: localStorage.getItem('Authorization'),
+    isAuthenticated: false,
+}
 
 export const AuthContext = createContext({
     ...INITIAL_STATE_AUTH,

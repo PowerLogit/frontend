@@ -4,13 +4,12 @@ import IconButton from '@ui/components/buttons/IconButton'
 import CrossIcon from '@ui/svg/CrossIcon'
 import ListIcon from '@ui/svg/ListIcon'
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import style from './HeaderMovile.module.css'
 
-const HeaderMovile = () => {
+const HeaderMovile = ({ handleLogOut }) => {
     const [isOpen, setIsOpen] = useState(false)
-    const { isAuthenticated, setError, logOut } = useAuthContext()
-    const navigate = useNavigate()
+    const { isAuthenticated } = useAuthContext()
     const refClassName = useRef(style.links)
 
     const iconButton = !isOpen ? ListIcon : CrossIcon
@@ -64,7 +63,7 @@ const HeaderMovile = () => {
                         <Link to={'/authenticate'}> Identificarse </Link>
                     </button>
                 ) : (
-                    <button onClick={() => logOut(setError, navigate)}>
+                    <button onClick={handleLogOut}>
                         <a>Cerrar sesision</a>
                     </button>
                 )}

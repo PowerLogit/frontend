@@ -1,16 +1,19 @@
 import Button from '@ui/components/buttons/Button'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import uuid from 'uuid-random'
+import { HttpStatusCode } from '@constant/HttpStatusCode'
+import { setBearer } from '@helpers/bearer.helper'
 import { useAuthContext } from '../../libs/context/auth.context'
+import { getRedirectPath } from '../../libs/helpers/redirectPath.helper'
+import { registerService } from '../../libs/services/auth.service'
 import style from './Register.module.css'
 
 const Register = () => {
-    const { register, loading, error, setterAuth } = useAuthContext()
+    const { loading, error, setIsNewAuth, setError } = useAuthContext()
     const navigate = useNavigate()
 
     const [credential, setCredential] = useState({
-        id: uuid(),
+        id: '',
         name: '',
         email: '',
         password: '',
@@ -26,7 +29,26 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        register(credential, navigate, setterAuth)
+        try {
+            const newUser = {
+                id: crypto.randomUUID(),
+                name: credential.name,
+                email: credential.email,
+                password: credential.password,
+            }
+
+            const { data, status, error } = await registerService(newUser)
+
+            if (status !== HttpStatusCode.CREATED) throw new Error(error)
+
+            setBearer(data)
+
+            setIsNewAuth()
+
+            navigate(getRedirectPath())
+        } catch (error) {
+            setError(error.message)
+        }
     }
 
     return (
