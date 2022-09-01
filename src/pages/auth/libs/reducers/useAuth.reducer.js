@@ -2,13 +2,14 @@ import { AUTH_REDUCER } from '../constant/authReducer'
 
 export const authReducer = (state, { type, payload }) => {
     switch (type) {
-        case AUTH_REDUCER.SET_LOADING:
+        case AUTH_REDUCER.SET_NEW_AUTH:
             return {
                 ...state,
-                loading: true,
+                loading: false,
+                isAuthenticated: true,
             }
 
-        case AUTH_REDUCER.SET_ISAUTH:
+        case AUTH_REDUCER.SET_IS_AUTH:
             return {
                 ...state,
                 user: payload,
@@ -16,11 +17,11 @@ export const authReducer = (state, { type, payload }) => {
                 isAuthenticated: true,
             }
 
-        case AUTH_REDUCER.SET_ERROR:
+        case AUTH_REDUCER.SET_IS_NOT_AUTH:
             return {
                 ...state,
                 loading: false,
-                error: payload || true,
+                error: payload,
                 isAuthenticated: false,
                 token: null,
             }

@@ -1,15 +1,16 @@
+import { HttpStatusCode } from '@constant/HttpStatusCode'
+import { setBearer } from '@helpers/bearer.helper'
 import Button from '@ui/components/buttons/Button'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { HttpStatusCode } from '@constant/HttpStatusCode'
-import { setBearer } from '@helpers/bearer.helper'
+import { setIsNotAuth, setNewAuth } from '../../libs/actions/auth.action'
 import { useAuthContext } from '../../libs/context/auth.context'
 import { getRedirectPath } from '../../libs/helpers/redirectPath.helper'
 import { registerService } from '../../libs/services/auth.service'
 import style from './Register.module.css'
 
 const Register = () => {
-    const { loading, error, setIsNewAuth, setError } = useAuthContext()
+    const { loading, error, dispatchAuth } = useAuthContext()
     const navigate = useNavigate()
 
     const [credential, setCredential] = useState({
@@ -43,11 +44,11 @@ const Register = () => {
 
             setBearer(data)
 
-            setIsNewAuth()
+            dispatchAuth(setNewAuth())
 
             navigate(getRedirectPath())
         } catch (error) {
-            setError(error.message)
+            dispatchAuth(setIsNotAuth(error.message))
         }
     }
 

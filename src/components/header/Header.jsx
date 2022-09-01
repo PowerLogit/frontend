@@ -3,20 +3,21 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { removeBearer } from '../../helpers/bearer.helper'
 import useWindowSize from '../../hooks/useWindowSize'
+import { setIsNotAuth } from '../../pages/auth/libs/actions/auth.action'
 import style from './Header.module.css'
 import HeaderDesktop from './HeaderDesktop'
 import HeaderMovile from './HeaderMovile'
 
 const Header = () => {
     const { width } = useWindowSize()
-    const { setError } = useAuthContext()
+    const { dispatchAuth } = useAuthContext()
     const navigate = useNavigate()
 
     const [isDesktop, setIsDesktop] = useState(width > 768)
 
     const handleLogOut = () => {
         removeBearer()
-        setError()
+        dispatchAuth(setIsNotAuth())
         navigate('/')
     }
 

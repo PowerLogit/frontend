@@ -1,13 +1,15 @@
 import { AUTH_REDUCER } from '../constant/authReducer'
 
-export const setLoading = () => ({ type: AUTH_REDUCER.SET_LOADING })
-
-export const setIsAuth = (credential) => ({
-    type: AUTH_REDUCER.SET_ISAUTH,
-    payload: credential,
+export const setNewAuth = () => ({
+    type: AUTH_REDUCER.SET_NEW_AUTH,
 })
 
-export const setError = (error) => ({
-    type: AUTH_REDUCER.SET_ERROR,
+export const setIsAuth = (profile) => ({
+    type: AUTH_REDUCER.SET_IS_AUTH,
+    payload: profile,
+})
+
+export const setIsNotAuth = (error) => ({
+    type: AUTH_REDUCER.SET_IS_NOT_AUTH,
     payload: error,
 })
