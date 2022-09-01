@@ -5,7 +5,7 @@ export const setBearer = (newBearer) => {
 }
 
 export const getBearer = () => {
-    return localStorage.getItem(AUTH)
+    return localStorage.getItem(AUTH) || undefined
 }
 
 export const removeBearer = () => {

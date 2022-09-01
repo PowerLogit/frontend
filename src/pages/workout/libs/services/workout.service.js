@@ -1,149 +1,61 @@
-import api from '@api/axios'
-import { API_BACKEND } from '@config/common'
+import { api } from '@api/axios.api'
+import { HttpStatusCode } from '@constant/HttpStatusCode'
 
-export const fetchWorkoutService = async (params) => {
-    const Authorization = localStorage.getItem('Authorization')
-
+export const getWorkoutService = async (filters, cancelToken) => {
     try {
-        const res = await api.get('/workout', {
-            headers: { Authorization },
-            params,
-        })
-
-        return {
-            data: res.data,
-            status: res.status,
-        }
-    } catch (error) {
-        return {
-            error: error.response.data,
-            status: error.response.status,
-        }
-    }
-}
-
-export const getWorkoutService = async (signal, filters) => {
-    const Authorization = localStorage.getItem('Authorization')
-    const url = findAllUrl(filters)
-
-    try {
-        const res = await fetch(url, {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization,
+        const { status, data, error } = await api({
+            method: 'GET',
+            url: '/workout',
+            params: {
+                _page: filters.page,
+                _limit: filters.itemPerPage,
+                _sort: filters.sortBy,
             },
-            signal,
+            cancelToken,
         })
 
-        let workout
-
-        if (res.ok) workout = await res.json()
+        const isOk = HttpStatusCode.OK === status
+        if (!isOk) throw new Error(JSON.stringify(error))
 
         return {
-            workout: workout.data,
-            count: res.ok ? workout.count : 0,
-            error: !res.ok,
+            workout: data.data,
+            count: isOk ? data.count : 0,
+            error: !isOk,
             aborted: false,
         }
     } catch (error) {
-        const isAborted = error.name === 'AbortError'
+        const isAborted = JSON.parse(error.message)?.isCancel
 
         return {
             workout: undefined,
             count: 0,
             error: !isAborted,
-            aborted: isAborted,
+            isAborted,
         }
     }
 }
 
 export const createWorkoutService = async (workout) => {
-    const Authorization = localStorage.getItem('Authorization')
-
-    try {
-        const res = await fetch(`http://${API_BACKEND}/api/workout`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization,
-            },
-            body: JSON.stringify(workout),
-        })
-
-        return res
-    } catch (error) {
-        return error.message
-    }
+    return api({
+        method: 'POST',
+        url: '/workout',
+        payload: workout,
+    })
 }
 
 export const editWorkoutService = async (workout) => {
     const { id, ...rest } = workout
-    const Authorization = localStorage.getItem('Authorization')
 
-    try {
-        const res = await fetch(`http://${API_BACKEND}/api/workout/${id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization,
-            },
-            body: JSON.stringify(rest),
-        })
-
-        return res
-    } catch (error) {
-        return error.message
-    }
+    return api({
+        method: 'PATCH',
+        url: `/workout/${id}`,
+        payload: rest,
+    })
 }
 
 export const deleteWorkoutService = async (id) => {
-    const Authorization = localStorage.getItem('Authorization')
-
-    try {
-        const res = await fetch(`http://${API_BACKEND}/api/workout/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization,
-            },
-        })
-
-        return res
-    } catch (error) {
-        return error.message
-    }
+    return api({
+        method: 'DELETE',
+        url: `/workout/${id}`,
+    })
 }
-
-const findAllUrl = (filters) => {
-    const url = new URL(`http://${API_BACKEND}/api/workout`)
-    const params = {
-        _page: filters.page,
-        _limit: filters.itemPerPage,
-        _sort: filters.sortBy,
-    }
-
-    Object.keys(params).forEach((key) =>
-        url.searchParams.append(key, params[key])
-    )
-
-    return url.href
-}
-
-/*const createWorkoutService = async (payload) => {
-    try {
-        const Authorization = localStorage.getItem('Authorization')
-
-        const res = await api.post('/workout', payload, {
-            headers: { Authorization },
-        })
-
-        return {
-            status: res.status,
-        }
-    } catch (error) {
-        return {
-            error: error.response.data,
-            status: error.response.status,
-        }
-    }
-}*/
