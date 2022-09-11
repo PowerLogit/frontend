@@ -29,6 +29,7 @@ const Workout = () => {
             >
                 <WorkoutFilters
                     sortBy={filters.sortBy}
+                    filterBy={filters.filterBy}
                     dispatchFilters={dispatchFilters}
                 />
                 <WorkoutFormContainer />

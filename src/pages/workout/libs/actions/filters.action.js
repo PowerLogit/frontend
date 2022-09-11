@@ -5,6 +5,11 @@ export const setSortBy = (sortBy) => ({
     payload: sortBy,
 })
 
+export const setFilterBy = (filterBy) => ({
+    type: FILTERS_ACTION.SET_FILTER_BY,
+    payload: filterBy,
+})
+
 export const setPage = (page) => ({
     type: FILTERS_ACTION.SET_PAGE,
     payload: page,

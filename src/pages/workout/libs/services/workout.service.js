@@ -10,6 +10,7 @@ export const getWorkoutService = async (filters, cancelToken) => {
                 _page: filters.page,
                 _limit: filters.itemPerPage,
                 _sort: filters.sortBy,
+                _filter: filters.filterBy,
             },
             cancelToken,
         })
