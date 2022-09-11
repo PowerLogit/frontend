@@ -1,9 +1,9 @@
-import { API_BACKEND } from '@config/common'
+import { URL_API_BACKEND } from '@config/common'
 import axios from 'axios'
 import { getBearer } from '../helpers/bearer.helper'
 
 const apiAxios = axios.create({
-    baseURL: `http://${API_BACKEND}/api/`,
+    baseURL: `${URL_API_BACKEND}/api/`,
     responseType: 'json',
 })
 
