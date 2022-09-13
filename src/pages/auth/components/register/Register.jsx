@@ -40,7 +40,8 @@ const Register = () => {
 
             const { data, status, error } = await registerService(newUser)
 
-            if (status !== HttpStatusCode.CREATED) throw new Error(error)
+            if (status !== HttpStatusCode.CREATED)
+                throw new Error(error.message)
 
             setBearer(data)
 

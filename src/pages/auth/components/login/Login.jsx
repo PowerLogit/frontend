@@ -31,7 +31,7 @@ const Login = () => {
         try {
             const { data, status, error } = await loginService(credential)
 
-            if (status !== HttpStatusCode.OK) throw new Error(error)
+            if (status !== HttpStatusCode.OK) throw new Error(error.message)
 
             setBearer(data)
 
