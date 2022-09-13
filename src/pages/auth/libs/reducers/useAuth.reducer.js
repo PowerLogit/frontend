@@ -26,6 +26,12 @@ export const authReducer = (state, { type, payload }) => {
                 token: null,
             }
 
+        case AUTH_REDUCER.SET_RESET_ERROR:
+            return {
+                ...state,
+                error: null,
+            }
+
         default:
             throw new Error('Invalid action type')
     }

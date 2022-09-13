@@ -13,3 +13,7 @@ export const setIsNotAuth = (error) => ({
     type: AUTH_REDUCER.SET_IS_NOT_AUTH,
     payload: error,
 })
+
+export const setResetError = () => ({
+    type: AUTH_REDUCER.SET_RESET_ERROR,
+})

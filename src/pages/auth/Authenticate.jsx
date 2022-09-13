@@ -3,27 +3,37 @@ import { useState } from 'react'
 import style from './Authenticate.module.css'
 import Login from './components/login/Login'
 import Register from './components/register/Register'
+import { setResetError } from './libs/actions/auth.action'
+import { AUTH } from './libs/constant/authOption'
+import { useAuthContext } from './libs/context/auth.context'
 
 const Authenticate = () => {
-    const [formVariant, setFormVariant] = useState('login')
+    const { dispatchAuth } = useAuthContext()
 
-    const authPage = formVariant === 'login' ? <Login /> : <Register />
+    const [formVariant, setFormVariant] = useState(AUTH.LOGIN)
+
+    const authPage = formVariant === AUTH.LOGIN ? <Login /> : <Register />
 
     const kindRendered = (state) =>
         formVariant === state ? 'secondary' : 'primary'
+
+    const pageRendered = (formVariant) => {
+        dispatchAuth(setResetError())
+        setFormVariant(formVariant)
+    }
 
     return (
         <div className={style.wrapper}>
             <div className={style.wrapperButton}>
                 <Button
-                    onClick={() => setFormVariant('login')}
-                    kind={kindRendered('login')}
+                    onClick={() => pageRendered(AUTH.LOGIN)}
+                    kind={kindRendered(AUTH.LOGIN)}
                 >
                     Iniciar sesión
                 </Button>
                 <Button
-                    onClick={() => setFormVariant('register')}
-                    kind={kindRendered('register')}
+                    onClick={() => pageRendered(AUTH.REGISTER)}
+                    kind={kindRendered(AUTH.REGISTER)}
                 >
                     Registrarse
                 </Button>
