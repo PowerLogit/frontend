@@ -24,10 +24,13 @@ const useWorkout = (filters) => {
         })
     }
 
+    const setLoading = () =>
+        setWorkouts((prevAuth) => ({ ...prevAuth, loading: true }))
+
     useEffect(() => {
         const cancelToken = sourceCancelToken()
 
-        loadWorkout(setData, setError, filters, cancelToken)
+        loadWorkouts({ setLoading, setData, setError }, filters, cancelToken)
 
         return () => cancelToken.cancel()
     }, [filters])
@@ -49,15 +52,17 @@ const INITIAL_STATE = {
     error: null,
 }
 
-const loadWorkout = async (setData, setError, filters, signal) => {
+const loadWorkouts = async (setters, filters, signal) => {
+    setters.setLoading()
+
     const { workout, count, error, isAborted } = await getWorkoutService(
         filters,
         signal
     )
 
     if (isAborted) return
-    if (workout) setData(workout, count)
-    else setError(error)
+    if (workout) setters.setData(workout, count)
+    else setters.setError(error)
 }
 
 export default useWorkout
