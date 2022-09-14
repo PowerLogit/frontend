@@ -4,6 +4,7 @@ import { AuthContextProvider } from '@auth/libs/provider/auth.provider'
 import Header from '@components/header/Header'
 import Workout from '@workout/Workout'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Preferences from './settings/Preferences'
 
 const Router = () => {
     return (
@@ -23,6 +24,7 @@ const Router = () => {
                         {/* Private routes */}
                         <Route element={<PrivateRoute />}>
                             <Route path='/workout' element={<Workout />} />
+                            <Route path='/settings' element={<Preferences />} />
                         </Route>
                     </Routes>
                 </AuthContextProvider>

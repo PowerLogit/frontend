@@ -1,4 +1,5 @@
 import { FILTERS_ACTION } from '../constant/filtersAction'
+import { getFiltersInitialState } from '../reducers/useFilters.reducer'
 
 export const setSortBy = (sortBy) => ({
     type: FILTERS_ACTION.SET_SORT_BY,
@@ -22,4 +23,5 @@ export const setItemPerPage = (itemPerPage) => ({
 
 export const reset = () => ({
     type: FILTERS_ACTION.RESET,
+    payload: getFiltersInitialState(),
 })

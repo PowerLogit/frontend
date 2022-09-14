@@ -33,16 +33,16 @@ export const filterReducer = (state, { type, payload }) => {
             }
 
         case FILTERS_ACTION.RESET:
-            return { ...FILTERS_INITIAL_STATE }
+            return { ...payload }
 
         default:
             throw new Error('Invalid action type')
     }
 }
 
-export const FILTERS_INITIAL_STATE = {
+export const getFiltersInitialState = () => ({
     sortBy: SORT_OPTION.DEFAULT,
-    filterBy: FILTERS_OPTION.DEFAULT,
+    filterBy: localStorage.getItem('filterDefault') || FILTERS_OPTION.DEFAULT,
     page: PAGINATION.DEFAULT_PAGE,
     itemPerPage: PAGINATION.DEFAULT_ITEM_PER_PAGE,
-}
+})
