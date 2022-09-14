@@ -1,1 +1,3 @@
-export const URL_API_BACKEND = import.meta.env.VITE_API_BACKEND
+const { VITE_URL_BACKEND } = import.meta.env
+
+export const URL_BACKEND = VITE_URL_BACKEND || 'http://127.0.0.1:3100'
