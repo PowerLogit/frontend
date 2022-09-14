@@ -1,10 +1,10 @@
 import { useAuthContext } from '@auth/libs/context/auth.context'
-import { pages } from '@constant/pagesNavbar'
 import IconButton from '@ui/components/buttons/IconButton'
 import CrossIcon from '@ui/svg/CrossIcon'
 import ListIcon from '@ui/svg/ListIcon'
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import PagesLinks from '../PagesLinks'
 import style from './HeaderMovile.module.css'
 
 const HeaderMovile = ({ handleLogOut }) => {
@@ -46,18 +46,8 @@ const HeaderMovile = ({ handleLogOut }) => {
                 style={{ display: `${isOpen ? 'block' : 'none'}` }}
                 className={style.links}
             >
-                {pages.map(({ url, title }, index) => (
-                    <button key={index}>
-                        <NavLink
-                            to={url}
-                            className={({ isActive }) =>
-                                isActive ? style.active : ''
-                            }
-                        >
-                            {title}
-                        </NavLink>
-                    </button>
-                ))}
+                <PagesLinks style={style} isAuth={isAuthenticated} />
+
                 {!isAuthenticated ? (
                     <button>
                         <Link to={'/authenticate'}> Identificarse </Link>

@@ -1,6 +1,6 @@
 import { useAuthContext } from '@auth/libs/context/auth.context'
-import { pages } from '@constant/pagesNavbar'
 import { Link, NavLink } from 'react-router-dom'
+import PagesLinks from '../PagesLinks'
 import style from './HeaderDesktop.module.css'
 
 const HeaderDesktop = ({ handleLogOut }) => {
@@ -15,19 +15,7 @@ const HeaderDesktop = ({ handleLogOut }) => {
                 </NavLink>
             </div>
 
-            <div className={style.links}>
-                {pages.map(({ url, title }, index) => (
-                    <NavLink
-                        key={index}
-                        to={url}
-                        className={({ isActive }) =>
-                            isActive ? style.active : ''
-                        }
-                    >
-                        {title}
-                    </NavLink>
-                ))}
-            </div>
+            <PagesLinks style={style} isAuth={isAuthenticated} />
 
             <div className={style.social}>
                 {isAuthenticated ? (

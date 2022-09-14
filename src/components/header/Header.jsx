@@ -5,8 +5,8 @@ import { removeBearer } from '../../helpers/bearer.helper'
 import useWindowSize from '../../hooks/useWindowSize'
 import { setIsNotAuth } from '../../pages/auth/libs/actions/auth.action'
 import style from './Header.module.css'
-import HeaderDesktop from './HeaderDesktop'
-import HeaderMovile from './HeaderMovile'
+import HeaderDesktop from './desktop/HeaderDesktop'
+import HeaderMovile from './movile/HeaderMovile'
 
 const Header = () => {
     const { width } = useWindowSize()
