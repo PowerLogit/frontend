@@ -10,7 +10,9 @@ export const AuthContextProvider = ({ children }) => {
     const [auth, dispatchAuth] = useReducer(authReducer, INITIAL_STATE_AUTH)
 
     useEffect(() => {
-        if (auth.token) getProfile(auth.token, dispatchAuth)
+        if (auth.token) {
+            getProfile(auth.token, dispatchAuth)
+        }
     }, [auth.token])
 
     return (
@@ -27,8 +29,11 @@ export const AuthContextProvider = ({ children }) => {
 
 const getProfile = async (bearer, dispatch) => {
     try {
-        const { data, status } = await profileService(bearer)
-        if (status !== HttpStatusCode.OK) throw new Error()
+        const { data, status, error } = await profileService(bearer)
+
+        if (status !== HttpStatusCode.OK) {
+            throw new Error(JSON.stringify(error.message))
+        }
 
         dispatch(setIsAuth(data))
     } catch (error) {

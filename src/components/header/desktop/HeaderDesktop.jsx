@@ -20,7 +20,7 @@ const HeaderDesktop = ({ handleLogOut }) => {
             <div className={style.social}>
                 {isAuthenticated ? (
                     <>
-                        <span>{user?.name}</span>
+                        <span>{user?.username}</span>
                         <button onClick={handleLogOut}>Cerrar sesion</button>
                     </>
                 ) : (

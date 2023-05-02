@@ -23,7 +23,7 @@ export const api = async ({
         const res = await apiAxios({
             method,
             url,
-            headers: { Authorization: bearer },
+            headers: { Authorization: `Bearer ${bearer}` },
             params,
             data: payload,
             cancelToken: cancelToken?.token,

@@ -14,8 +14,8 @@ const Login = () => {
     const navigate = useNavigate()
 
     const [credential, setCredential] = useState({
-        email: 'test@test.com',
-        password: 'Administrador1234',
+        email: 'usuario@gmail.com',
+        password: 'Admin1',
     })
 
     const handleChange = (e) => {
@@ -31,15 +31,18 @@ const Login = () => {
         try {
             const { data, status, error } = await loginService(credential)
 
-            if (status !== HttpStatusCode.OK) throw new Error(error.message)
+            if (status !== HttpStatusCode.OK) {
+                throw new Error(JSON.stringify(error.message))
+            }
 
-            setBearer(data)
+            setBearer(data.access_token)
 
             dispatchAuth(setNewAuth())
 
             navigate(getRedirectPath())
         } catch (error) {
-            dispatchAuth(setIsNotAuth(error.message))
+            const { message } = JSON.parse(error.message)
+            dispatchAuth(setIsNotAuth(message))
         }
     }
 

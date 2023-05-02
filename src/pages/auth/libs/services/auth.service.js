@@ -3,7 +3,7 @@ import { api } from '@api/axios.api'
 export const loginService = (credential) => {
     return api({
         method: 'POST',
-        url: '/auth/login',
+        url: '/v1/auth/login',
         payload: credential,
     })
 }
@@ -11,7 +11,7 @@ export const loginService = (credential) => {
 export const registerService = (credential) => {
     return api({
         method: 'POST',
-        url: '/auth/register',
+        url: '/v1/auth/register',
         payload: credential,
     })
 }
@@ -19,7 +19,7 @@ export const registerService = (credential) => {
 export const profileService = (bearer) => {
     return api({
         method: 'GET',
-        url: '/auth/profile',
+        url: '/v1/users',
         bearer,
     })
 }
