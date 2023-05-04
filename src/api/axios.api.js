@@ -3,7 +3,7 @@ import axios from 'axios'
 import { getBearer } from '../helpers/bearer.helper'
 
 const apiAxios = axios.create({
-    baseURL: `${URL_BACKEND}/api/`,
+    baseURL: `${URL_BACKEND}/api/v1`,
     responseType: 'json',
 })
 

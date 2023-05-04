@@ -7,7 +7,7 @@ export const getWorkoutService = async (filters, cancelToken) => {
     try {
         const { status, data, error } = await api({
             method: 'GET',
-            url: '/v1/workouts',
+            url: '/workouts',
             params: { limit, ...restFilters },
             cancelToken,
         })
@@ -40,7 +40,7 @@ export const getWorkoutService = async (filters, cancelToken) => {
 export const createWorkoutService = async (workout) => {
     return api({
         method: 'POST',
-        url: '/workout',
+        url: '/workouts',
         payload: workout,
     })
 }
@@ -50,7 +50,7 @@ export const editWorkoutService = async (workout) => {
 
     return api({
         method: 'PATCH',
-        url: `/workout/${id}`,
+        url: `/workouts/${id}`,
         payload: rest,
     })
 }
@@ -58,6 +58,6 @@ export const editWorkoutService = async (workout) => {
 export const deleteWorkoutService = async (id) => {
     return api({
         method: 'DELETE',
-        url: `/workout/${id}`,
+        url: `/workouts/${id}`,
     })
 }
