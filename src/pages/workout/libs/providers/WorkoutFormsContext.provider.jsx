@@ -5,7 +5,7 @@ const WorkoutFormsProvider = ({ ressetFilters, children }) => {
     const { setFiltersForm, ...restFormWorkout } = useSelectedFormWorkout()
 
     const onSuccess = () => {
-        ressetFilters()
+        // ressetFilters()
         setFiltersForm()
     }
 
