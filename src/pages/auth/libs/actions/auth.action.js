@@ -1,7 +1,8 @@
 import { AUTH_REDUCER } from '../constant/authReducer'
 
-export const setNewAuth = () => ({
+export const setNewAuth = (token) => ({
     type: AUTH_REDUCER.SET_NEW_AUTH,
+    payload: token,
 })
 
 export const setIsAuth = (profile) => ({

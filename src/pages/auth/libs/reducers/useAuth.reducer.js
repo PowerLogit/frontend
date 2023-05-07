@@ -1,4 +1,5 @@
 import { AUTH_REDUCER } from '../constant/authReducer'
+import { INITIAL_STATE_AUTH } from '../context/auth.context'
 
 export const authReducer = (state, { type, payload }) => {
     switch (type) {
@@ -7,6 +8,7 @@ export const authReducer = (state, { type, payload }) => {
                 ...state,
                 loading: false,
                 isAuthenticated: true,
+                token: payload,
             }
 
         case AUTH_REDUCER.SET_IS_AUTH:
@@ -19,11 +21,7 @@ export const authReducer = (state, { type, payload }) => {
 
         case AUTH_REDUCER.SET_IS_NOT_AUTH:
             return {
-                ...state,
-                loading: false,
-                error: payload,
-                isAuthenticated: false,
-                token: null,
+                ...INITIAL_STATE_AUTH,
             }
 
         case AUTH_REDUCER.SET_RESET_ERROR:

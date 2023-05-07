@@ -3,10 +3,14 @@ import { setBearer } from '@helpers/bearer.helper'
 import Button from '@ui/components/buttons/Button'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { setIsNotAuth, setNewAuth } from '../../libs/actions/auth.action'
+import {
+    setIsAuth,
+    setIsNotAuth,
+    setNewAuth,
+} from '../../libs/actions/auth.action'
 import { useAuthContext } from '../../libs/context/auth.context'
 import { getRedirectPath } from '../../libs/helpers/redirectPath.helper'
-import { loginService } from '../../libs/services/auth.service'
+import { loginService, profileService } from '../../libs/services/auth.service'
 import style from './Login.module.css'
 
 const Login = () => {
@@ -18,15 +22,15 @@ const Login = () => {
         password: 'Admin1',
     })
 
-    const handleChange = (e) => {
+    const handleChange = (ev) => {
         setCredential({
             ...credential,
-            [e.target.name]: e.target.value,
+            [ev.target.name]: ev.target.value,
         })
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    const handleSubmit = async (ev) => {
+        ev.preventDefault()
 
         try {
             const { data, status, error } = await loginService(credential)
@@ -35,9 +39,10 @@ const Login = () => {
                 throw new Error(JSON.stringify(error.message))
             }
 
-            setBearer(data.access_token)
+            const { access_token } = data
 
-            dispatchAuth(setNewAuth())
+            setBearer(access_token)
+            dispatchAuth(setNewAuth(access_token))
 
             navigate(getRedirectPath())
         } catch (error) {
