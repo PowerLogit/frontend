@@ -1,15 +1,40 @@
-import style from './InputText.module.css'
-
-const InputText = ({ label, error, className, ...props }) => (
-    <label className={className}>
-        <span className={style.label}>{label}</span>
+const InputText = ({
+    label,
+    error,
+    className,
+    placeholder,
+    name,
+    defaultValue,
+    onChange,
+    onBlur,
+    required,
+    ...props
+}) => (
+    <div className={className}>
+        <label
+            htmlFor={name}
+            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+        >
+            {label}
+        </label>
         <input
-            {...props}
-            className={`${style.input} ${error ? style.borderError : ''}`}
             type='text'
-        ></input>
-        {error && <span className={style.error}>{error}</span>}
-    </label>
+            id={name}
+            name={name}
+            placeholder={placeholder}
+            defaultValue={defaultValue}
+            onChange={onChange}
+            onBlur={onBlur}
+            required={required}
+            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+            {...props}
+        />
+        {error && (
+            <span className='mt-2 text-sm text-red-600 dark:text-red-500'>
+                {error}
+            </span>
+        )}
+    </div>
 )
 
 export default InputText

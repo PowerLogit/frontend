@@ -1,20 +1,19 @@
 import { HttpStatusCode } from '@constant/HttpStatusCode'
 import { setBearer } from '@helpers/bearer.helper'
-import Button from '@ui/components/buttons/Button'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-    setIsAuth,
-    setIsNotAuth,
-    setNewAuth,
-} from '../../libs/actions/auth.action'
+
+import { setIsNotAuth, setNewAuth } from '../../libs/actions/auth.action'
 import { useAuthContext } from '../../libs/context/auth.context'
 import { getRedirectPath } from '../../libs/helpers/redirectPath.helper'
-import { loginService, profileService } from '../../libs/services/auth.service'
-import style from './Login.module.css'
+import { loginService } from '../../libs/services/auth.service'
+import InputText from '../../../../components/ui/components/form/InputText'
 
 const Login = () => {
-    const { loading, error, dispatchAuth } = useAuthContext()
+    const { dispatchAuth } = useAuthContext()
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState()
+
     const navigate = useNavigate()
 
     const [credential, setCredential] = useState({
@@ -31,6 +30,7 @@ const Login = () => {
 
     const handleSubmit = async (ev) => {
         ev.preventDefault()
+        setIsLoading(true)
 
         try {
             const { data, status, error } = await loginService(credential)
@@ -46,37 +46,57 @@ const Login = () => {
 
             navigate(getRedirectPath())
         } catch (error) {
-            const { message } = JSON.parse(error.message)
-            dispatchAuth(setIsNotAuth(message))
+            const { message, statusCode } = JSON.parse(error.message)
+
+            const errorMessages = {
+                400: 'Formato inválido',
+                409: 'Credenciales inválidas',
+            }
+
+            const msg = errorMessages[statusCode] || message
+
+            setError(msg)
+            dispatchAuth(setIsNotAuth(msg))
+        } finally {
+            setIsLoading(false)
         }
     }
 
     return (
-        <div className={style.wrapper}>
-            <div className={style.form}>
-                <label>Email:</label>
-                <input
-                    type='text'
-                    name='email'
-                    onChange={handleChange}
-                    value={credential.email}
-                />
+        <form className='space-y-4 md:space-y-6'>
+            <InputText
+                type='email'
+                name='email'
+                label='Email'
+                placeholder='name@company.com'
+                onChange={handleChange}
+                value={credential.email}
+            />
 
-                <label>Password:</label>
-                <input
-                    type='password'
-                    name='password'
-                    onChange={handleChange}
-                    value={credential.password}
-                />
+            <InputText
+                type='password'
+                name='password'
+                label='Contraseña'
+                placeholder='••••••••'
+                onChange={handleChange}
+                value={credential.password}
+            />
 
-                {error && <p className={style.error}>{error}</p>}
+            {error && (
+                <p className='m-0 text-sm text-red-600 dark:text-red-500'>
+                    {error}
+                </p>
+            )}
 
-                <Button type='submit' onClick={handleSubmit} disabled={loading}>
-                    {loading ? 'Loading...' : 'Login'}
-                </Button>
-            </div>
-        </div>
+            <button
+                type='submit'
+                onClick={handleSubmit}
+                disabled={isLoading}
+                className='w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800'
+            >
+                {isLoading ? 'Cargando...' : 'Iniciar sesión'}
+            </button>
+        </form>
     )
 }
 
