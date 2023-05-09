@@ -10,7 +10,6 @@ import {
     filterReducer,
     getFiltersInitialState,
 } from './libs/reducers/useFilters.reducer'
-import style from './Workout.module.css'
 
 const Workout = () => {
     const [filters, dispatchFilters] = useReducer(
@@ -22,8 +21,8 @@ const Workout = () => {
         useWorkout(filters)
 
     return (
-        <div className={style.wrapper}>
-            <h1>Workout</h1>
+        <div className='max-w-2xl mx-auto px-5 sm:px-0 mt-5'>
+            <h1 className='text-4xl font-bold text-center mb-4'>Workout</h1>
             <WorkoutFormsProvider
                 ressetFilters={() => dispatchFilters(reset())}
             >
