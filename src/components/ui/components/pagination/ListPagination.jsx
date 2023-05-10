@@ -1,4 +1,3 @@
-import style from './ListPagination.module.css'
 import Select from '../form/Select'
 import PageSelector from './PageSelector'
 import { PAGINATION } from '@constant/pagination'
@@ -11,13 +10,14 @@ const ListPagination = ({
     totalWorkouts,
 }) => {
     return (
-        <div className={style.wrapper}>
-            <div className={style.itemPerPage}>
+        <div className='mt-8 flex flex-col justify-center items-center gap-4 sm:flex-row sm:justify-between sm:items-center'>
+            <div className='flex items-center gap-4'>
                 <Select
                     value={itemPerPage}
                     onChange={(ev) =>
                         dispatchFilters(setItemPerPage(Number(ev.target.value)))
                     }
+                    className='w-20'
                 >
                     {PAGINATION.ITEM_PER_PAGE_OPTIONS.map((value) => (
                         <option key={value} value={value}>

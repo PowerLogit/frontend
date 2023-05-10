@@ -21,7 +21,7 @@ const Workout = () => {
         useWorkout(filters)
 
     return (
-        <div className='max-w-2xl mx-auto px-5 sm:px-0 mt-5'>
+        <div className='max-w-3xl mx-auto px-5 md:px-0 mt-5'>
             <h1 className='text-4xl font-bold text-center mb-4'>Workout</h1>
             <WorkoutFormsProvider
                 ressetFilters={() => dispatchFilters(reset())}
