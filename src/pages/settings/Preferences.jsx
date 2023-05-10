@@ -1,7 +1,7 @@
 import { FILTERS_OPTION } from '../workout/libs/constant/workoutDateFilterOption'
 import Button from '@ui/components/buttons/Button'
-import style from './Preferences.module.css'
 import { useState } from 'react'
+import Select from '../../components/ui/components/form/Select'
 
 const Preferences = () => {
     const [settings, setSettings] = useState(INITIAL_STATE)
@@ -14,23 +14,29 @@ const Preferences = () => {
     const isInitialValues = settings.filterBy === filterByDefault
 
     return (
-        <div className={style.wrapper}>
-            <h1> Ajustes </h1>
+        <div className='max-w-xl mx-auto mt-6'>
+            <h1 className='text-4xl font-bold text-center mb-4'> Ajustes </h1>
             <form
                 onSubmit={(ev) => handleSubmit(ev, settings, setResetSettings)}
-                className={style.form}
+                className='max-w-xl'
             >
-                <p>Filtro workout por defecto:</p>
-                <select
+                <Select
+                    label='Filtro workout por defecto'
+                    name='filterBy'
                     defaultValue={settings.filterBy}
                     onChange={(ev) => setFilterBy(ev.target.value)}
+                    className={'w-32'}
                 >
                     <option value={FILTERS_OPTION.DAY}>Dia</option>
                     <option value={FILTERS_OPTION.DEFAULT}>Semanal</option>
                     <option value={FILTERS_OPTION.MONTH}>Mes</option>
                     <option value={FILTERS_OPTION.ALL}>Todos</option>
-                </select>
-                <Button type='submit' disabled={isInitialValues}>
+                </Select>
+                <Button
+                    type='submit'
+                    disabled={isInitialValues}
+                    className='mt-8'
+                >
                     Guardar
                 </Button>
             </form>
