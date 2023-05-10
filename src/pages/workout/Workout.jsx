@@ -1,34 +1,34 @@
-import style from './Workout.module.css'
+import ListPagination from '@ui/components/pagination/ListPagination'
+import { useReducer } from 'react'
+import WorkoutFormContainer from './components/forms/WorkoutFormContainer'
 import WorkoutFilters from './components/WorkoutFilters'
 import WorkoutRows from './components/WorkoutRows'
-import ListPagination from '@ui/components/pagination/ListPagination'
+import { reset } from './libs/actions/filters.action'
 import useWorkout from './libs/hooks/useWorkout'
-import WorkoutFormContainer from './components/forms/WorkoutFormContainer'
 import WorkoutFormsProvider from './libs/providers/WorkoutFormsContext.provider'
 import {
     filterReducer,
-    FILTERS_INITIAL_STATE,
+    getFiltersInitialState,
 } from './libs/reducers/useFilters.reducer'
-import { useReducer } from 'react'
-import { reset } from './libs/actions/filters.action'
 
 const Workout = () => {
     const [filters, dispatchFilters] = useReducer(
         filterReducer,
-        FILTERS_INITIAL_STATE
+        getFiltersInitialState()
     )
 
     const { workouts, totalWorkouts, workoutsLoading, workoutsError } =
         useWorkout(filters)
 
     return (
-        <div className={style.wrapper}>
-            <h1>Workout</h1>
+        <div className='max-w-3xl mx-auto px-5 md:px-0 mt-5'>
+            <h1 className='text-4xl font-bold text-center mb-4'>Workout</h1>
             <WorkoutFormsProvider
                 ressetFilters={() => dispatchFilters(reset())}
             >
                 <WorkoutFilters
                     sortBy={filters.sortBy}
+                    filterBy={filters.filterBy}
                     dispatchFilters={dispatchFilters}
                 />
                 <WorkoutFormContainer />

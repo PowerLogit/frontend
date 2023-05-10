@@ -1,5 +1,4 @@
 import InputText from '@ui/components/form/InputText'
-import style from './WorkoutCreateForm.module.css'
 import Button from '@ui/components/buttons/Button'
 import useCreateForm from '../../libs/hooks/useCreateForm'
 import { createWorkoutService } from '../../libs/services/workout.service'
@@ -21,61 +20,58 @@ const WorkoutCreateForm = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
+    const handleInputChange = (setValue) => (ev) => {
+        dispatchFormValues(setValue(ev.target.value))
+    }
+
     return (
         <form
+            className='block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'
             onSubmit={(ev) =>
                 handleSubmit(ev, fomrValues, setIsSubmitting, onSuccess)
             }
         >
-            <div className={style.row}>
+            <div className='flex gap-4 mb-6'>
                 <InputText
                     label='Nombre'
                     placeholder='SQLB'
                     value={name.value}
                     error={name.error}
-                    onChange={(ev) =>
-                        dispatchFormValues(setName(ev.target.value))
-                    }
-                    className={style.input}
+                    onChange={handleInputChange(setName)}
+                    className={'w-full'}
                 />
-                <input
+                <InputText
+                    label='Fecha'
                     type='date'
                     value={date}
-                    onChange={(ev) =>
-                        dispatchFormValues(setDate(ev.target.value))
-                    }
+                    onChange={handleInputChange(setDate)}
+                    className={'w-full'}
                 />
             </div>
-            <div className={style.row}>
+            <div className='flex gap-4 mb-8'>
                 <InputText
                     label='Series'
                     placeholder='4'
                     value={sets.value}
                     error={sets.error}
-                    onChange={(ev) =>
-                        dispatchFormValues(setSets(ev.target.value))
-                    }
-                    className={style.input}
+                    onChange={handleInputChange(setSets)}
+                    className={'w-full'}
                 />
                 <InputText
                     label='Repes'
                     placeholder='4'
                     value={reps.value}
                     error={reps.error}
-                    onChange={(ev) =>
-                        dispatchFormValues(setReps(ev.target.value))
-                    }
-                    className={style.input}
+                    onChange={handleInputChange(setReps)}
+                    className={'w-full'}
                 />
                 <InputText
                     label='Peso'
                     placeholder='110'
                     value={weight.value}
                     error={weight.error}
-                    onChange={(ev) =>
-                        dispatchFormValues(setWeight(ev.target.value))
-                    }
-                    className={style.input}
+                    onChange={handleInputChange(setWeight)}
+                    className={'w-full'}
                 />
             </div>
             <Button type='submit' disabled={isFormInvalid || isSubmitting}>

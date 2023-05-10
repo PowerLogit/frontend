@@ -42,6 +42,14 @@ const INITIAL_STATE = {
         value: '',
         error: undefined,
     },
+    isCompleted: {
+        value: false,
+        error: undefined,
+    },
+    isSuccessful: {
+        value: false,
+        error: undefined,
+    },
     date: normalizeDateISO(new Date()),
 }
 

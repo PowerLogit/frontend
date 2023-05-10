@@ -34,6 +34,10 @@ export default defineConfig({
                 replacement: path.resolve(__dirname, 'src/constant'),
             },
             {
+                find: '@helpers',
+                replacement: path.resolve(__dirname, 'src/helpers'),
+            },
+            {
                 find: '@context',
                 replacement: path.resolve(__dirname, 'src/context'),
             },

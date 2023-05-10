@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { sourceCancelToken } from '@api/axios.api'
 import { getWorkoutService } from '../services/workout.service'
 
 const useWorkout = (filters) => {
@@ -23,16 +24,15 @@ const useWorkout = (filters) => {
         })
     }
 
+    const setLoading = () =>
+        setWorkouts((prevAuth) => ({ ...prevAuth, loading: true }))
+
     useEffect(() => {
-        /*fetchWorkouts(setData, setError, {
-            startDate: '01/01/2022',
-            endDate: '12/31/2022',
-        })*/
-        const controller = new AbortController()
+        const cancelToken = sourceCancelToken()
 
-        loadWorkout(setData, setError, controller.signal, filters)
+        loadWorkouts({ setLoading, setData, setError }, filters, cancelToken)
 
-        return () => controller.abort()
+        return () => cancelToken.cancel()
     }, [filters])
 
     return {
@@ -52,32 +52,17 @@ const INITIAL_STATE = {
     error: null,
 }
 
-const loadWorkout = async (setData, setError, signal, pagination) => {
-    const { workout, count, error, aborted } = await getWorkoutService(
-        signal,
-        pagination
+const loadWorkouts = async (setters, filters, signal) => {
+    setters.setLoading()
+
+    const { workout, count, error, isAborted } = await getWorkoutService(
+        filters,
+        signal
     )
 
-    if (aborted) return
-    if (workout) setData(workout, count)
-    else setError(error)
+    if (isAborted) return
+    if (workout) setters.setData(workout, count)
+    else setters.setError(error)
 }
-
-/*const fetchWorkouts = async (setData, setError, params) => {
-    try {
-        const { data, status, error } = await fetchWorkoutService(params)
-
-        if (status !== HttpStatusCode.OK)
-            throw new Error(JSON.stringify({ error, status }))
-
-        setData(data)
-    } catch (error) {
-        const { error: message, status } = JSON.parse(error.message)
-
-        if (status === HttpStatusCode.NOT_FOUND) return setData([])
-
-        setError(message)
-    }
-}*/
 
 export default useWorkout

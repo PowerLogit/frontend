@@ -1,5 +1,4 @@
 import WorkoutCard from './WorkoutCard'
-import style from './WorkoutRows.module.css'
 
 const WorkoutRows = ({ workouts, loading, error }) => {
     if (error) return <p> Error al cargar los workouts </p>
@@ -7,7 +6,7 @@ const WorkoutRows = ({ workouts, loading, error }) => {
     if (!workouts.length > 0) return <p>Sin ejercicios</p>
 
     return (
-        <div className={style.wrapper}>
+        <div className='grid grid-cols-1 justify-items-center sm:grid-cols-2 gap-4'>
             {workouts.map((workout) => (
                 <WorkoutCard key={workout.id} workout={workout} />
             ))}
