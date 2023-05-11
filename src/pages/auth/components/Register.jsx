@@ -3,25 +3,30 @@ import { setBearer } from '@helpers/bearer.helper'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { setIsNotAuth, setNewAuth } from '../../libs/actions/auth.action'
-import { useAuthContext } from '../../libs/context/auth.context'
-import { getRedirectPath } from '../../libs/helpers/redirectPath.helper'
-import { loginService } from '../../libs/services/auth.service'
-import InputText from '../../../../components/ui/components/form/InputText'
+import InputText from '../../../components/ui/components/form/InputText'
+import { setIsNotAuth, setNewAuth } from '../libs/actions/auth.action'
+import { useAuthContext } from '../libs/context/auth.context'
+import { getRedirectPath } from '../libs/helpers/redirectPath.helper'
+import { loginService, registerService } from '../libs/services/auth.service'
 
-const Login = () => {
+const Register = () => {
     const { dispatchAuth } = useAuthContext()
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState()
-
     const navigate = useNavigate()
 
     const [credential, setCredential] = useState({
-        email: 'usuario@gmail.com',
-        password: 'Admin1',
+        id: '',
+        username: '',
+        email: '',
+        password: '',
+        name: '',
+        surname: '',
     })
 
     const handleChange = (ev) => {
+        console.log(ev)
+
         setCredential({
             ...credential,
             [ev.target.name]: ev.target.value,
@@ -33,30 +38,37 @@ const Login = () => {
         setIsLoading(true)
 
         try {
-            const { data, status, error } = await loginService(credential)
+            const newUser = { ...credential, id: crypto.randomUUID() }
 
-            if (status !== HttpStatusCode.OK) {
+            const { status, error } = await registerService(newUser)
+
+            if (status !== HttpStatusCode.CREATED)
                 throw new Error(JSON.stringify(error.message))
+
+            const loginCredentials = {
+                email: credential.email,
+                password: credential.password,
             }
 
-            const { access_token } = data
+            const login = await loginService(loginCredentials)
+
+            if (login.status !== HttpStatusCode.OK) {
+                throw new Error(JSON.stringify(login.error.message))
+            }
+
+            const { access_token } = login.data
 
             setBearer(access_token)
             dispatchAuth(setNewAuth(access_token))
 
             navigate(getRedirectPath())
+
+            navigate(getRedirectPath())
         } catch (error) {
-            const { message, statusCode } = JSON.parse(error.message)
+            const { message } = JSON.parse(error.message)
 
-            const errorMessages = {
-                400: 'Formato inválido',
-                409: 'Credenciales inválidas',
-            }
-
-            const msg = errorMessages[statusCode] || message
-
-            setError(msg)
-            dispatchAuth(setIsNotAuth(msg))
+            setError(message.join(', '))
+            dispatchAuth(setIsNotAuth(message))
         } finally {
             setIsLoading(false)
         }
@@ -64,6 +76,30 @@ const Login = () => {
 
     return (
         <form className='space-y-4 md:space-y-6'>
+            <InputText
+                name='username'
+                label='Nombre de usuario'
+                placeholder='username'
+                onChange={handleChange}
+                value={credential.username}
+            />
+
+            <InputText
+                name='name'
+                label='Nombre'
+                placeholder='name'
+                onChange={handleChange}
+                value={credential.name}
+            />
+
+            <InputText
+                name='surname'
+                label='Apellido'
+                placeholder='surname'
+                onChange={handleChange}
+                value={credential.surname}
+            />
+
             <InputText
                 type='email'
                 name='email'
@@ -94,10 +130,10 @@ const Login = () => {
                 disabled={isLoading}
                 className='w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800'
             >
-                {isLoading ? 'Cargando...' : 'Iniciar sesión'}
+                {isLoading ? 'Cargando...' : 'Registrarse'}
             </button>
         </form>
     )
 }
 
-export default Login
+export default Register

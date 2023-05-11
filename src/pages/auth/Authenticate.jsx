@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import Login from './components/login/Login'
-import Register from './components/register/Register'
+import Login from './components/Login'
+import Register from './components/Register'
 import { setResetError } from './libs/actions/auth.action'
 import { AUTH } from './libs/constant/authOption'
 import { useAuthContext } from './libs/context/auth.context'
