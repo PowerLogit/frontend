@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/header/Header'
 import PageNotFound from '../components/PageNotFound'
+import Calculate from './calculate/Calculate'
 import Home from './home/Home'
 import Preferences from './settings/Preferences'
 
@@ -29,6 +30,10 @@ const Router = () => {
                             {/* Private routes */}
                             <Route element={<PrivateRoute />}>
                                 <Route path='/workout' element={<Workout />} />
+                                <Route
+                                    path='/calc/:weight?'
+                                    element={<Calculate />}
+                                />
                                 <Route
                                     path='/settings'
                                     element={<Preferences />}

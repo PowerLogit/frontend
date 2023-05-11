@@ -6,6 +6,13 @@ export default {
     theme: {
         extend: {
             colors: {
+                plate25: '#800000',
+                plate20: '#000080',
+                plate15: '#808000',
+                plate10: '#008000',
+                plate5: '#C0C0C0',
+                'plate2.5': '#111111',
+                'plate1.25': '#808080',
                 primary: {
                     50: '#fff1f2',
                     100: '#ffe4e6',
