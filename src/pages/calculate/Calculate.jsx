@@ -3,16 +3,15 @@ import { useParams } from 'react-router-dom'
 
 import Button from '../../components/ui/components/buttons/Button'
 import Heading from '../../components/ui/components/Heading'
-import CalcAprox from './components/CalcAprox'
+import CalcApprox from './components/CalcApprox'
 import CalcBasic from './components/CalcBasic'
 
 const Calculate = () => {
     const { weight } = useParams()
-    console.log(weight)
 
     const [calculate, setCalculate] = useState('basic')
 
-    const calc = calculate === 'basic' ? <CalcBasic /> : <CalcAprox />
+    const Calc = calculate === 'basic' ? CalcBasic : CalcApprox
 
     return (
         <div className='max-w-screen-xl mx-auto'>
@@ -33,7 +32,7 @@ const Calculate = () => {
                 </Button>
             </div>
 
-            {calc}
+            <Calc weight={weight} />
         </div>
     )
 }
