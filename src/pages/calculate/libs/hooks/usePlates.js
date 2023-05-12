@@ -1,4 +1,4 @@
-const usePlates = (weightBar, weightTotal) => {
+const usePlates = (weightBar, weightTotal, numPlates) => {
     const weights = [25, 20, 15, 10, 5, 2.5, 1.25]
     const plates = []
 
@@ -8,9 +8,13 @@ const usePlates = (weightBar, weightTotal) => {
     else if (weightTotal % 10 === 7) weightPlates += 0.75
 
     for (const weight of weights) {
-        while (weightPlates >= weight) {
+        const plateKey = `plate${weight}`
+        let maxPlates = Number(numPlates[plateKey])
+
+        while (weightPlates >= weight && maxPlates > 0) {
             weightPlates -= weight
             plates.push(weight)
+            maxPlates--
         }
     }
 
