@@ -3,11 +3,14 @@ import { setBearer } from '@helpers/bearer.helper'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import InputText from '../../../components/ui/components/form/InputText'
+import { NODE_ENV } from '../../../config/common'
 import { setIsNotAuth, setNewAuth } from '../libs/actions/auth.action'
 import { useAuthContext } from '../libs/context/auth.context'
 import { getRedirectPath } from '../libs/helpers/redirectPath.helper'
 import { loginService } from '../libs/services/auth.service'
-import InputText from '../../../components/ui/components/form/InputText'
+
+const isDevMode = NODE_ENV === 'dev'
 
 const Login = () => {
     const { dispatchAuth } = useAuthContext()
@@ -17,8 +20,8 @@ const Login = () => {
     const navigate = useNavigate()
 
     const [credential, setCredential] = useState({
-        email: 'usuario@gmail.com',
-        password: 'Admin1',
+        email: isDevMode ? 'usuario@gmail.com' : '',
+        password: isDevMode ? 'Admin1' : '',
     })
 
     const handleChange = (ev) => {
