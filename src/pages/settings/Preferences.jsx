@@ -14,7 +14,7 @@ const Preferences = () => {
     const isInitialValues = settings.filterBy === filterByDefault
 
     return (
-        <div className='max-w-xl mx-auto mt-6'>
+        <div className='max-w-xl mx-auto mt-6 px-5 md:px-0'>
             <h1 className='text-4xl font-bold text-center mb-4'> Ajustes </h1>
             <form
                 onSubmit={(ev) => handleSubmit(ev, settings, setResetSettings)}
