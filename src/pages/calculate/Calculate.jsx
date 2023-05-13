@@ -14,7 +14,7 @@ const Calculate = () => {
     const Calc = calculate === 'basic' ? CalcBasic : CalcApprox
 
     return (
-        <div className='max-w-screen-xl mx-auto'>
+        <div className='max-w-screen-xl mx-auto px-5 lg:px-0'>
             <Heading text={'Calculadora'} className={'text-center my-6'} />
 
             <div className='max-w-sm mx-auto flex flex-row gap-4'>
