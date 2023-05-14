@@ -1,10 +1,12 @@
-import IconButton from '@ui/components/buttons/IconButton'
-import PencilIcon from '@ui/svg/PencilIcon'
-import TrashIcon from '@ui/svg/TrashIcon'
+import { Dropdown } from 'flowbite-react'
 import { useContext } from 'react'
 
+import PencilIcon from '../../../components/ui/svg/PencilIcon'
+import ThreeDotsIcon from '../../../components/ui/svg/ThreeDotsIcon'
+import TrashIcon from '../../../components/ui/svg/TrashIcon'
 import { WorkoutFormsContext } from '../libs/context/WorkoutForms.context'
 import { normalizeDateUTC } from '../libs/functions/normaliceDate'
+import WorkoutStatus from './WorkoutStatus'
 
 const WorkoutCard = ({ workout }) => {
     const { setEditForm, setDelteForm } = useContext(WorkoutFormsContext)
@@ -21,24 +23,30 @@ const WorkoutCard = ({ workout }) => {
                 <span className='text-sm text-gray-500 dark:text-gray-400'>
                     {normalizeDateUTC(date)}
                 </span>
-                <span className='text-sm text-gray-500 dark:text-gray-400'>
-                    {isCompleted ? 'Completado' : 'Pendiente'}
-                    {isCompleted &&
-                        (isSuccessful ? ' - Exitoso' : ' - Fallido')}
-                </span>
+                <WorkoutStatus
+                    isCompleted={isCompleted}
+                    isSuccessful={isSuccessful}
+                />
             </div>
             <div>
-                <IconButton
-                    icon={PencilIcon}
-                    className={''}
-                    onClick={() => setEditForm(workout)}
-                />
-                <IconButton
-                    icon={TrashIcon}
-                    className={''}
-                    kind='red'
-                    onClick={() => setDelteForm(workout)}
-                />
+                <Dropdown
+                    arrowIcon={false}
+                    inline={true}
+                    label={<ThreeDotsIcon />}
+                >
+                    <Dropdown.Item
+                        icon={PencilIcon}
+                        onClick={() => setEditForm(workout)}
+                    >
+                        <span className='pl-2'>Editar</span>
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                        icon={TrashIcon}
+                        onClick={() => setDelteForm(workout)}
+                    >
+                        <span className='pl-2'>Eliminar</span>
+                    </Dropdown.Item>
+                </Dropdown>
             </div>
         </div>
     )

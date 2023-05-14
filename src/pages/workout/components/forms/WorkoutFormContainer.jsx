@@ -6,7 +6,6 @@ import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 import WorkoutCreateForm from './WorkoutCreateForm'
 import WorkoutDeleteForm from './WorkoutDeleteForm'
 import WorkoutEditForm from './WorkoutEditForm'
-import style from './WorkoutFormContainer.module.css'
 
 const WorkoutFormContainer = () => {
     const { currentForm, setFiltersForm } = useContext(WorkoutFormsContext)
@@ -16,13 +15,10 @@ const WorkoutFormContainer = () => {
     if (!renderForm) return null
 
     return (
-        <div className={style.wrapper}>
-            <IconButton
-                icon={CrossIcon}
-                filled
-                onClick={setFiltersForm}
-                className={style.close}
-            />
+        <div className='relative flex flex-col mb-6 rounded-md shadow-md'>
+            <div className='absolute top-0 right-0 -mt-5 -mr-5 rounded-full bg-gray-700 shadow-md'>
+                <IconButton icon={CrossIcon} filled onClick={setFiltersForm} />
+            </div>
             {renderForm}
         </div>
     )
