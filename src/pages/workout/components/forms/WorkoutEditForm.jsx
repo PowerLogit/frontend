@@ -28,7 +28,7 @@ const WorkoutEditForm = () => {
 
     return (
         <form
-            className='block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'
+            className='block p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'
             onSubmit={(ev) =>
                 handleSubmit(ev, fomrValues, setIsSubmitting, onSuccess)
             }
