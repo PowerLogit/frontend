@@ -9,6 +9,28 @@ import WorkoutDeleteForm from './forms/WorkoutDeleteForm'
 import WorkoutEditForm from './forms/WorkoutEditForm'
 
 const WorkoutActions = ({ workout }) => {
+    const { modalContent, setEditForm, setDeleteForm, resetModalContent } =
+        useModal(workout)
+
+    return (
+        <>
+            <Modal title={modalContent.title} closeModal={resetModalContent}>
+                {modalContent.body}
+            </Modal>
+
+            <Dropdown arrowIcon={false} inline={true} label={<ThreeDotsIcon />}>
+                <Dropdown.Item icon={PencilIcon} onClick={setEditForm}>
+                    <span className='pl-2'>Editar</span>
+                </Dropdown.Item>
+                <Dropdown.Item icon={TrashIcon} onClick={setDeleteForm}>
+                    <span className='pl-2'>Eliminar</span>
+                </Dropdown.Item>
+            </Dropdown>
+        </>
+    )
+}
+
+const useModal = (workout) => {
     const [modalContent, setModalContent] = useState(initialStateModal)
 
     const setEditForm = () => {
@@ -39,22 +61,7 @@ const WorkoutActions = ({ workout }) => {
         setModalContent(initialStateModal)
     }
 
-    return (
-        <>
-            <Modal title={modalContent.title} closeModal={resetModalContent}>
-                {modalContent.body}
-            </Modal>
-
-            <Dropdown arrowIcon={false} inline={true} label={<ThreeDotsIcon />}>
-                <Dropdown.Item icon={PencilIcon} onClick={setEditForm}>
-                    <span className='pl-2'>Editar</span>
-                </Dropdown.Item>
-                <Dropdown.Item icon={TrashIcon} onClick={setDeleteForm}>
-                    <span className='pl-2'>Eliminar</span>
-                </Dropdown.Item>
-            </Dropdown>
-        </>
-    )
+    return { modalContent, setEditForm, setDeleteForm, resetModalContent }
 }
 
 const initialStateModal = {
