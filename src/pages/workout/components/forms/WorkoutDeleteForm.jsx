@@ -13,7 +13,7 @@ const WorkoutDeleteForm = ({ currentWorkout, closeModal }) => {
 
     return (
         <form
-            className='p-5 text-center bg-white rounded-lg shadow dark:bg-gray-800'
+            className='p-5 text-center'
             onSubmit={(ev) =>
                 handleSubmit(ev, id, setIsSubmitting, onSuccess, closeModal)
             }
@@ -26,7 +26,7 @@ const WorkoutDeleteForm = ({ currentWorkout, closeModal }) => {
             <p className='mb-1 text-gray-500 dark:text-gray-300'>
                 Estas seguro que quieres elimar el workout:
             </p>
-            <p className='mb-4 text-gray-500 dark:text-gray-300'>
+            <p className='mb-6 text-gray-500 dark:text-gray-300'>
                 {name}: {sets}x{reps}x{weight} Kg - {normalizeDateUTC(date)}
             </p>
             <div className='flex justify-center items-center gap-4'>

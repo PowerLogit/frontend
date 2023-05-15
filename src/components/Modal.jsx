@@ -36,19 +36,19 @@ const Modal = ({ title, closeModal, children }) => {
     if (!children) return
 
     return createPortal(
-        <div className='fixed w-full p-4 inset-0 max-h-full flex items-center justify-center backdrop-blur'>
+        <div className='fixed w-full inset-0 max-h-full px-5 md:px-0 flex items-center justify-center backdrop-blur'>
             <div
                 ref={modalRef}
-                className='relative w-full max-w-2xl max-h-full'
+                className='relative w-full max-w-2xl max-h-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'
             >
-                <div className='relative bg-white rounded-lg shadow dark:bg-gray-700'>
-                    <div className='flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600'>
+                <div className='relative bg-white rounded-lg shadow dark:bg-gray-800'>
+                    <div className='flex items-start justify-between py-4 px-5 border-b dark:border-gray-600'>
                         <h3 className='text-xl font-semibold text-gray-900 dark:text-white'>
                             {title}
                         </h3>
                         <IconButton icon={CrossIcon} onClick={closeModal} />
                     </div>
-                    <div className='p-6 space-y-6'>{children}</div>
+                    {children}
                 </div>
             </div>
         </div>,
