@@ -1,6 +1,6 @@
 import ListPagination from '@ui/components/pagination/ListPagination'
 import { useReducer } from 'react'
-import WorkoutFormContainer from './components/forms/WorkoutFormContainer'
+
 import WorkoutFilters from './components/WorkoutFilters'
 import WorkoutRows from './components/WorkoutRows'
 import { reset } from './libs/actions/filters.action'
@@ -22,7 +22,7 @@ const Workout = () => {
 
     return (
         <div className='max-w-3xl mx-auto px-5 md:px-0 mt-5'>
-            <h1 className='text-4xl font-bold text-center mb-4'>Workout</h1>
+            <h1 className='text-4xl font -bold text-center mb-4'>Workout</h1>
             <WorkoutFormsProvider
                 ressetFilters={() => dispatchFilters(reset())}
             >
@@ -31,7 +31,6 @@ const Workout = () => {
                     filterBy={filters.filterBy}
                     dispatchFilters={dispatchFilters}
                 />
-                <WorkoutFormContainer />
                 <WorkoutRows
                     workouts={workouts}
                     loading={workoutsLoading}

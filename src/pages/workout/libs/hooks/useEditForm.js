@@ -1,6 +1,5 @@
-import { useEffect, useReducer } from 'react'
+import { useReducer } from 'react'
 
-import { remplace } from '../actions/editForm.action'
 import { normalizeDateISO } from '../functions/normaliceDate'
 import { editFormReducer } from '../reducers/useEditForm.reducer'
 
@@ -21,10 +20,6 @@ const useEditForm = (workout) => {
         fomrValues.reps.error ||
         !fomrValues.weight.value ||
         fomrValues.weight.error
-
-    useEffect(() => {
-        dispatchFormValues(remplace(getInitialState(workout)))
-    }, [workout])
 
     return {
         fomrValues,

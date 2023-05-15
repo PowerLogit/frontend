@@ -13,8 +13,8 @@ import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 import useEditForm from '../../libs/hooks/useEditForm'
 import { editWorkoutService } from '../../libs/services/workout.service'
 
-const WorkoutEditForm = () => {
-    const { currentWorkout, onSuccess } = useContext(WorkoutFormsContext)
+const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
+    const { onSuccess } = useContext(WorkoutFormsContext)
 
     const { fomrValues, isFormInvalid, dispatchFormValues } =
         useEditForm(currentWorkout)
@@ -28,9 +28,15 @@ const WorkoutEditForm = () => {
 
     return (
         <form
-            className='block p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'
+            className='p-5'
             onSubmit={(ev) =>
-                handleSubmit(ev, fomrValues, setIsSubmitting, onSuccess)
+                handleSubmit(
+                    ev,
+                    fomrValues,
+                    setIsSubmitting,
+                    onSuccess,
+                    closeModal
+                )
             }
         >
             <div className='flex gap-4 mb-6'>
@@ -83,7 +89,13 @@ const WorkoutEditForm = () => {
     )
 }
 
-const handleSubmit = async (ev, workout, setIsSubmitting, onSuccess) => {
+const handleSubmit = async (
+    ev,
+    workout,
+    setIsSubmitting,
+    onSuccess,
+    closeModal
+) => {
     ev.preventDefault()
     setIsSubmitting(true)
 
@@ -98,9 +110,12 @@ const handleSubmit = async (ev, workout, setIsSubmitting, onSuccess) => {
 
     const res = await editWorkoutService(newWorkout)
 
-    if (!res.ok) setIsSubmitting(false)
+    if (res.status !== 204) {
+        setIsSubmitting(false)
+    }
 
     onSuccess()
+    closeModal()
 }
 
 export default WorkoutEditForm
