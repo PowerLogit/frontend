@@ -1,18 +1,12 @@
 import { WorkoutFormsContext } from '../context/WorkoutForms.context'
-import useSelectedFormWorkout from '../hooks/useSelectedFormWorkout'
 
 const WorkoutFormsProvider = ({ ressetFilters, children }) => {
-    const { setFiltersForm, ...restFormWorkout } = useSelectedFormWorkout()
-
     const onSuccess = () => {
         ressetFilters()
-        setFiltersForm()
     }
 
     return (
-        <WorkoutFormsContext.Provider
-            value={{ setFiltersForm, onSuccess, ...restFormWorkout }}
-        >
+        <WorkoutFormsContext.Provider value={{ onSuccess }}>
             {children}
         </WorkoutFormsContext.Provider>
     )

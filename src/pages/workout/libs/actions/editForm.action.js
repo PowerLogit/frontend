@@ -24,8 +24,3 @@ export const setDate = (date) => ({
     type: EDIT_FORM_ACTION.SET_DATE,
     payload: date,
 })
-
-export const remplace = (workout) => ({
-    type: EDIT_FORM_ACTION.REPLACE,
-    payload: workout,
-})

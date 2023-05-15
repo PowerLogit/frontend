@@ -50,9 +50,6 @@ export const editFormReducer = (state, { type, payload }) => {
                 date: payload,
             }
 
-        case EDIT_FORM_ACTION.REPLACE:
-            return payload
-
         default:
             throw new Error('Invalid action type')
     }
