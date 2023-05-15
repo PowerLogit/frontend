@@ -11,7 +11,7 @@ const WorkoutFormsProvider = ({ ressetFilters, children }) => {
 
     return (
         <WorkoutFormsContext.Provider
-            value={{ setFiltersForm, ...restFormWorkout, onSuccess }}
+            value={{ setFiltersForm, onSuccess, ...restFormWorkout }}
         >
             {children}
         </WorkoutFormsContext.Provider>

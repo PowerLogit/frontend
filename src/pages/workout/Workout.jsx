@@ -1,6 +1,6 @@
 import ListPagination from '@ui/components/pagination/ListPagination'
 import { useReducer } from 'react'
-import WorkoutFormContainer from './components/forms/WorkoutFormContainer'
+
 import WorkoutFilters from './components/WorkoutFilters'
 import WorkoutRows from './components/WorkoutRows'
 import { reset } from './libs/actions/filters.action'
@@ -31,7 +31,6 @@ const Workout = () => {
                     filterBy={filters.filterBy}
                     dispatchFilters={dispatchFilters}
                 />
-                <WorkoutFormContainer />
                 <WorkoutRows
                     workouts={workouts}
                     loading={workoutsLoading}

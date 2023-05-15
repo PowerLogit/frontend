@@ -12,7 +12,7 @@ import {
     setWeight,
 } from '../../libs/actions/createForm.action'
 
-const WorkoutCreateForm = () => {
+const WorkoutCreateForm = ({ closeModal }) => {
     const { onSuccess } = useContext(WorkoutFormsContext)
 
     const { fomrValues, isFormInvalid, dispatchFormValues } = useCreateForm()
@@ -28,7 +28,13 @@ const WorkoutCreateForm = () => {
         <form
             className='block p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'
             onSubmit={(ev) =>
-                handleSubmit(ev, fomrValues, setIsSubmitting, onSuccess)
+                handleSubmit(
+                    ev,
+                    fomrValues,
+                    setIsSubmitting,
+                    onSuccess,
+                    closeModal
+                )
             }
         >
             <div className='flex gap-4 mb-6'>
@@ -81,7 +87,13 @@ const WorkoutCreateForm = () => {
     )
 }
 
-const handleSubmit = async (ev, fomrValues, setIsSubmitting, onSuccess) => {
+const handleSubmit = async (
+    ev,
+    fomrValues,
+    setIsSubmitting,
+    onSuccess,
+    closeModal
+) => {
     ev.preventDefault()
     setIsSubmitting(true)
 
@@ -98,9 +110,12 @@ const handleSubmit = async (ev, fomrValues, setIsSubmitting, onSuccess) => {
 
     const res = await createWorkoutService(workout)
 
-    if (!res.ok) setIsSubmitting(false)
+    if (res.status === 201) {
+        onSuccess()
+        closeModal()
+    }
 
-    onSuccess()
+    setIsSubmitting(false)
 }
 
 export default WorkoutCreateForm
