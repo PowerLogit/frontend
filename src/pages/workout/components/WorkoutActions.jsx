@@ -7,6 +7,7 @@ import ThreeDotsIcon from '../../../components/ui/svg/ThreeDotsIcon'
 import TrashIcon from '../../../components/ui/svg/TrashIcon'
 import WorkoutDeleteForm from './forms/WorkoutDeleteForm'
 import WorkoutEditForm from './forms/WorkoutEditForm'
+import { Link } from 'react-router-dom'
 
 const WorkoutActions = ({ workout }) => {
     const { modalContent, setEditForm, setDeleteForm, resetModalContent } =
@@ -24,6 +25,9 @@ const WorkoutActions = ({ workout }) => {
                 </Dropdown.Item>
                 <Dropdown.Item icon={TrashIcon} onClick={setDeleteForm}>
                     <span className='pl-2'>Eliminar</span>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                    <Link to={`/calc/${workout.weight}`}>Discos</Link>
                 </Dropdown.Item>
             </Dropdown>
         </>
