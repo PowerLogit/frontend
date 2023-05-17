@@ -1,8 +1,17 @@
-const Button = ({ kind = 'primary', type = 'button', className, ...props }) => (
+const Button = ({
+    kind = 'primary',
+    type = 'button',
+    className,
+    disabled = false,
+    ...props
+}) => (
     <button
         type={type}
+        disabled={disabled}
         {...props}
-        className={`${KIND_CLASSNAME[kind]} ${className || ''}`}
+        className={`${KIND_CLASSNAME[kind]} ${
+            disabled ? 'cursor-not-allowed' : ''
+        } ${className || ''}`}
     ></button>
 )
 
