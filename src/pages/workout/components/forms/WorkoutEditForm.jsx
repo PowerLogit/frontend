@@ -4,6 +4,7 @@ import { useContext, useState } from 'react'
 
 import {
     setDate,
+    setIsSuccessful,
     setName,
     setReps,
     setSets,
@@ -18,12 +19,17 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
 
     const { fomrValues, isFormInvalid, dispatchFormValues } =
         useEditForm(currentWorkout)
-    const { name, sets, reps, weight, date } = fomrValues
+    const { name, sets, reps, weight, date, isCompleted, isSuccessful } =
+        fomrValues
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const handleInputChange = (setValue) => (ev) => {
         dispatchFormValues(setValue(ev.target.value))
+    }
+
+    const handleInputCheckboxChange = () => {
+        dispatchFormValues(setIsSuccessful(!isSuccessful))
     }
 
     return (
@@ -81,9 +87,27 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
                     onChange={handleInputChange(setWeight)}
                     className={'w-full'}
                 />
+                {isCompleted && (
+                    <div className='flex flex-col gap-2 items-center justify-center'>
+                        <label
+                            htmlFor='default-checkbox'
+                            className='block text-sm font-medium text-gray-900 dark:text-white'
+                        >
+                            Exitoso
+                        </label>
+                        <input
+                            id='default-checkbox'
+                            type='checkbox'
+                            value={isSuccessful}
+                            checked={isSuccessful}
+                            onChange={handleInputCheckboxChange}
+                            className='w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
+                        />
+                    </div>
+                )}
             </div>
             <Button type='submit' disabled={isFormInvalid || isSubmitting}>
-                {isSubmitting ? 'Cargando...' : 'Crear'}
+                {isSubmitting ? 'Cargando...' : 'Editar'}
             </Button>
         </form>
     )
@@ -106,6 +130,7 @@ const handleSubmit = async (
         reps: Number(workout.reps.value),
         weight: Number(workout.weight.value),
         date: workout.date,
+        isSuccessful: workout.isSuccessful,
     }
 
     const res = await editWorkoutService(newWorkout)

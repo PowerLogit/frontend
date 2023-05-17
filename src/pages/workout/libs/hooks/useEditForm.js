@@ -47,6 +47,8 @@ const getInitialState = (workout) => ({
         error: undefined,
     },
     date: normalizeDateISO(workout.date),
+    isCompleted: workout.isCompleted,
+    isSuccessful: workout.isSuccessful,
 })
 
 const isInitialValues = (fomrValues, workout) =>
@@ -54,6 +56,7 @@ const isInitialValues = (fomrValues, workout) =>
     Number(fomrValues.sets.value) === workout.sets &&
     Number(fomrValues.reps.value) === workout.reps &&
     Number(fomrValues.weight.value) === workout.weight &&
-    fomrValues.date === normalizeDateISO(workout.date)
+    fomrValues.date === normalizeDateISO(workout.date) &&
+    fomrValues.isSuccessful === workout.isSuccessful
 
 export default useEditForm

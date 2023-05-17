@@ -50,6 +50,12 @@ export const editFormReducer = (state, { type, payload }) => {
                 date: payload,
             }
 
+        case EDIT_FORM_ACTION.SET_IS_SUCCESSFUL:
+            return {
+                ...state,
+                isSuccessful: payload,
+            }
+
         default:
             throw new Error('Invalid action type')
     }
