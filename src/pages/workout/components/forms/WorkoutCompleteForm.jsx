@@ -54,8 +54,6 @@ const handleSubmit = async (
         isSuccessful,
     }
 
-    console.log(updateWorkout)
-
     const res = await editWorkoutService(updateWorkout)
 
     if (res.status !== 204) {
