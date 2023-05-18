@@ -1,10 +1,10 @@
-import { useEffect, useReducer } from 'react'
 import { HttpStatusCode } from '@constant/HttpStatusCode'
+import { useEffect, useReducer } from 'react'
+
+import { setIsAuth, setIsNotAuth } from '../actions/auth.action'
 import { AuthContext, INITIAL_STATE_AUTH } from '../context/auth.context'
 import { authReducer } from '../reducers/useAuth.reducer'
 import { profileService } from '../services/auth.service'
-import { setIsAuth, setIsNotAuth } from '../actions/auth.action'
-import { removeBearer } from '../../../../helpers/bearer.helper'
 
 export const AuthContextProvider = ({ children }) => {
     const [auth, dispatchAuth] = useReducer(authReducer, INITIAL_STATE_AUTH)
@@ -28,17 +28,17 @@ export const AuthContextProvider = ({ children }) => {
 }
 
 const getProfile = async (bearer, dispatch) => {
+    //dispatch(setIsLoading())
+
     try {
-        const { data, status, error } = await profileService(bearer)
+        const { data, status } = await profileService(bearer)
 
         if (status !== HttpStatusCode.OK) {
-            throw new Error(JSON.stringify(error.message))
+            throw new Error()
         }
 
         dispatch(setIsAuth(data))
     } catch (error) {
-        removeBearer()
-
         dispatch(setIsNotAuth())
     }
 }

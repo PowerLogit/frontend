@@ -5,8 +5,8 @@ const PrivateRoute = () => {
     const { isAuthenticated, loading } = useAuthContext()
     const location = useLocation()
 
-    if (loading) return <h3>Loading...</h3>
     if (isAuthenticated) return <Outlet />
+    else if (loading) return <h3>Loading...</h3>
 
     localStorage.setItem('redirectPath', location.pathname)
 

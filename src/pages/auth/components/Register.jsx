@@ -1,18 +1,16 @@
 import { HttpStatusCode } from '@constant/HttpStatusCode'
-import { setBearer } from '@helpers/bearer.helper'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import Button from '../../../components/ui/components/buttons/Button'
 import InputText from '../../../components/ui/components/form/InputText'
-import { setIsNotAuth, setNewAuth } from '../libs/actions/auth.action'
+import { setError, setNewAuth } from '../libs/actions/auth.action'
 import { useAuthContext } from '../libs/context/auth.context'
 import { getRedirectPath } from '../libs/helpers/redirectPath.helper'
 import { loginService, registerService } from '../libs/services/auth.service'
 
 const Register = () => {
-    const { dispatchAuth } = useAuthContext()
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState()
+    const { loading, error, dispatchAuth } = useAuthContext()
     const navigate = useNavigate()
 
     const [credential, setCredential] = useState({
@@ -33,17 +31,24 @@ const Register = () => {
         })
     }
 
+    const isFormRequired =
+        !credential.username ||
+        !credential.email ||
+        !credential.password ||
+        !credential.name ||
+        !credential.surname
+
     const handleSubmit = async (ev) => {
         ev.preventDefault()
-        setIsLoading(true)
 
         try {
             const newUser = { ...credential, id: crypto.randomUUID() }
 
             const { status, error } = await registerService(newUser)
 
-            if (status !== HttpStatusCode.CREATED)
-                throw new Error(JSON.stringify(error.message))
+            if (status !== HttpStatusCode.CREATED) {
+                throw JSON.stringify(error.message)
+            }
 
             const loginCredentials = {
                 email: credential.email,
@@ -53,24 +58,18 @@ const Register = () => {
             const login = await loginService(loginCredentials)
 
             if (login.status !== HttpStatusCode.OK) {
-                throw new Error(JSON.stringify(login.error.message))
+                throw JSON.stringify(login.error.message)
             }
 
             const { access_token } = login.data
 
-            setBearer(access_token)
             dispatchAuth(setNewAuth(access_token))
 
             navigate(getRedirectPath())
-
-            navigate(getRedirectPath())
         } catch (error) {
-            const { message } = JSON.parse(error.message)
+            const { message } = JSON.parse(error)
 
-            setError(message.join(', '))
-            dispatchAuth(setIsNotAuth(message))
-        } finally {
-            setIsLoading(false)
+            dispatchAuth(setError(message.join(', ')))
         }
     }
 
@@ -124,14 +123,14 @@ const Register = () => {
                 </p>
             )}
 
-            <button
+            <Button
                 type='submit'
                 onClick={handleSubmit}
-                disabled={isLoading}
-                className='w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800'
+                loading={loading}
+                disabled={isFormRequired}
             >
-                {isLoading ? 'Cargando...' : 'Registrarse'}
-            </button>
+                Registrarse
+            </Button>
         </form>
     )
 }
