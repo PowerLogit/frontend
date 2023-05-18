@@ -3,17 +3,26 @@ const Button = ({
     type = 'button',
     className,
     disabled = false,
+    children,
+    loading,
     ...props
-}) => (
-    <button
-        type={type}
-        disabled={disabled}
-        {...props}
-        className={`${KIND_CLASSNAME[kind]} ${
-            disabled ? 'cursor-not-allowed' : ''
-        } ${className || ''}`}
-    ></button>
-)
+}) => {
+    const baseStyles = KIND_CLASSNAME[kind]
+    const styleDisabled = disabled ? 'cursor-not-allowed' : ''
+    const optinalStyles = className || ''
+    const styles = `${baseStyles} ${styleDisabled} ${optinalStyles}`
+
+    return (
+        <button
+            type={type}
+            disabled={disabled || loading}
+            {...props}
+            className={styles}
+        >
+            {loading ? 'Cargando...' : children}
+        </button>
+    )
+}
 
 const KIND_CLASSNAME = {
     primary:
