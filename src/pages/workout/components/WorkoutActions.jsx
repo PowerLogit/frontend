@@ -1,17 +1,23 @@
 import { Dropdown } from 'flowbite-react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import Modal from '../../../components/Modal'
 import PencilIcon from '../../../components/ui/svg/PencilIcon'
 import ThreeDotsIcon from '../../../components/ui/svg/ThreeDotsIcon'
 import TrashIcon from '../../../components/ui/svg/TrashIcon'
+import WorkoutCompleteForm from './forms/WorkoutCompleteForm'
 import WorkoutDeleteForm from './forms/WorkoutDeleteForm'
 import WorkoutEditForm from './forms/WorkoutEditForm'
-import { Link } from 'react-router-dom'
 
 const WorkoutActions = ({ workout }) => {
-    const { modalContent, setEditForm, setDeleteForm, resetModalContent } =
-        useModal(workout)
+    const {
+        modalContent,
+        setEditForm,
+        setDeleteForm,
+        setIsComplete,
+        resetModalContent,
+    } = useModal(workout)
 
     return (
         <>
@@ -29,6 +35,11 @@ const WorkoutActions = ({ workout }) => {
                 <Dropdown.Item>
                     <Link to={`/calc/${workout.weight}`}>Discos</Link>
                 </Dropdown.Item>
+                {!workout.isCompleted && (
+                    <Dropdown.Item onClick={setIsComplete}>
+                        Completar
+                    </Dropdown.Item>
+                )}
             </Dropdown>
         </>
     )
@@ -61,11 +72,29 @@ const useModal = (workout) => {
         })
     }
 
+    const setIsComplete = () => {
+        setModalContent({
+            title: 'Completar workout',
+            body: (
+                <WorkoutCompleteForm
+                    currentWorkout={workout}
+                    closeModal={resetModalContent}
+                />
+            ),
+        })
+    }
+
     const resetModalContent = () => {
         setModalContent(initialStateModal)
     }
 
-    return { modalContent, setEditForm, setDeleteForm, resetModalContent }
+    return {
+        modalContent,
+        setEditForm,
+        setDeleteForm,
+        setIsComplete,
+        resetModalContent,
+    }
 }
 
 const initialStateModal = {

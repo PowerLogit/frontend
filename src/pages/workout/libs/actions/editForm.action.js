@@ -24,3 +24,8 @@ export const setDate = (date) => ({
     type: EDIT_FORM_ACTION.SET_DATE,
     payload: date,
 })
+
+export const setIsSuccessful = (isSuccessful) => ({
+    type: EDIT_FORM_ACTION.SET_IS_SUCCESSFUL,
+    payload: isSuccessful,
+})

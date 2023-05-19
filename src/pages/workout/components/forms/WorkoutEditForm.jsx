@@ -4,6 +4,7 @@ import { useContext, useState } from 'react'
 
 import {
     setDate,
+    setIsSuccessful,
     setName,
     setReps,
     setSets,
@@ -12,18 +13,24 @@ import {
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 import useEditForm from '../../libs/hooks/useEditForm'
 import { editWorkoutService } from '../../libs/services/workout.service'
+import InputCheckbox from '../../../../components/ui/components/form/InputCheckbox'
 
 const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
     const { onSuccess } = useContext(WorkoutFormsContext)
 
     const { fomrValues, isFormInvalid, dispatchFormValues } =
         useEditForm(currentWorkout)
-    const { name, sets, reps, weight, date } = fomrValues
+    const { name, sets, reps, weight, date, isCompleted, isSuccessful } =
+        fomrValues
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const handleInputChange = (setValue) => (ev) => {
         dispatchFormValues(setValue(ev.target.value))
+    }
+
+    const handleInputCheckboxChange = () => {
+        dispatchFormValues(setIsSuccessful(!isSuccessful))
     }
 
     return (
@@ -81,9 +88,18 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
                     onChange={handleInputChange(setWeight)}
                     className={'w-full'}
                 />
+                {isCompleted && (
+                    <InputCheckbox
+                        label='Exitoso'
+                        name='isSuccessful'
+                        value={isSuccessful}
+                        checked={isSuccessful}
+                        onChange={handleInputCheckboxChange}
+                    />
+                )}
             </div>
             <Button type='submit' disabled={isFormInvalid || isSubmitting}>
-                {isSubmitting ? 'Cargando...' : 'Crear'}
+                {isSubmitting ? 'Cargando...' : 'Editar'}
             </Button>
         </form>
     )
@@ -106,6 +122,7 @@ const handleSubmit = async (
         reps: Number(workout.reps.value),
         weight: Number(workout.weight.value),
         date: workout.date,
+        isSuccessful: workout.isSuccessful,
     }
 
     const res = await editWorkoutService(newWorkout)
