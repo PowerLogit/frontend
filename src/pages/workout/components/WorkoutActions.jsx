@@ -1,14 +1,11 @@
 import { Dropdown } from 'flowbite-react'
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Modal from '../../../components/Modal'
 import PencilIcon from '../../../components/ui/svg/PencilIcon'
 import ThreeDotsIcon from '../../../components/ui/svg/ThreeDotsIcon'
 import TrashIcon from '../../../components/ui/svg/TrashIcon'
-import WorkoutCompleteForm from './forms/WorkoutCompleteForm'
-import WorkoutDeleteForm from './forms/WorkoutDeleteForm'
-import WorkoutEditForm from './forms/WorkoutEditForm'
+import useWorkoutActions from '../libs/hooks/useWorkoutActions'
 
 const WorkoutActions = ({ workout }) => {
     const {
@@ -16,8 +13,9 @@ const WorkoutActions = ({ workout }) => {
         setEditForm,
         setDeleteForm,
         setIsComplete,
+        setComments,
         resetModalContent,
-    } = useModal(workout)
+    } = useWorkoutActions(workout)
 
     return (
         <>
@@ -40,66 +38,12 @@ const WorkoutActions = ({ workout }) => {
                         Completar
                     </Dropdown.Item>
                 )}
+                <Dropdown.Item onClick={setComments}>
+                    Ver comentarios
+                </Dropdown.Item>
             </Dropdown>
         </>
     )
-}
-
-const useModal = (workout) => {
-    const [modalContent, setModalContent] = useState(initialStateModal)
-
-    const setEditForm = () => {
-        setModalContent({
-            title: 'Editar workout',
-            body: (
-                <WorkoutEditForm
-                    currentWorkout={workout}
-                    closeModal={resetModalContent}
-                />
-            ),
-        })
-    }
-
-    const setDeleteForm = () => {
-        setModalContent({
-            title: 'Eliminar workout',
-            body: (
-                <WorkoutDeleteForm
-                    currentWorkout={workout}
-                    closeModal={resetModalContent}
-                />
-            ),
-        })
-    }
-
-    const setIsComplete = () => {
-        setModalContent({
-            title: 'Completar workout',
-            body: (
-                <WorkoutCompleteForm
-                    currentWorkout={workout}
-                    closeModal={resetModalContent}
-                />
-            ),
-        })
-    }
-
-    const resetModalContent = () => {
-        setModalContent(initialStateModal)
-    }
-
-    return {
-        modalContent,
-        setEditForm,
-        setDeleteForm,
-        setIsComplete,
-        resetModalContent,
-    }
-}
-
-const initialStateModal = {
-    title: '',
-    body: null,
 }
 
 export default WorkoutActions
