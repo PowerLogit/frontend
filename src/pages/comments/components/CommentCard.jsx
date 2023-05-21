@@ -6,12 +6,13 @@ import WorkoutCommentActions from './WorkoutCommentActions'
 const CommentCard = ({ comment, removeComment }) => {
     const { user } = useAuthContext()
 
-    const { author, text, createdAt } = comment
+    const { author, text, createdAt, updatedAt } = comment
     const { name, surname, username } = author
 
     const date = new Date(createdAt)
     const formattedDate = formatDate(date)
 
+    const isEdited = createdAt !== updatedAt
     const isAuthor = username === user.username
 
     return (
@@ -28,6 +29,7 @@ const CommentCard = ({ comment, removeComment }) => {
                     </p>
                     <p className='text-sm text-gray-600 dark:text-gray-400'>
                         <time>{formattedDate}</time>
+                        {isEdited && <i> (editado)</i>}
                     </p>
                 </div>
                 {isAuthor && (
