@@ -1,9 +1,25 @@
 import { useState } from 'react'
 
 import WorkoutCommentDeleteForm from '../../components/forms/WorkoutCommentDeleteForm'
+import WorkoutCommnetEditForm from '../../components/forms/WorkoutCommnetEditForm'
 
-const useWorkoutCommentActions = (comment, removeComment) => {
+const useWorkoutCommentActions = (comment, settersComment) => {
     const [modalContent, setModalContent] = useState(initialStateModal)
+
+    const { updateComment, removeComment } = settersComment
+
+    const setEditForm = () => {
+        setModalContent({
+            title: 'Editar comentario',
+            body: (
+                <WorkoutCommnetEditForm
+                    currentComment={comment}
+                    closeModal={resetModalContent}
+                    updateComment={updateComment}
+                />
+            ),
+        })
+    }
 
     const setDeleteForm = () => {
         setModalContent({
@@ -24,6 +40,7 @@ const useWorkoutCommentActions = (comment, removeComment) => {
 
     return {
         modalContent,
+        setEditForm,
         setDeleteForm,
         resetModalContent,
     }

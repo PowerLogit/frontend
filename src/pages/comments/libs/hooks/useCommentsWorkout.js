@@ -23,6 +23,15 @@ const useCommentsWorkout = (workoutId) => {
         }))
     }
 
+    const updateComment = (updatedComment) => {
+        setComments((prevComments) => ({
+            ...prevComments,
+            data: prevComments.data.map((comment) =>
+                comment.id === updatedComment.id ? updatedComment : comment
+            ),
+        }))
+    }
+
     const removeComment = (commentId) => {
         setComments((prevComments) => ({
             ...prevComments,
@@ -53,8 +62,7 @@ const useCommentsWorkout = (workoutId) => {
         count: comments.count,
         loading: comments.loading,
         error: comments.error,
-        addComment,
-        removeComment,
+        settersComment: { addComment, updateComment, removeComment },
     }
 }
 

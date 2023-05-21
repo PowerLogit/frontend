@@ -3,7 +3,7 @@ import { useAuthContext } from '@auth/libs/context/auth.context'
 import { formatDate } from '../../workout/libs/functions/normaliceDate'
 import WorkoutCommentActions from './WorkoutCommentActions'
 
-const CommentCard = ({ comment, removeComment }) => {
+const CommentCard = ({ comment, settersComment }) => {
     const { user } = useAuthContext()
 
     const { author, text, createdAt, updatedAt } = comment
@@ -35,7 +35,7 @@ const CommentCard = ({ comment, removeComment }) => {
                 {isAuthor && (
                     <WorkoutCommentActions
                         comment={comment}
-                        removeComment={removeComment}
+                        settersComment={settersComment}
                     />
                 )}
             </footer>

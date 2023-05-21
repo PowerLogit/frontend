@@ -10,7 +10,7 @@ const WorkoutComments = () => {
     const { idWorkout } = useParams()
 
     const workoutData = useWorkout(idWorkout)
-    const { comments, loading, error, addComment, removeComment } =
+    const { comments, loading, error, settersComment } =
         useCommentsWorkout(idWorkout)
 
     const workout = getWorkout(workoutData)
@@ -21,14 +21,14 @@ const WorkoutComments = () => {
 
             <WorkoutCommnetCreateForm
                 idWorkout={idWorkout}
-                addComment={addComment}
+                addComment={settersComment.addComment}
             />
 
             <CommentRows
                 comments={comments}
                 loading={loading}
                 error={error}
-                removeComment={removeComment}
+                settersComment={settersComment}
             />
         </div>
     )

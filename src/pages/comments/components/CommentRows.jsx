@@ -1,6 +1,6 @@
 import CommentCard from './CommentCard'
 
-const CommentRows = ({ comments, loading, error, removeComment }) => {
+const CommentRows = ({ comments, loading, error, settersComment }) => {
     if (error)
         return (
             <p className='dark:text-white'>Error al cargar los comentarios</p>
@@ -15,7 +15,7 @@ const CommentRows = ({ comments, loading, error, removeComment }) => {
                 <CommentCard
                     key={index}
                     comment={comment}
-                    removeComment={removeComment}
+                    settersComment={settersComment}
                 />
             ))}
         </div>

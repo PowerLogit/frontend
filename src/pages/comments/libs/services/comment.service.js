@@ -62,11 +62,21 @@ export const getCommentWorkoutService = async (idComment, cancelToken) => {
     }
 }
 
-export const createWorkoutCommentService = async (comment) => {
+export const createWorkoutCommentService = async (payload) => {
     return await api({
         method: 'POST',
         url: '/comments',
-        payload: comment,
+        payload,
+    })
+}
+
+export const editWorkoutCommentService = async (comment) => {
+    const { id, ...payload } = comment
+
+    return await api({
+        method: 'PATCH',
+        url: `/comments/${id}`,
+        payload,
     })
 }
 

@@ -1,10 +1,21 @@
 import { useState } from 'react'
 
 import Button from '../../../../components/ui/components/buttons/Button'
-import { createWorkoutCommentService } from '../../libs/services/comment.service'
+import { editWorkoutCommentService } from '../../libs/services/comment.service'
 
-const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
-    const [form, setForm] = useState(INITIAL_STATE)
+const getInitialState = (comment) => ({
+    text: {
+        value: comment.text,
+        error: undefined,
+    },
+})
+
+const WorkoutCommnetEditForm = ({
+    currentComment,
+    updateComment,
+    closeModal,
+}) => {
+    const [form, setForm] = useState(() => getInitialState(currentComment))
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const isFormInvalid = !form.text.value || form.text.error
@@ -18,8 +29,6 @@ const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
         setForm(setValue(ev.target.value))
     }
 
-    const setResetForm = () => setForm(INITIAL_STATE)
-
     const setText = (value) => {
         const error = validateText(value)
 
@@ -31,20 +40,19 @@ const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
 
     return (
         <form
-            className='mb-6'
             onSubmit={(ev) =>
                 handleSubmit(
                     ev,
                     form,
-                    idWorkout,
+                    currentComment,
                     setIsSubmitting,
-                    setResetForm,
-                    addComment
+                    updateComment,
+                    closeModal
                 )
             }
         >
-            <div className='w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600'>
-                <div className='p-4 py-2 bg-white rounded-t-lg dark:bg-gray-800'>
+            <div className='w-full border border-gray-200 rounded-b-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600'>
+                <div className='p-4 py-2 bg-white dark:bg-gray-800'>
                     <label htmlFor='comment' className='sr-only'>
                         Your comment
                     </label>
@@ -66,7 +74,7 @@ const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
                     <Button
                         kind='outline'
                         loading={isSubmitting}
-                        onClick={setResetForm}
+                        onClick={closeModal}
                         className={'max-w-40'}
                     >
                         Cancelar
@@ -77,7 +85,7 @@ const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
                         disabled={isFormInvalid}
                         className={'max-w-40'}
                     >
-                        Crear
+                        Editar
                     </Button>
                 </div>
             </div>
@@ -88,35 +96,25 @@ const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
 const handleSubmit = async (
     ev,
     fomrValues,
-    idWorkout,
+    currentComment,
     setIsSubmitting,
-    setResetForm,
-    addComment
+    updateComment,
+    closeModal
 ) => {
     ev.preventDefault()
     setIsSubmitting(true)
 
-    const newComment = {
-        id: crypto.randomUUID(),
-        text: fomrValues.text.value,
-        workout: idWorkout,
-    }
+    const text = fomrValues.text.value
+    const commentUpdated = { id: currentComment.id, text }
 
-    const { data, status } = await createWorkoutCommentService(newComment)
+    const { data, status } = await editWorkoutCommentService(commentUpdated)
 
-    if (status === 201) {
-        setResetForm()
-        addComment(data)
+    if (status === 200) {
+        updateComment(data)
+        closeModal()
     }
 
     setIsSubmitting(false)
 }
 
-const INITIAL_STATE = {
-    text: {
-        value: '',
-        error: undefined,
-    },
-}
-
-export default WorkoutCommnetCreateForm
+export default WorkoutCommnetEditForm
