@@ -10,6 +10,7 @@ import PageNotFound from '../components/PageNotFound'
 import Calculate from './calculate/Calculate'
 import Home from './home/Home'
 import Preferences from './settings/Preferences'
+import WorkoutComments from './comments/WorkoutComments'
 
 const Router = () => {
     return (
@@ -29,7 +30,11 @@ const Router = () => {
 
                             {/* Private routes */}
                             <Route element={<PrivateRoute />}>
-                                <Route path='/workout' element={<Workout />} />
+                                <Route path='/workouts' element={<Workout />} />
+                                <Route
+                                    path='/workout/:idWorkout'
+                                    element={<WorkoutComments />}
+                                />
                                 <Route
                                     path='/calc/:weight?'
                                     element={<Calculate />}

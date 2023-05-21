@@ -4,7 +4,7 @@ import { useReducer } from 'react'
 import WorkoutFilters from './components/WorkoutFilters'
 import WorkoutRows from './components/WorkoutRows'
 import { reset } from './libs/actions/filters.action'
-import useWorkout from './libs/hooks/useWorkout'
+import useWorkouts from './libs/hooks/useWorkouts'
 import WorkoutFormsProvider from './libs/providers/WorkoutFormsContext.provider'
 import {
     filterReducer,
@@ -18,7 +18,7 @@ const Workout = () => {
     )
 
     const { workouts, totalWorkouts, workoutsLoading, workoutsError } =
-        useWorkout(filters)
+        useWorkouts(filters)
 
     return (
         <div className='max-w-3xl mx-auto px-5 md:px-0 mt-5'>

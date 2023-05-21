@@ -21,12 +21,14 @@ const Calculate = () => {
                 <Button
                     kind={calculate === 'basic' ? 'primary' : 'outline'}
                     onClick={() => setCalculate('basic')}
+                    className='w-full'
                 >
                     Basico
                 </Button>
                 <Button
                     kind={calculate === 'aprox' ? 'primary' : 'outline'}
                     onClick={() => setCalculate('aprox')}
+                    className='w-full'
                 >
                     Aproximaciones
                 </Button>
