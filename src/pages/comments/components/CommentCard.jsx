@@ -1,14 +1,21 @@
-import { formatDate } from '../../libs/functions/normaliceDate'
+import { useAuthContext } from '@auth/libs/context/auth.context'
 
-const CommentCard = ({ comment }) => {
+import { formatDate } from '../../workout/libs/functions/normaliceDate'
+import WorkoutCommentActions from './WorkoutCommentActions'
+
+const CommentCard = ({ comment, removeComment }) => {
+    const { user } = useAuthContext()
+
     const { author, text, createdAt } = comment
     const { name, surname, username } = author
 
     const date = new Date(createdAt)
     const formattedDate = formatDate(date)
 
+    const isAuthor = username === user.username
+
     return (
-        <article className='p-6 text-base bg-white rounded-lg dark:bg-gray-900'>
+        <article className='p-6 text-base rounded-lg shadow border border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-600'>
             <footer className='flex justify-between items-center mb-2'>
                 <div className='flex items-center'>
                     <p className='inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white'>
@@ -23,6 +30,12 @@ const CommentCard = ({ comment }) => {
                         <time>{formattedDate}</time>
                     </p>
                 </div>
+                {isAuthor && (
+                    <WorkoutCommentActions
+                        comment={comment}
+                        removeComment={removeComment}
+                    />
+                )}
             </footer>
             <p className='text-gray-500 dark:text-gray-400'>{text}</p>
         </article>

@@ -2,66 +2,57 @@ import { useEffect, useState } from 'react'
 import { sourceCancelToken } from '@api/axios.api'
 import { getWorkoutService } from '../services/workout.service'
 
-const useWorkout = (filters) => {
-    const [workouts, setWorkouts] = useState(INITIAL_STATE)
+const useWorkout = (idWorkout) => {
+    const [workout, setWorkout] = useState(INITIAL_STATE)
 
-    const setData = (newData, newCount) => {
-        setWorkouts({
-            data: newData,
-            count: newCount,
+    const setData = (data) => {
+        setWorkout({
+            data,
             loading: false,
             error: null,
         })
     }
 
     const setError = (newError) =>
-        setWorkouts({ data: [], count: 0, loading: false, error: newError })
-
-    const deleteWorkouts = (id) => {
-        setWorkouts({
-            ...workouts,
-            data: workouts.data.filter((workout) => workout.id !== id),
-        })
-    }
+        setWorkout({ data: null, loading: false, error: newError })
 
     const setLoading = () =>
-        setWorkouts((prevAuth) => ({ ...prevAuth, loading: true }))
+        setWorkout((prevWorkout) => ({ ...prevWorkout, loading: true }))
 
     useEffect(() => {
-        const cancelToken = sourceCancelToken()
+        if (!idWorkout) return
 
-        loadWorkouts({ setLoading, setData, setError }, filters, cancelToken)
+        const cancelToken = sourceCancelToken()
+        const setters = { setLoading, setData, setError }
+
+        loadWorkout(idWorkout, setters, cancelToken)
 
         return () => cancelToken.cancel()
-    }, [filters])
+    }, [idWorkout])
 
     return {
-        workouts: workouts.data,
-        totalWorkouts: workouts.count,
-        workoutsLoading: workouts.loading,
-        workoutsError: workouts.error,
-        setWorkouts,
-        deleteWorkouts,
+        workout: workout.data,
+        workoutLoading: workout.loading,
+        workoutError: workout.error,
     }
 }
 
 const INITIAL_STATE = {
-    data: [],
-    count: 0,
+    data: null,
     loading: true,
     error: null,
 }
 
-const loadWorkouts = async (setters, filters, signal) => {
+const loadWorkout = async (idWorkout, setters, signal) => {
     setters.setLoading()
 
-    const { workout, count, error, isAborted } = await getWorkoutService(
-        filters,
+    const { workout, error, isAborted } = await getWorkoutService(
+        idWorkout,
         signal
     )
 
     if (isAborted) return
-    if (workout) setters.setData(workout, count)
+    if (workout) setters.setData(workout)
     else setters.setError(error)
 }
 

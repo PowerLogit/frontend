@@ -5,7 +5,7 @@ export const getCommentsWorkoutService = async (idWorkout, cancelToken) => {
     try {
         const { status, data, error } = await api({
             method: 'GET',
-            url: `/comments/${idWorkout}`,
+            url: `/${idWorkout}/comments`,
             cancelToken,
         })
 
@@ -25,7 +25,7 @@ export const getCommentsWorkoutService = async (idWorkout, cancelToken) => {
         const isAborted = JSON.parse(error.message)?.isCancel
 
         return {
-            workout: undefined,
+            data: undefined,
             count: 0,
             error: !isAborted,
             isAborted,
@@ -33,10 +33,46 @@ export const getCommentsWorkoutService = async (idWorkout, cancelToken) => {
     }
 }
 
+export const getCommentWorkoutService = async (idComment, cancelToken) => {
+    try {
+        const { status, data, error } = await api({
+            method: 'GET',
+            url: `/comments/${idComment}`,
+            cancelToken,
+        })
+
+        const isOk = HttpStatusCode.OK === status
+        if (!isOk) {
+            throw new Error(JSON.stringify(error))
+        }
+
+        return {
+            comment: data,
+            error: !isOk,
+            aborted: false,
+        }
+    } catch (error) {
+        const isAborted = JSON.parse(error.message)?.isCancel
+
+        return {
+            comment: undefined,
+            error: !isAborted,
+            isAborted,
+        }
+    }
+}
+
 export const createWorkoutCommentService = async (comment) => {
-    return api({
+    return await api({
         method: 'POST',
         url: '/comments',
         payload: comment,
+    })
+}
+
+export const deleteWorkoutCommentService = async (id) => {
+    return await api({
+        method: 'DELETE',
+        url: `/comments/${id}`,
     })
 }

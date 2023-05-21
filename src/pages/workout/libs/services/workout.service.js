@@ -1,7 +1,7 @@
 import { api } from '@api/axios.api'
 import { HttpStatusCode } from '@constant/HttpStatusCode'
 
-export const getWorkoutService = async (filters, cancelToken) => {
+export const getWorkoutsService = async (filters, cancelToken) => {
     const { itemPerPage: limit, ...restFilters } = filters
 
     try {
@@ -31,6 +31,35 @@ export const getWorkoutService = async (filters, cancelToken) => {
         return {
             workout: undefined,
             count: 0,
+            error: !isAborted,
+            isAborted,
+        }
+    }
+}
+
+export const getWorkoutService = async (id, cancelToken) => {
+    try {
+        const { status, data, error } = await api({
+            method: 'GET',
+            url: `/workouts/${id}`,
+            cancelToken,
+        })
+
+        const isOk = HttpStatusCode.OK === status
+        if (!isOk) {
+            throw new Error(JSON.stringify(error))
+        }
+
+        return {
+            workout: data,
+            error: !isOk,
+            aborted: false,
+        }
+    } catch (error) {
+        const isAborted = JSON.parse(error.message)?.isCancel
+
+        return {
+            workout: undefined,
             error: !isAborted,
             isAborted,
         }

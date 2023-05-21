@@ -15,11 +15,27 @@ const useCommentsWorkout = (workoutId) => {
         })
     }
 
-    const setError = (error) =>
-        setComments({ ...INITIAL_STATE, loading: false, error })
+    const addComment = (newComment) => {
+        setComments((prevComments) => ({
+            ...prevComments,
+            data: [...prevComments.data, newComment],
+            count: prevComments.count + 1,
+        }))
+    }
+
+    const removeComment = (commentId) => {
+        setComments((prevComments) => ({
+            ...prevComments,
+            data: prevComments.data.filter(({ id }) => id !== commentId),
+            count: prevComments.count - 1,
+        }))
+    }
 
     const setLoading = () =>
         setComments((prevAuth) => ({ ...prevAuth, loading: true }))
+
+    const setError = (error) =>
+        setComments({ ...INITIAL_STATE, loading: false, error })
 
     useEffect(() => {
         if (!workoutId) return
@@ -37,6 +53,8 @@ const useCommentsWorkout = (workoutId) => {
         count: comments.count,
         loading: comments.loading,
         error: comments.error,
+        addComment,
+        removeComment,
     }
 }
 

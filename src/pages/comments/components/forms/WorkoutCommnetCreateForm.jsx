@@ -1,9 +1,12 @@
 import { useState } from 'react'
 
 import Button from '../../../../components/ui/components/buttons/Button'
-import { createWorkoutCommentService } from '../../libs/services/comment.service'
+import {
+    createWorkoutCommentService,
+    getCommentWorkoutService,
+} from '../../libs/services/comment.service'
 
-const WorkoutCommnetCreateForm = ({ currentWorkout, onSuccess }) => {
+const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
     const [form, setForm] = useState(INITIAL_STATE)
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -18,6 +21,8 @@ const WorkoutCommnetCreateForm = ({ currentWorkout, onSuccess }) => {
         setForm(setValue(ev.target.value))
     }
 
+    const setResetForm = () => setForm(INITIAL_STATE)
+
     const setText = (value) => {
         const error = validateText(value)
 
@@ -27,11 +32,20 @@ const WorkoutCommnetCreateForm = ({ currentWorkout, onSuccess }) => {
         }
     }
 
-    const onHandleSubmit = () => (ev) =>
-        handleSubmit(ev, form, currentWorkout, setIsSubmitting, onSuccess)
-
     return (
-        <form className='mb-6' onSubmit={onHandleSubmit}>
+        <form
+            className='mb-6'
+            onSubmit={(ev) =>
+                handleSubmit(
+                    ev,
+                    form,
+                    idWorkout,
+                    setIsSubmitting,
+                    setResetForm,
+                    addComment
+                )
+            }
+        >
             <div className='w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600'>
                 <div className='p-4 py-2 bg-white rounded-t-lg dark:bg-gray-800'>
                     <label htmlFor='comment' className='sr-only'>
@@ -56,7 +70,7 @@ const WorkoutCommnetCreateForm = ({ currentWorkout, onSuccess }) => {
                         type='submit'
                         loading={isSubmitting}
                         disabled={isFormInvalid}
-                        className={'w-40'}
+                        className={'max-w-40'}
                     >
                         Crear comentario
                     </Button>
@@ -69,9 +83,10 @@ const WorkoutCommnetCreateForm = ({ currentWorkout, onSuccess }) => {
 const handleSubmit = async (
     ev,
     fomrValues,
-    currentWorkout,
+    idWorkout,
     setIsSubmitting,
-    onSuccess
+    setResetForm,
+    addComment
 ) => {
     ev.preventDefault()
     setIsSubmitting(true)
@@ -79,13 +94,18 @@ const handleSubmit = async (
     const newComment = {
         id: crypto.randomUUID(),
         text: fomrValues.text.value,
-        workout: currentWorkout.id,
+        workout: idWorkout,
     }
 
     const res = await createWorkoutCommentService(newComment)
 
     if (res.status === 201) {
-        onSuccess()
+        setResetForm()
+
+        const { comment } = await getCommentWorkoutService(newComment.id)
+        if (comment) {
+            addComment(comment)
+        }
     }
 
     setIsSubmitting(false)

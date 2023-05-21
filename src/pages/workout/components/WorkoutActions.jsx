@@ -1,5 +1,5 @@
 import { Dropdown } from 'flowbite-react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import Modal from '../../../components/Modal'
 import PencilIcon from '../../../components/ui/svg/PencilIcon'
@@ -13,9 +13,11 @@ const WorkoutActions = ({ workout }) => {
         setEditForm,
         setDeleteForm,
         setIsComplete,
-        setComments,
         resetModalContent,
     } = useWorkoutActions(workout)
+
+    const location = useLocation()
+    const showComments = location.pathname === '/workouts'
 
     return (
         <>
@@ -24,12 +26,16 @@ const WorkoutActions = ({ workout }) => {
             </Modal>
 
             <Dropdown arrowIcon={false} inline={true} label={<ThreeDotsIcon />}>
-                <Dropdown.Item icon={PencilIcon} onClick={setEditForm}>
-                    <span className='pl-2'>Editar</span>
-                </Dropdown.Item>
-                <Dropdown.Item icon={TrashIcon} onClick={setDeleteForm}>
-                    <span className='pl-2'>Eliminar</span>
-                </Dropdown.Item>
+                {showComments && (
+                    <Dropdown.Item icon={PencilIcon} onClick={setEditForm}>
+                        <span className='pl-2'>Editar</span>
+                    </Dropdown.Item>
+                )}
+                {showComments && (
+                    <Dropdown.Item icon={TrashIcon} onClick={setDeleteForm}>
+                        <span className='pl-2'>Eliminar</span>
+                    </Dropdown.Item>
+                )}
                 <Dropdown.Item>
                     <Link to={`/calc/${workout.weight}`}>Discos</Link>
                 </Dropdown.Item>
@@ -38,9 +44,13 @@ const WorkoutActions = ({ workout }) => {
                         Completar
                     </Dropdown.Item>
                 )}
-                <Dropdown.Item onClick={setComments}>
-                    Ver comentarios
-                </Dropdown.Item>
+                {showComments && (
+                    <Dropdown.Item>
+                        <Link to={`/workout/${workout.id}`}>
+                            Ver comentarios
+                        </Link>
+                    </Dropdown.Item>
+                )}
             </Dropdown>
         </>
     )

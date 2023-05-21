@@ -1,6 +1,6 @@
 import CommentCard from './CommentCard'
 
-const CommentRows = ({ comments, loading, error }) => {
+const CommentRows = ({ comments, loading, error, removeComment }) => {
     if (error)
         return (
             <p className='dark:text-white'>Error al cargar los comentarios</p>
@@ -12,7 +12,11 @@ const CommentRows = ({ comments, loading, error }) => {
     return (
         <div className='flex flex-col gap-4 text-gray-500'>
             {comments.map((comment, index) => (
-                <CommentCard key={index} comment={comment} />
+                <CommentCard
+                    key={index}
+                    comment={comment}
+                    removeComment={removeComment}
+                />
             ))}
         </div>
     )
