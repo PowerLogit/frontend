@@ -5,7 +5,6 @@ import useWorkout from '../workout/libs/hooks/useWorkout'
 import CommentRows from './components/CommentRows'
 import WorkoutCommnetCreateForm from './components/forms/WorkoutCommnetCreateForm'
 import useCommentsWorkout from './libs/hooks/useCommentsWorkout'
-import { Toaster } from 'sonner'
 
 const WorkoutComments = () => {
     const { idWorkout } = useParams()
@@ -18,7 +17,6 @@ const WorkoutComments = () => {
 
     return (
         <div className='max-w-3xl mx-auto px-5 md:px-0 mt-5'>
-            <Toaster richColors position='top-right' />
             <div className='flex justify-center mb-6'>{workout}</div>
 
             <WorkoutCommnetCreateForm
