@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
 import InputCheckbox from '../../../../components/ui/components/form/InputCheckbox'
@@ -140,12 +141,17 @@ const handleSubmit = async (
 
     const res = await editWorkoutService(newWorkout)
 
-    if (res.status !== 204) {
-        setIsSubmitting(false)
+    if (res.status === 204) {
+        onSuccess()
+        closeModal()
+        toast.success('¡Entrenamiento actualizado exitosamente!')
+    } else {
+        toast.error(
+            'Ha ocurrido un error al actualizar el entrenamiento. Por favor, inténtalo de nuevo'
+        )
     }
 
-    onSuccess()
-    closeModal()
+    setIsSubmitting(false)
 }
 
 export default WorkoutEditForm

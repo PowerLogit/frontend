@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
 import InputText from '../../../../components/ui/components/form/InputText'
@@ -127,6 +128,11 @@ const handleSubmit = async (
     if (res.status === 201) {
         onSuccess()
         closeModal()
+        toast.success('¡Entrenamiento creado exitosamente!')
+    } else {
+        toast.error(
+            'Ha ocurrido un error al crear el entrenamiento. Por favor, inténtalo de nuevo'
+        )
     }
 
     setIsSubmitting(false)
