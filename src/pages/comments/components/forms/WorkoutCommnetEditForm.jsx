@@ -2,55 +2,30 @@ import { useState } from 'react'
 
 import Button from '../../../../components/ui/components/buttons/Button'
 import { editWorkoutCommentService } from '../../libs/services/comment.service'
-
-const getInitialState = (comment) => ({
-    text: {
-        value: comment.text,
-        error: undefined,
-    },
-})
+import useCommentEditForm from '../../libs/hooks/useCommentEditForm'
 
 const WorkoutCommnetEditForm = ({
     currentComment,
     updateComment,
     closeModal,
 }) => {
-    const [form, setForm] = useState(() => getInitialState(currentComment))
+    const { form, isFormInvalid, handleInputChange, setText } =
+        useCommentEditForm(currentComment)
+
     const [isSubmitting, setIsSubmitting] = useState(false)
 
-    const isFormInvalid = !form.text.value || form.text.error
-
-    const validateText = (text) => {
-        if (text.length < 1 || text.length > 201)
-            return 'Longitud entre 1 y 200 caracteres'
-    }
-
-    const handleInputChange = (setValue) => (ev) => {
-        setForm(setValue(ev.target.value))
-    }
-
-    const setText = (value) => {
-        const error = validateText(value)
-
-        return {
-            ...form,
-            text: { value, error },
-        }
-    }
+    const onHandleSubmit = async (ev) =>
+        handleSubmit(
+            ev,
+            form,
+            currentComment,
+            setIsSubmitting,
+            updateComment,
+            closeModal
+        )
 
     return (
-        <form
-            onSubmit={(ev) =>
-                handleSubmit(
-                    ev,
-                    form,
-                    currentComment,
-                    setIsSubmitting,
-                    updateComment,
-                    closeModal
-                )
-            }
-        >
+        <form onSubmit={onHandleSubmit}>
             <div className='w-full border border-gray-200 rounded-b-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600'>
                 <div className='p-4 py-2 bg-white dark:bg-gray-800'>
                     <label htmlFor='comment' className='sr-only'>
