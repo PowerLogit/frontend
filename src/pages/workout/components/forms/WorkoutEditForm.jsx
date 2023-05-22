@@ -1,7 +1,8 @@
-import Button from '@ui/components/buttons/Button'
-import InputText from '@ui/components/form/InputText'
 import { useContext, useState } from 'react'
 
+import Button from '../../../../components/ui/components/buttons/Button'
+import InputCheckbox from '../../../../components/ui/components/form/InputCheckbox'
+import InputText from '../../../../components/ui/components/form/InputText'
 import {
     setDate,
     setIsSuccessful,
@@ -13,7 +14,6 @@ import {
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 import useEditForm from '../../libs/hooks/useEditForm'
 import { editWorkoutService } from '../../libs/services/workout.service'
-import InputCheckbox from '../../../../components/ui/components/form/InputCheckbox'
 
 const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
     const { onSuccess } = useContext(WorkoutFormsContext)
@@ -98,9 +98,22 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
                     />
                 )}
             </div>
-            <Button type='submit' disabled={isFormInvalid || isSubmitting}>
-                {isSubmitting ? 'Cargando...' : 'Editar'}
-            </Button>
+            <div className='flex gap-4'>
+                <Button
+                    kind='outline'
+                    loading={isSubmitting}
+                    onClick={closeModal}
+                >
+                    Cancelar
+                </Button>
+                <Button
+                    type='submit'
+                    loading={isSubmitting}
+                    disabled={isFormInvalid}
+                >
+                    Crear
+                </Button>
+            </div>
         </form>
     )
 }

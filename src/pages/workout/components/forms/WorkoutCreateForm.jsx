@@ -1,9 +1,7 @@
-import InputText from '@ui/components/form/InputText'
-import Button from '@ui/components/buttons/Button'
-import useCreateForm from '../../libs/hooks/useCreateForm'
-import { createWorkoutService } from '../../libs/services/workout.service'
 import { useContext, useState } from 'react'
-import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
+
+import Button from '../../../../components/ui/components/buttons/Button'
+import InputText from '../../../../components/ui/components/form/InputText'
 import {
     setDate,
     setName,
@@ -11,6 +9,9 @@ import {
     setSets,
     setWeight,
 } from '../../libs/actions/createForm.action'
+import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
+import useCreateForm from '../../libs/hooks/useCreateForm'
+import { createWorkoutService } from '../../libs/services/workout.service'
 
 const WorkoutCreateForm = ({ closeModal }) => {
     const { onSuccess } = useContext(WorkoutFormsContext)
@@ -80,9 +81,22 @@ const WorkoutCreateForm = ({ closeModal }) => {
                     className={'w-full'}
                 />
             </div>
-            <Button type='submit' disabled={isFormInvalid || isSubmitting}>
-                {isSubmitting ? 'Cargando...' : 'Crear'}
-            </Button>
+            <div className='flex gap-4'>
+                <Button
+                    kind='outline'
+                    loading={isSubmitting}
+                    onClick={closeModal}
+                >
+                    Cancelar
+                </Button>
+                <Button
+                    type='submit'
+                    loading={isSubmitting}
+                    disabled={isFormInvalid}
+                >
+                    Crear
+                </Button>
+            </div>
         </form>
     )
 }
