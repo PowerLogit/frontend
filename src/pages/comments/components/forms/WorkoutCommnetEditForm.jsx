@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
 import { editWorkoutCommentService } from '../../libs/services/comment.service'
@@ -87,6 +88,11 @@ const handleSubmit = async (
     if (status === 200) {
         updateComment(data)
         closeModal()
+        toast.success('¡Comentario actualizado exitosamente!')
+    } else {
+        toast.error(
+            'Ha ocurrido un error al actualizar el comentario. Por favor, inténtalo de nuevo.'
+        )
     }
 
     setIsSubmitting(false)

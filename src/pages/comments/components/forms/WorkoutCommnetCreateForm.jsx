@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
 import useCommentCreateForm from '../../libs/hooks/useCommentCreateForm'
@@ -86,6 +87,11 @@ const handleSubmit = async (
     if (status === 201) {
         setResetForm()
         addComment(data)
+        toast.success('¡Comentario creado exitosamente!')
+    } else {
+        toast.error(
+            'Ha ocurrido un error al crear el comentario. Por favor, inténtalo de nuevo.'
+        )
     }
 
     setIsSubmitting(false)
