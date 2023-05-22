@@ -3,15 +3,15 @@ import PrivateRoute from '@auth/components/PrivateRoute'
 import { AuthContextProvider } from '@auth/libs/provider/auth.provider'
 import Workout from '@workout/Workout'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Toaster } from 'sonner'
 
 import Footer from '../components/Footer'
 import Header from '../components/header/Header'
 import PageNotFound from '../components/PageNotFound'
 import Calculate from './calculate/Calculate'
-import Home from './home/Home'
-import Preferences from './settings/Preferences'
 import WorkoutComments from './comments/WorkoutComments'
-import { Toaster } from 'sonner'
+import Home from './home/Home'
+import Settings from './settings/SideBar'
 
 const Router = () => {
     return (
@@ -44,7 +44,7 @@ const Router = () => {
                                 />
                                 <Route
                                     path='/settings'
-                                    element={<Preferences />}
+                                    element={<Settings />}
                                 />
                             </Route>
 
