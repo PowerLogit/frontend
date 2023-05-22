@@ -1,48 +1,28 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
+import useCommentCreateForm from '../../libs/hooks/useCommentCreateForm'
 import { createWorkoutCommentService } from '../../libs/services/comment.service'
 
 const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
-    const [form, setForm] = useState(INITIAL_STATE)
+    const { form, isFormInvalid, handleInputChange, setResetForm, setText } =
+        useCommentCreateForm()
+
     const [isSubmitting, setIsSubmitting] = useState(false)
 
-    const isFormInvalid = !form.text.value || form.text.error
-
-    const validateText = (text) => {
-        if (text.length < 1 || text.length > 201)
-            return 'Longitud entre 1 y 200 caracteres'
-    }
-
-    const handleInputChange = (setValue) => (ev) => {
-        setForm(setValue(ev.target.value))
-    }
-
-    const setResetForm = () => setForm(INITIAL_STATE)
-
-    const setText = (value) => {
-        const error = validateText(value)
-
-        return {
-            ...form,
-            text: { value, error },
-        }
-    }
+    const onHandleSubmit = async (ev) =>
+        handleSubmit(
+            ev,
+            form,
+            idWorkout,
+            setIsSubmitting,
+            setResetForm,
+            addComment
+        )
 
     return (
-        <form
-            className='mb-6'
-            onSubmit={(ev) =>
-                handleSubmit(
-                    ev,
-                    form,
-                    idWorkout,
-                    setIsSubmitting,
-                    setResetForm,
-                    addComment
-                )
-            }
-        >
+        <form className='mb-6' onSubmit={onHandleSubmit}>
             <div className='w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600'>
                 <div className='p-4 py-2 bg-white rounded-t-lg dark:bg-gray-800'>
                     <label htmlFor='comment' className='sr-only'>
@@ -107,16 +87,14 @@ const handleSubmit = async (
     if (status === 201) {
         setResetForm()
         addComment(data)
+        toast.success('¡Comentario creado exitosamente!')
+    } else {
+        toast.error(
+            'Ha ocurrido un error al crear el comentario. Por favor, inténtalo de nuevo.'
+        )
     }
 
     setIsSubmitting(false)
-}
-
-const INITIAL_STATE = {
-    text: {
-        value: '',
-        error: undefined,
-    },
 }
 
 export default WorkoutCommnetCreateForm

@@ -11,11 +11,14 @@ import Calculate from './calculate/Calculate'
 import Home from './home/Home'
 import Preferences from './settings/Preferences'
 import WorkoutComments from './comments/WorkoutComments'
+import { Toaster } from 'sonner'
 
 const Router = () => {
     return (
         <div className='dark:bg-gray-900 dark:text-white flex flex-col min-h-screen'>
             <BrowserRouter>
+                <Toaster richColors position='top-right' />
+
                 <AuthContextProvider>
                     <main className='flex-grow flex-shrink-0'>
                         <Header />

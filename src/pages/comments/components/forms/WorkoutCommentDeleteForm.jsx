@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
 import TrashIcon from '../../../../components/ui/svg/TrashIcon'
@@ -12,16 +13,11 @@ const WorkoutCommentDeleteForm = ({
     const [isSubmitting, setIsSubmitting] = useState(false)
     const { id, text } = currentComment
 
-    //const onHandleSubmit = (ev) =>
-    //    handleSubmit(ev, id, setIsSubmitting, closeModal)
+    const onHandleSubmit = async (ev) =>
+        handleSubmit(ev, id, setIsSubmitting, closeModal, removeComment)
 
     return (
-        <form
-            className='p-5 text-center'
-            onSubmit={(ev) =>
-                handleSubmit(ev, id, setIsSubmitting, closeModal, removeComment)
-            }
-        >
+        <form className='p-5 text-center' onSubmit={onHandleSubmit}>
             <TrashIcon
                 className={
                     'text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto'
@@ -62,6 +58,11 @@ const handleSubmit = async (
     if (res.status === 204) {
         removeComment(commentId)
         closeModal()
+        toast.success('¡Comentario eliminado exitosamente!')
+    } else {
+        toast.error(
+            'Ha ocurrido un error al eliminar el comentario. Por favor, inténtalo de nuevo'
+        )
     }
 
     setIsSubmitting(false)

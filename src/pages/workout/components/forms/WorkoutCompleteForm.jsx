@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
 import AlertIcon from '../../../../components/ui/svg/AlertIcon'
@@ -10,7 +11,7 @@ const WorkoutCompleteForm = ({ currentWorkout, closeModal }) => {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
-    const onHandleSubmit = (isSuccessful) =>
+    const onHandleSubmit = async (isSuccessful) =>
         handleSubmit(
             currentWorkout.id,
             isSuccessful,
@@ -28,12 +29,17 @@ const WorkoutCompleteForm = ({ currentWorkout, closeModal }) => {
             <Button
                 kind='normal'
                 className='mr-2'
+                loading={isSubmitting}
                 onClick={() => onHandleSubmit(true)}
             >
-                {isSubmitting ? 'Completando...' : 'Si, exitoso'}
+                Si, exitoso
             </Button>
-            <Button kind='danger' onClick={() => onHandleSubmit(false)}>
-                {isSubmitting ? 'Completando...' : 'No, fallido'}
+            <Button
+                kind='danger'
+                loading={isSubmitting}
+                onClick={() => onHandleSubmit(false)}
+            >
+                No, fallido
             </Button>
         </div>
     )
@@ -56,12 +62,15 @@ const handleSubmit = async (
 
     const res = await editWorkoutService(updateWorkout)
 
-    if (res.status !== 204) {
-        setIsSubmitting(false)
+    if (res.status === 204) {
+        onSuccess()
+        closeModal()
+        toast.success('¡Entrenamiento completado exitosamente!')
+    } else {
+        toast.error(
+            'Ha ocurrido un error al completar el entrenamiento. Por favor, inténtalo de nuevo'
+        )
     }
-
-    onSuccess()
-    closeModal()
 }
 
 export default WorkoutCompleteForm

@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom'
+import { toast } from 'sonner'
 
 import WorkoutCard from '../workout/components/WorkoutCard'
 import useWorkout from '../workout/libs/hooks/useWorkout'
@@ -36,7 +37,9 @@ const WorkoutComments = () => {
 
 const getWorkout = ({ workout, workoutLoading, workoutError }) => {
     if (workoutLoading) return <p>Cargando...</p>
-    else if (workoutError) return <p>Error al cargar el workout</p>
+    else if (workoutError) {
+        return toast.error('Ha ocurrido un error al cargar el entrenamiento')
+    }
 
     return <WorkoutCard workout={workout} />
 }

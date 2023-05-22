@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
 import TrashIcon from '../../../../components/ui/svg/TrashIcon'
@@ -32,13 +33,13 @@ const WorkoutDeleteForm = ({ currentWorkout, closeModal }) => {
             <div className='flex justify-center items-center gap-4'>
                 <Button
                     kind='outline'
-                    disabled={isSubmitting}
+                    loading={isSubmitting}
                     onClick={closeModal}
                 >
-                    {isSubmitting ? 'Cargando...' : 'Cancelar'}
+                    Cancelar
                 </Button>
-                <Button type='submit' disabled={isSubmitting}>
-                    {isSubmitting ? 'Cargando...' : 'Eliminar'}
+                <Button type='submit' loading={isSubmitting}>
+                    Eliminar
                 </Button>
             </div>
         </form>
@@ -57,12 +58,17 @@ const handleSubmit = async (
 
     const res = await deleteWorkoutService(workoutId)
 
-    if (res.status !== 204) {
-        setIsSubmitting(false)
+    if (res.status === 204) {
+        onSuccess()
+        closeModal()
+        toast.success('¡Entrenamiento eliminado exitosamente!')
+    } else {
+        toast.error(
+            'Ha ocurrido un error al eliminar el entrenamiento. Por favor, inténtalo de nuevo'
+        )
     }
 
-    onSuccess()
-    closeModal()
+    setIsSubmitting(false)
 }
 
 export default WorkoutDeleteForm
