@@ -1,7 +1,8 @@
 import { Sidebar } from 'flowbite-react'
 import { useState } from 'react'
 
-import Preferences from './Preferences'
+import Preferences from './components/Preferences'
+import Profile from './components/Profile'
 
 const Settings = () => {
     const [showPage, setShowPage] = useState(initialState)
@@ -39,6 +40,12 @@ const initialState = {
     component: Preferences,
 }
 
-const pages = [initialState]
+const pages = [
+    initialState,
+    {
+        name: 'Mi Perfil',
+        component: Profile,
+    },
+]
 
 export default Settings
