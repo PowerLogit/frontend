@@ -8,7 +8,7 @@ const Settings = () => {
     const [showPage, setShowPage] = useState(initialState)
 
     return (
-        <div className='max-w-screen-xl mx-auto mt-8 flex gap-8'>
+        <div className='max-w-screen-xl mx-auto mt-8 flex gap-8 px-4 xl:px-0'>
             <div className='w-fit'>
                 <Sidebar aria-label='Sidebar with call to action button example'>
                     <Sidebar.Items>
