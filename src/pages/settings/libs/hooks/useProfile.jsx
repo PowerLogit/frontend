@@ -2,7 +2,7 @@ import { sourceCancelToken } from '@api/axios.api'
 import { useEffect, useState } from 'react'
 
 import { useAuthContext } from '../../../auth/libs/context/auth.context'
-import { profileServiceV2 } from '../../../auth/libs/services/auth.service'
+import { getProfileService } from '../services/profile.service'
 
 const useProfile = () => {
     const auth = useAuthContext()
@@ -113,7 +113,7 @@ const INITIAL_STATE = {
 const loadProfile = async (bearer, setters, signal) => {
     setters.setLoading()
 
-    const { data, error, isAborted } = await profileServiceV2(bearer, signal)
+    const { data, error, isAborted } = await getProfileService(bearer, signal)
 
     if (isAborted) return
     else if (data) {
