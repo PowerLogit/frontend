@@ -11,7 +11,10 @@ const Header = () => {
 
     return (
         <div className='dark:bg-gray-800'>
-            <Navbar fluid={true} className='max-w-screen-xl mx-auto'>
+            <Navbar
+                fluid={true}
+                className='max-w-screen-xl mx-auto px-5 xl:px-0'
+            >
                 <Link to={'/'} className='flex items-center'>
                     <span className='self-center text-xl font-semibold whitespace-nowrap dark:text-white'>
                         PowerLog
