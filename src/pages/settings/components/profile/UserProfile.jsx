@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import Button from '../../../components/ui/components/buttons/Button'
-import InputText from '../../../components/ui/components/form/InputText'
-import { setNewAuth } from '../../auth/libs/actions/auth.action'
-import { useAuthContext } from '../../auth/libs/context/auth.context'
-import useUserProfile from '../libs/hooks/useUserProfile'
-import { udpateProfileService } from '../libs/services/user.service'
+import Button from '../../../../components/ui/components/buttons/Button'
+import InputText from '../../../../components/ui/components/form/InputText'
+import { setNewAuth } from '../../../auth/libs/actions/auth.action'
+import { useAuthContext } from '../../../auth/libs/context/auth.context'
+import useUserProfile from '../../libs/hooks/useUserProfile'
+import { udpateProfileService } from '../../libs/services/user.service'
 
 const UserProfile = () => {
     const { data, isLoading, form, isFormInvalid, handleInput, setters } =

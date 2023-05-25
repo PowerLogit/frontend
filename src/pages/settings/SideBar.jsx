@@ -2,7 +2,7 @@ import { Sidebar } from 'flowbite-react'
 import { useState } from 'react'
 
 import Preferences from './components/Preferences'
-import Profile from './components/Profile'
+import Profile from './components/profile/Profile'
 
 const Settings = () => {
     const [showPage, setShowPage] = useState(initialState)

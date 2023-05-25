@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import Button from '../../../components/ui/components/buttons/Button'
-import InputText from '../../../components/ui/components/form/InputText'
+import Button from '../../../../components/ui/components/buttons/Button'
+import InputText from '../../../../components/ui/components/form/InputText'
 import {
     setCurrentPassword,
     setNewPassword,
     setRepeatNewPassword,
-} from '../libs/actions/userPassword.action'
-import useUserPassword from '../libs/hooks/useUserPasswordy'
-import { udpatePasswordService } from '../libs/services/user.service'
+} from '../../libs/actions/userPassword.action'
+import useUserPassword from '../../libs/hooks/useUserPasswordy'
+import { udpatePasswordService } from '../../libs/services/user.service'
 
 const UserPassword = () => {
     const { form, isFormInvalid, setResetForm, handleInput } = useUserPassword()
