@@ -5,6 +5,7 @@ const Button = ({
     disabled = false,
     children,
     loading,
+    icon: Icon,
     ...props
 }) => {
     const baseStyles = KIND_CLASSNAME[kind]
@@ -19,6 +20,7 @@ const Button = ({
             {...props}
             className={styles}
         >
+            {Icon && <Icon className={'text-white w-5 h-5 mr-1'} />}
             {loading ? 'Cargando...' : children}
         </button>
     )
