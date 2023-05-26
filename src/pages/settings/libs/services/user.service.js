@@ -83,3 +83,53 @@ export const udpatePasswordService = async (payload) => {
         }
     }
 }
+
+export const addCoachRoleService = async () => {
+    try {
+        const { data, status, error } = await api({
+            method: 'PATCH',
+            url: '/athlete/add-coach-role',
+        })
+
+        const isOk = HttpStatusCode.OK === status
+        if (!isOk) {
+            throw error
+        }
+
+        return {
+            data,
+            status,
+            error: !isOk,
+        }
+    } catch (error) {
+        return {
+            data: undefined,
+            error: error.message,
+        }
+    }
+}
+
+export const removeCoachRoleService = async () => {
+    try {
+        const { data, status, error } = await api({
+            method: 'PATCH',
+            url: '/coach/remove-coach-role',
+        })
+
+        const isOk = HttpStatusCode.OK === status
+        if (!isOk) {
+            throw error
+        }
+
+        return {
+            data,
+            status,
+            error: !isOk,
+        }
+    } catch (error) {
+        return {
+            data: undefined,
+            error: error.message,
+        }
+    }
+}
