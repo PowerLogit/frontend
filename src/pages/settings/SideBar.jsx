@@ -2,13 +2,13 @@ import { Sidebar } from 'flowbite-react'
 import { useState } from 'react'
 
 import Preferences from './components/Preferences'
-import Profile from './components/Profile'
+import Profile from './components/profile/Profile'
 
 const Settings = () => {
     const [showPage, setShowPage] = useState(initialState)
 
     return (
-        <div className='max-w-screen-xl mx-auto mt-8 flex gap-8'>
+        <div className='max-w-screen-xl mx-auto mt-8 flex gap-8 px-4 xl:px-0'>
             <div className='w-fit'>
                 <Sidebar aria-label='Sidebar with call to action button example'>
                     <Sidebar.Items>

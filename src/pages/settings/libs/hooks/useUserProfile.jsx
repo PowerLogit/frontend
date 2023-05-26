@@ -2,9 +2,9 @@ import { sourceCancelToken } from '@api/axios.api'
 import { useEffect, useState } from 'react'
 
 import { useAuthContext } from '../../../auth/libs/context/auth.context'
-import { profileServiceV2 } from '../../../auth/libs/services/auth.service'
+import { getProfileService } from '../services/user.service'
 
-const useProfile = () => {
+const useUserProfile = () => {
     const auth = useAuthContext()
 
     const [profile, setProfile] = useState(INITIAL_STATE)
@@ -113,7 +113,7 @@ const INITIAL_STATE = {
 const loadProfile = async (bearer, setters, signal) => {
     setters.setLoading()
 
-    const { data, error, isAborted } = await profileServiceV2(bearer, signal)
+    const { data, error, isAborted } = await getProfileService(bearer, signal)
 
     if (isAborted) return
     else if (data) {
@@ -148,4 +148,4 @@ const isInitialValues = (form, profile) =>
     form?.username.value === profile?.username &&
     form?.email.value === profile?.email
 
-export default useProfile
+export default useUserProfile

@@ -35,7 +35,12 @@ const WorkoutCommentDeleteForm = ({
                 >
                     Cancelar
                 </Button>
-                <Button type='submit' loading={isSubmitting}>
+                <Button
+                    type='submit'
+                    kind='danger'
+                    icon={TrashIcon}
+                    loading={isSubmitting}
+                >
                     Eliminar
                 </Button>
             </div>
