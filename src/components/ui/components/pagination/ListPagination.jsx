@@ -9,6 +9,8 @@ const ListPagination = ({
     dispatchFilters,
     totalWorkouts,
 }) => {
+    if (!totalWorkouts) return
+
     return (
         <div className='mt-8 flex flex-col justify-center items-center gap-4 sm:flex-row sm:justify-between sm:items-center'>
             <div className='flex items-center gap-4'>

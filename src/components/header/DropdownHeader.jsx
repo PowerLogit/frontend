@@ -15,7 +15,7 @@ const DropdownHeader = ({ dispatchAuth, user }) => {
         navigate('/')
     }
 
-    const avatarImg = getAvatar(user.name, user.surname)
+    const avatarImg = getAvatar(user?.name, user?.surname)
 
     const roles = user?.role.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     const rolesFormat = new Intl.ListFormat('es-ES').format(roles)
