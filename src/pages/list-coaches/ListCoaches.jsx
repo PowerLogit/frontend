@@ -18,7 +18,7 @@ const ListCoaches = () => {
 
             <CoachesRow data={data} isLoading={isLoading} error={error} />
 
-            {data.length && (
+            {!!data.length && (
                 <PageSelector
                     page={filters.page}
                     setPage={setPage}
