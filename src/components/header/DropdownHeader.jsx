@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { dropdownHeaderPages } from '../../constant/headerPages'
 import { removeBearer } from '../../helpers/bearer.helper'
+import { getAvatar } from '../../helpers/uiAvatars'
 import { setIsNotAuth } from '../../pages/auth/libs/actions/auth.action'
 
 const DropdownHeader = ({ dispatchAuth, user }) => {
@@ -13,6 +14,8 @@ const DropdownHeader = ({ dispatchAuth, user }) => {
         dispatchAuth(setIsNotAuth())
         navigate('/')
     }
+
+    const avatarImg = getAvatar(user.name, user.surname)
 
     const roles = user?.role.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     const rolesFormat = new Intl.ListFormat('es-ES').format(roles)
@@ -26,10 +29,10 @@ const DropdownHeader = ({ dispatchAuth, user }) => {
                     <>
                         <Avatar
                             alt='User settings'
-                            img='https://cdn-icons-png.flaticon.com/512/6073/6073873.png'
+                            img={avatarImg}
                             rounded={true}
                         />
-                        <span className='text-sm font-medium'>
+                        <span className='ml-3 text-sm font-medium'>
                             {user?.username}
                         </span>
                     </>
