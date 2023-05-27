@@ -12,6 +12,7 @@ import Calculate from './calculate/Calculate'
 import WorkoutComments from './comments/WorkoutComments'
 import Home from './home/Home'
 import Settings from './settings/SideBar'
+import ListCoaches from './list-coaches/ListCoaches'
 
 const Router = () => {
     return (
@@ -41,6 +42,10 @@ const Router = () => {
                                 <Route
                                     path='/calc/:weight?'
                                     element={<Calculate />}
+                                />
+                                <Route
+                                    path='/coaches'
+                                    element={<ListCoaches />}
                                 />
                                 <Route
                                     path='/settings'

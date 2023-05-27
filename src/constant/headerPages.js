@@ -4,4 +4,5 @@ export const headerPages = [
     { title: 'Home', url: '/' },
     { title: 'Workouts', url: '/workouts' },
     { title: 'Calc', url: '/calc' },
+    { title: 'Emtrenadores', url: '/coaches' },
 ]
