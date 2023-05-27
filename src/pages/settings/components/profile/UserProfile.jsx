@@ -60,7 +60,7 @@ const UserProfile = () => {
                 />
             </div>
             <div>
-                <InputText label='Roles' defaultValue={rolesFormat} disabled />
+                <InputText label='Roles' value={rolesFormat} disabled />
             </div>
             <div className='flex gap-4'>
                 <Button

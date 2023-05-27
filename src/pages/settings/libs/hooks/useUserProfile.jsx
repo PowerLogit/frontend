@@ -10,7 +10,7 @@ const useUserProfile = () => {
     const [profile, setProfile] = useState(INITIAL_STATE)
     const [form, setForm] = useState(null)
 
-    const setData = (data) => {
+    const setProfileData = (data) => {
         setProfile({
             data,
             loading: false,
@@ -34,7 +34,7 @@ const useUserProfile = () => {
         const cancelToken = sourceCancelToken()
 
         if (auth.token) {
-            const setters = { setData, setLoading, setError, setForm }
+            const setters = { setProfileData, setLoading, setError, setForm }
 
             loadProfile(auth.token, setters, cancelToken)
         }
@@ -100,7 +100,13 @@ const useUserProfile = () => {
         form,
         isFormInvalid,
         handleInput,
-        setters: { setReset, setName, setSurname, setUsername, setEmail },
+        setters: {
+            setReset,
+            setName,
+            setSurname,
+            setUsername,
+            setEmail,
+        },
     }
 }
 
@@ -117,8 +123,7 @@ const loadProfile = async (bearer, setters, signal) => {
 
     if (isAborted) return
     else if (data) {
-        setters.setData(data)
-
+        setters.setProfileData(data)
         setters.setForm(getInitialState(data))
     } else setters.setError(error)
 }
