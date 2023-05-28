@@ -13,6 +13,7 @@ import WorkoutComments from './comments/WorkoutComments'
 import Home from './home/Home'
 import Settings from './settings/SideBar'
 import ListCoaches from './list-coaches/ListCoaches'
+import AthletesRequest from './athletesRequest/AthletesRequest'
 
 const Router = () => {
     return (
@@ -34,6 +35,16 @@ const Router = () => {
 
                             {/* Private routes */}
                             <Route element={<PrivateRoute />}>
+                                <Route
+                                    path='/settings'
+                                    element={<Settings />}
+                                />
+                            </Route>
+
+                            {/* Private routes athlete */}
+                            <Route
+                                element={<PrivateRoute roles={['athlete']} />}
+                            >
                                 <Route path='/workouts' element={<Workout />} />
                                 <Route
                                     path='/workout/:idWorkout'
@@ -47,9 +58,13 @@ const Router = () => {
                                     path='/coaches'
                                     element={<ListCoaches />}
                                 />
+                            </Route>
+
+                            {/* Private routes coach */}
+                            <Route element={<PrivateRoute roles={['coach']} />}>
                                 <Route
-                                    path='/settings'
-                                    element={<Settings />}
+                                    path='/athletes-request'
+                                    element={<AthletesRequest />}
                                 />
                             </Route>
 
