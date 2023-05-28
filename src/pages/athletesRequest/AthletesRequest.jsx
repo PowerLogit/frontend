@@ -6,7 +6,8 @@ import useAthletesRequest from './libs/hooks/useAthletesRequest'
 
 const AthletesRequest = () => {
     const [filters, setFilters] = useState(initialFilters)
-    const { data, totalPages, isLoading, error } = useAthletesRequest(filters)
+    const { data, totalPages, isLoading, error, handlers } =
+        useAthletesRequest(filters)
 
     const setPage = (page) => setFilters({ ...filters, page })
 
@@ -26,7 +27,8 @@ const AthletesRequest = () => {
                 data={data}
                 isLoading={isLoading}
                 error={error}
-                resetFilters={reloadFilters}
+                onSuccess={reloadFilters}
+                handlers={handlers}
             />
 
             {!!data.length && (

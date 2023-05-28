@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react'
 
 import { sourceCancelToken } from '../../../../api/axios.api'
-import { getAthleteRequestsService } from '../services/athlete.service'
+import {
+    acceptAthleteService,
+    getAthleteRequestsService,
+    rejectAthleteService,
+} from '../services/athlete.service'
+import { toast } from 'sonner'
 
 const useAthletesRequest = (filters) => {
     const [requests, setRequests] = useState(INITIAL_STATE)
@@ -37,6 +42,10 @@ const useAthletesRequest = (filters) => {
         totalPages: requests.totalPages,
         isLoading: requests.isLoading,
         error: requests.error,
+        handlers: {
+            handleAccept,
+            handleReject,
+        },
     }
 }
 
@@ -59,6 +68,40 @@ const loadRequests = async (filters, setters, signal) => {
     if (isAborted) return
     if (data) setters.setData(data, count, totalPages)
     else setters.setError(error)
+}
+
+const handleAccept = async (idAthlete, setIsSubmitting, onSuccess) => {
+    setIsSubmitting(true)
+
+    const { status } = await acceptAthleteService(idAthlete)
+
+    if (status === 201) {
+        onSuccess()
+        toast.success('Atleta aceptado exitosamente!')
+    } else {
+        toast.error(
+            'Ha ocurrido un error al aceptar el atleta. Por favor, inténtalo de nuevo.'
+        )
+    }
+
+    setIsSubmitting(false)
+}
+
+const handleReject = async (idAthlete, setIsSubmitting, onSuccess) => {
+    setIsSubmitting(true)
+
+    const { status } = await rejectAthleteService(idAthlete)
+
+    if (status === 204) {
+        onSuccess()
+        toast.success('Atleta rechazado exitosamente!')
+    } else {
+        toast.error(
+            'Ha ocurrido un error al rechazar el atleta. Por favor, inténtalo de nuevo.'
+        )
+    }
+
+    setIsSubmitting(false)
 }
 
 export default useAthletesRequest

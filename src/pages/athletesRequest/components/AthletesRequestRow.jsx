@@ -2,7 +2,13 @@ import { toast } from 'sonner'
 
 import AthletesRequestCard from './AthletesRequestCard'
 
-const AthletesRequestRow = ({ data, isLoading, error, resetFilters }) => {
+const AthletesRequestRow = ({
+    data,
+    isLoading,
+    error,
+    onSuccess,
+    handlers,
+}) => {
     if (error) {
         toast.error(
             'Ha ocurrido un error al cargar los atletas. Por favor, inténtalo de nuevo.'
@@ -20,7 +26,8 @@ const AthletesRequestRow = ({ data, isLoading, error, resetFilters }) => {
                 <AthletesRequestCard
                     key={athlete.id}
                     athlete={athlete}
-                    resetFilters={resetFilters}
+                    onSuccess={onSuccess}
+                    handlers={handlers}
                 />
             ))}
         </div>

@@ -2,12 +2,19 @@ import { Dropdown } from 'flowbite-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import useAthletesRequest from '../../hooks/useAthletesRequest'
+import useAthletesRequest from '../../pages/athletesRequest/libs/hooks/useAthletesRequest'
 import Bell from '../ui/svg/Bell'
+import DropdownNotificationRows from './DropdownNotificationRows'
 
 const DropdownNotification = () => {
-    const [filters] = useState(initialFilters)
-    const { count } = useAthletesRequest(filters)
+    const [filters, setFilters] = useState(initialFilters)
+    const { data, count, handlers } = useAthletesRequest(filters)
+
+    const reloadFilters = () =>
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            change: !prevFilters.change,
+        }))
 
     return (
         <Dropdown
@@ -22,6 +29,12 @@ const DropdownNotification = () => {
                     <span className='italic'> (coaching) </span> {count}
                 </div>
             </Dropdown.Header>
+            <DropdownNotificationRows
+                data={data}
+                onSuccess={reloadFilters}
+                handlers={handlers}
+            />
+            <Dropdown.Divider />
             <Dropdown.Item>
                 <Link to={'/athletes-request'}>Ver todas las solicitudes</Link>
             </Dropdown.Item>
@@ -30,8 +43,9 @@ const DropdownNotification = () => {
 }
 
 const initialFilters = {
-    limit: 5,
+    limit: 8,
     page: 1,
+    change: false,
 }
 
 export default DropdownNotification
