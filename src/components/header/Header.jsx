@@ -3,11 +3,14 @@ import { Navbar } from 'flowbite-react'
 import { Link } from 'react-router-dom'
 
 import { headerPages } from '../../constant/headerPages'
+import DropdownNotification from '../dropdownNotification/DropdownNotification'
 import NavLinkTo from '../ui/components/navigation/NavLinkTo'
 import DropdownHeader from './DropdownHeader'
 
 const Header = () => {
     const { isAuthenticated, dispatchAuth, user } = useAuthContext()
+
+    const isCoach = user?.role?.find((role) => role === 'coach')
 
     return (
         <div className='dark:bg-gray-800'>
@@ -29,10 +32,13 @@ const Header = () => {
                             Identificarse
                         </Link>
                     ) : (
-                        <DropdownHeader
-                            dispatchAuth={dispatchAuth}
-                            user={user}
-                        />
+                        <div className='flex gap-4 items-center'>
+                            {isCoach && <DropdownNotification />}
+                            <DropdownHeader
+                                dispatchAuth={dispatchAuth}
+                                user={user}
+                            />
+                        </div>
                     )}
                     <Navbar.Toggle />
                 </div>
