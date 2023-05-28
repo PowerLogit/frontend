@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 import { sourceCancelToken } from '../../../../api/axios.api'
+import { useAuthContext } from '../../../auth/libs/context/auth.context'
 import {
     acceptAthleteService,
     getAthleteRequestsService,
     rejectAthleteService,
 } from '../services/athlete.service'
-import { toast } from 'sonner'
 
-const useAthletesRequest = (filters) => {
+const useAthletesRequest = () => {
+    const { user } = useAuthContext()
     const [requests, setRequests] = useState(INITIAL_STATE)
+    const [filters, setFilters] = useState(initialFilters)
 
     const setData = (data, count, totalPages) => {
         setRequests({
@@ -27,14 +30,26 @@ const useAthletesRequest = (filters) => {
     const setLoading = () =>
         setRequests((prevCoaches) => ({ ...prevCoaches, isLoading: true }))
 
+    const setPage = (page) => setFilters({ ...filters, page })
+
+    const onSuccess = () =>
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            change: !prevFilters.change,
+        }))
+
+    const isCoach = user?.role?.includes('coach')
+
     useEffect(() => {
+        if (!isCoach) return
+
         const cancelToken = sourceCancelToken()
         const setters = { setLoading, setData, setError }
 
         loadRequests(filters, setters, cancelToken)
 
         return () => cancelToken.cancel()
-    }, [filters])
+    }, [filters, isCoach])
 
     return {
         data: requests.data,
@@ -42,6 +57,9 @@ const useAthletesRequest = (filters) => {
         totalPages: requests.totalPages,
         isLoading: requests.isLoading,
         error: requests.error,
+        filters,
+        setPage,
+        onSuccess,
         handlers: {
             handleAccept,
             handleReject,
@@ -55,6 +73,12 @@ const INITIAL_STATE = {
     totalPages: 0,
     isLoading: true,
     error: null,
+}
+
+const initialFilters = {
+    limit: 8,
+    page: 1,
+    change: false,
 }
 
 const loadRequests = async (filters, setters, signal) => {

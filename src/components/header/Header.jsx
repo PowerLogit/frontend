@@ -7,7 +7,7 @@ import DropdownNotification from '../dropdownNotification/DropdownNotification'
 import NavLinkTo from '../ui/components/navigation/NavLinkTo'
 import DropdownHeader from './DropdownHeader'
 
-const Header = () => {
+const Header = ({ athletesRequest }) => {
     const { isAuthenticated, dispatchAuth, user } = useAuthContext()
 
     const isCoach = user?.role?.find((role) => role === 'coach')
@@ -33,7 +33,11 @@ const Header = () => {
                         </Link>
                     ) : (
                         <div className='flex gap-4 items-center'>
-                            {isCoach && <DropdownNotification />}
+                            {isCoach && (
+                                <DropdownNotification
+                                    athletesRequest={athletesRequest}
+                                />
+                            )}
                             <DropdownHeader
                                 dispatchAuth={dispatchAuth}
                                 user={user}

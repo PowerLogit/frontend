@@ -1,21 +1,17 @@
-import { useState } from 'react'
-
 import PageSelector from '../../components/ui/components/pagination/PageSelector'
 import AthletesRequestRow from './components/AthletesRequestRow'
-import useAthletesRequest from './libs/hooks/useAthletesRequest'
 
-const AthletesRequest = () => {
-    const [filters, setFilters] = useState(initialFilters)
-    const { data, totalPages, isLoading, error, handlers } =
-        useAthletesRequest(filters)
-
-    const setPage = (page) => setFilters({ ...filters, page })
-
-    const reloadFilters = () =>
-        setFilters((prevFilters) => ({
-            ...prevFilters,
-            change: !prevFilters.change,
-        }))
+const AthletesRequest = ({ athletesRequest }) => {
+    const {
+        data,
+        totalPages,
+        isLoading,
+        error,
+        filters,
+        setPage,
+        onSuccess,
+        handlers,
+    } = athletesRequest
 
     return (
         <div className='max-w-screen-xl mx-auto mt-8 px-4 xl:px-0'>
@@ -27,7 +23,7 @@ const AthletesRequest = () => {
                 data={data}
                 isLoading={isLoading}
                 error={error}
-                onSuccess={reloadFilters}
+                onSuccess={onSuccess}
                 handlers={handlers}
             />
 
@@ -40,12 +36,6 @@ const AthletesRequest = () => {
             )}
         </div>
     )
-}
-
-const initialFilters = {
-    limit: 8,
-    page: 1,
-    change: false,
 }
 
 export default AthletesRequest
