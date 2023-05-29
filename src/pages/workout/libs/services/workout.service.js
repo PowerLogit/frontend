@@ -8,7 +8,7 @@ export const getWorkoutsService = async (filters, cancelToken) => {
         const { status, data, error } = await api({
             method: 'GET',
             url: '/workouts/athlete',
-            params: { limit, ...restFilters },
+            params: { ...restFilters, limit },
             cancelToken,
         })
 

@@ -44,3 +44,28 @@ export const formatDate = (date) => {
         return `hace ${years} años`
     }
 }
+
+export const getFirstDayOfWeek = () => {
+    const firstDayOfWeek = new Date()
+    const dayOfWeek = firstDayOfWeek.getDay()
+
+    const diff =
+        firstDayOfWeek.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)
+
+    firstDayOfWeek.setDate(diff)
+    firstDayOfWeek.setHours(0, 0, 0, 0)
+
+    return firstDayOfWeek.toISOString().slice(0, 10)
+}
+
+export const getLastDayOfWeek = () => {
+    const lastDayOfWeek = new Date()
+    const dayOfWeek = lastDayOfWeek.getDay()
+
+    const diff = 6 - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)
+
+    lastDayOfWeek.setDate(lastDayOfWeek.getDate() + diff)
+    lastDayOfWeek.setHours(23, 59, 59, 999)
+
+    return lastDayOfWeek.toISOString().slice(0, 10)
+}

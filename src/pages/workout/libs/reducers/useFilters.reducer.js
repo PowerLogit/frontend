@@ -1,7 +1,11 @@
 import { PAGINATION } from '../../../../constant/pagination'
 import { FILTERS_ACTION } from '../constant/filtersAction'
-import { FILTERS_OPTION } from '../constant/workoutDateFilterOption'
 import { SORT_OPTION } from '../constant/workoutSortOption'
+import {
+    getFirstDayOfWeek,
+    getLastDayOfWeek,
+    normalizeDateISO,
+} from '../functions/normaliceDate'
 
 export const filterReducer = (state, { type, payload }) => {
     switch (type) {
@@ -12,11 +16,22 @@ export const filterReducer = (state, { type, payload }) => {
                 sortBy: payload,
             }
 
-        case FILTERS_ACTION.SET_FILTER_BY:
+        case FILTERS_ACTION.SET_START_DATE:
+            if (payload > state.endDate) return state
+
             return {
                 ...state,
                 page: PAGINATION.DEFAULT_PAGE,
-                filterBy: payload,
+                startDate: payload,
+            }
+
+        case FILTERS_ACTION.SET_END_DATE:
+            if (payload < state.startDate) return state
+
+            return {
+                ...state,
+                page: PAGINATION.DEFAULT_PAGE,
+                endDate: payload,
             }
 
         case FILTERS_ACTION.SET_PAGE:
@@ -42,7 +57,8 @@ export const filterReducer = (state, { type, payload }) => {
 
 export const getFiltersInitialState = () => ({
     sortBy: SORT_OPTION.DEFAULT,
-    filterBy: localStorage.getItem('filterDefault') || FILTERS_OPTION.DEFAULT,
     page: PAGINATION.DEFAULT_PAGE,
+    startDate: normalizeDateISO(getFirstDayOfWeek()),
+    endDate: normalizeDateISO(getLastDayOfWeek()),
     itemPerPage: PAGINATION.DEFAULT_ITEM_PER_PAGE,
 })

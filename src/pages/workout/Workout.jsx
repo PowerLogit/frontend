@@ -27,8 +27,7 @@ const Workout = () => {
                 ressetFilters={() => dispatchFilters(reset())}
             >
                 <WorkoutFilters
-                    sortBy={filters.sortBy}
-                    filterBy={filters.filterBy}
+                    filters={filters}
                     dispatchFilters={dispatchFilters}
                 />
                 <WorkoutRows
