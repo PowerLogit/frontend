@@ -2,18 +2,28 @@ import { useState } from 'react'
 
 import Modal from '../../../components/Modal'
 import Button from '../../../components/ui/components/buttons/Button'
+import InputText from '../../../components/ui/components/form/InputText'
 import Select from '../../../components/ui/components/form/Select'
-import { setFilterBy, setSortBy } from '../libs/actions/filters.action'
-import { FILTERS_OPTION } from '../libs/constant/workoutDateFilterOption'
+import {
+    setEndDate,
+    setSortBy,
+    setStartDate,
+} from '../libs/actions/filters.action'
 import { SORT_OPTION } from '../libs/constant/workoutSortOption'
 import WorkoutCreateForm from './forms/WorkoutCreateForm'
 
-const WorkoutFilters = ({ sortBy, filterBy, dispatchFilters }) => {
+const WorkoutFilters = ({ filters, dispatchFilters }) => {
+    const [showModal, setShowModal] = useState(false)
+
+    const handleDateChange = (setValue) => (ev) => {
+        dispatchFilters(setValue(ev.target.value))
+    }
+
     const handleInputChange = (setValue) => (ev) => {
         dispatchFilters(setValue(Number(ev.target.value)))
     }
 
-    const [showModal, setShowModal] = useState(false)
+    const { sortBy, startDate, endDate } = filters
 
     return (
         <>
@@ -25,29 +35,28 @@ const WorkoutFilters = ({ sortBy, filterBy, dispatchFilters }) => {
                     <WorkoutCreateForm closeModal={() => setShowModal(false)} />
                 )}
             </Modal>
-            <div className='grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6'>
+            <div className='w-full mb-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 items-end'>
                 <Select
-                    className='col-span-1'
+                    label='Ordenar'
                     defaultValue={sortBy}
                     onChange={handleInputChange(setSortBy)}
                 >
                     <option value={SORT_OPTION.DEFAULT}>Por defecto</option>
                     <option value={SORT_OPTION.DATE_DESC}>Descendente</option>
                 </Select>
-                <Select
-                    className='col-span-1'
-                    defaultValue={filterBy}
-                    onChange={handleInputChange(setFilterBy)}
-                >
-                    <option value={FILTERS_OPTION.DAY}>Dia</option>
-                    <option value={FILTERS_OPTION.DEFAULT}>Semanal</option>
-                    <option value={FILTERS_OPTION.MONTH}>Mes</option>
-                    <option value={FILTERS_OPTION.ALL}>Todos</option>
-                </Select>
-                <Button
-                    onClick={() => setShowModal(true)}
-                    className='col-span-2 sm:col-span-1'
-                >
+                <InputText
+                    type='date'
+                    label='Seleccionar fecha de inicio'
+                    value={startDate}
+                    onChange={handleDateChange(setStartDate)}
+                />
+                <InputText
+                    type='date'
+                    label='Seleccionar fecha de fin'
+                    value={endDate}
+                    onChange={handleDateChange(setEndDate)}
+                />
+                <Button onClick={() => setShowModal(true)} className='order-12'>
                     Crear
                 </Button>
             </div>

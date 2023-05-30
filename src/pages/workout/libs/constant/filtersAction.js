@@ -1,6 +1,7 @@
 export const FILTERS_ACTION = {
     SET_SORT_BY: 'setSortBy',
-    SET_FILTER_BY: 'setFilterBy',
+    SET_START_DATE: 'setStartDate',
+    SET_END_DATE: 'setEndDate',
     SET_PAGE: 'setPage',
     SET_ITEM_PER_PAGE: 'setItemPerPage',
     RESET: 'reset',

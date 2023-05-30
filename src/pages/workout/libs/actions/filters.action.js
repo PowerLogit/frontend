@@ -6,9 +6,14 @@ export const setSortBy = (sortBy) => ({
     payload: sortBy,
 })
 
-export const setFilterBy = (filterBy) => ({
-    type: FILTERS_ACTION.SET_FILTER_BY,
-    payload: filterBy,
+export const setStartDate = (startDate) => ({
+    type: FILTERS_ACTION.SET_START_DATE,
+    payload: startDate,
+})
+
+export const setEndDate = (endDate) => ({
+    type: FILTERS_ACTION.SET_END_DATE,
+    payload: endDate,
 })
 
 export const setPage = (page) => ({
