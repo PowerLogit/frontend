@@ -2,27 +2,23 @@ import { useContext, useState } from 'react'
 import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
-import InputCheckbox from '../../../../components/ui/components/form/InputCheckbox'
 import InputText from '../../../../components/ui/components/form/InputText'
 import {
     setDate,
-    setIsSuccessful,
     setName,
     setReps,
     setSets,
     setWeight,
-} from '../../libs/actions/editForm.action'
+} from '../../libs/actions/createForm.action'
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
-import useEditForm from '../../libs/hooks/useEditForm'
-import { editWorkoutService } from '../../libs/services/workout.service'
+import useCreateForm from '../../libs/hooks/useCreateForm'
+import { createWorkoutCoachAthleteService } from '../../libs/services/workoutCoach.service'
 
-const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
-    const { onSuccess } = useContext(WorkoutFormsContext)
+const WorkoutCreateForm = ({ closeModal }) => {
+    const { onSuccess, idAthlete } = useContext(WorkoutFormsContext)
 
-    const { fomrValues, isFormInvalid, dispatchFormValues } =
-        useEditForm(currentWorkout)
-    const { name, sets, reps, weight, date, isCompleted, isSuccessful } =
-        fomrValues
+    const { fomrValues, isFormInvalid, dispatchFormValues } = useCreateForm()
+    const { name, sets, reps, weight, date } = fomrValues
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -30,12 +26,15 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
         dispatchFormValues(setValue(ev.target.value))
     }
 
-    const handleInputCheckboxChange = () => {
-        dispatchFormValues(setIsSuccessful(!isSuccessful))
-    }
-
     const onHandleSubmit = async (ev) =>
-        handleSubmit(ev, fomrValues, setIsSubmitting, onSuccess, closeModal)
+        handleSubmit(
+            ev,
+            fomrValues,
+            idAthlete,
+            setIsSubmitting,
+            onSuccess,
+            closeModal
+        )
 
     return (
         <form className='p-5' onSubmit={onHandleSubmit}>
@@ -81,15 +80,6 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
                     onChange={handleInputChange(setWeight)}
                     className={'w-full'}
                 />
-                {isCompleted && (
-                    <InputCheckbox
-                        label='Exitoso'
-                        name='isSuccessful'
-                        value={isSuccessful}
-                        checked={isSuccessful}
-                        onChange={handleInputCheckboxChange}
-                    />
-                )}
             </div>
             <div className='flex gap-4'>
                 <Button
@@ -104,7 +94,7 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
                     loading={isSubmitting}
                     disabled={isFormInvalid}
                 >
-                    Editar
+                    Crear
                 </Button>
             </div>
         </form>
@@ -113,7 +103,8 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
 
 const handleSubmit = async (
     ev,
-    workout,
+    fomrValues,
+    idAthlete,
     setIsSubmitting,
     onSuccess,
     closeModal
@@ -121,29 +112,30 @@ const handleSubmit = async (
     ev.preventDefault()
     setIsSubmitting(true)
 
+    const { name, sets, reps, weight, date } = fomrValues
+
     const newWorkout = {
-        id: workout.id,
-        name: workout.name.value,
-        sets: Number(workout.sets.value),
-        reps: Number(workout.reps.value),
-        weight: Number(workout.weight.value),
-        date: workout.date,
-        isSuccessful: workout.isSuccessful,
+        id: crypto.randomUUID(),
+        name: name.value,
+        sets: Number(sets.value),
+        reps: Number(reps.value),
+        weight: Number(weight.value),
+        date: date,
     }
 
-    const res = await editWorkoutService(newWorkout)
+    const res = await createWorkoutCoachAthleteService(newWorkout, idAthlete)
 
-    if (res.status === 204) {
+    if (res.status === 201) {
         onSuccess()
         closeModal()
-        toast.success('¡Entrenamiento actualizado exitosamente!')
+        toast.success('¡Entrenamiento creado exitosamente!')
     } else {
         toast.error(
-            'Ha ocurrido un error al actualizar el entrenamiento. Por favor, inténtalo de nuevo'
+            'Ha ocurrido un error al crear el entrenamiento. Por favor, inténtalo de nuevo'
         )
     }
 
     setIsSubmitting(false)
 }
 
-export default WorkoutEditForm
+export default WorkoutCreateForm
