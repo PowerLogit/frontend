@@ -10,7 +10,7 @@ const AthletesListCard = ({ athlete }) => {
     return (
         <div className='w-full max-w-sm bg-white hover:bg-gray-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 hover:dark:bg-gray-700 dark:border-gray-700'>
             <Link
-                to={`/athlete/${id}`}
+                to={`/athlete/${id}/${username}`}
                 className='flex flex-col items-center p-10'
             >
                 <img

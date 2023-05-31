@@ -16,6 +16,7 @@ import Home from './home/Home'
 import ListCoaches from './list-coaches/ListCoaches'
 import Settings from './settings/SideBar'
 import AthletesList from './coach-athletesList/AthletesList'
+import CoachAthleteWorkout from './coach-athlete/CoachAthleteWorkout'
 
 const Router = () => {
     return (
@@ -73,6 +74,10 @@ const RouterMain = () => {
                         <Route
                             path='/athletes-list'
                             element={<AthletesList />}
+                        />
+                        <Route
+                            path='/athlete/:idAthlete/:username'
+                            element={<CoachAthleteWorkout />}
                         />
                     </Route>
 

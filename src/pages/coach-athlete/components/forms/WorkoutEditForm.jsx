@@ -2,11 +2,9 @@ import { useContext, useState } from 'react'
 import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
-import InputCheckbox from '../../../../components/ui/components/form/InputCheckbox'
 import InputText from '../../../../components/ui/components/form/InputText'
 import {
     setDate,
-    setIsSuccessful,
     setName,
     setReps,
     setSets,
@@ -14,15 +12,14 @@ import {
 } from '../../libs/actions/editForm.action'
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 import useEditForm from '../../libs/hooks/useEditForm'
-import { editWorkoutService } from '../../libs/services/workout.service'
+import { editWorkoutCoachAthleteService } from '../../libs/services/workoutCoach.service'
 
 const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
     const { onSuccess } = useContext(WorkoutFormsContext)
 
     const { fomrValues, isFormInvalid, dispatchFormValues } =
         useEditForm(currentWorkout)
-    const { name, sets, reps, weight, date, isCompleted, isSuccessful } =
-        fomrValues
+    const { name, sets, reps, weight, date } = fomrValues
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -30,12 +27,15 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
         dispatchFormValues(setValue(ev.target.value))
     }
 
-    const handleInputCheckboxChange = () => {
-        dispatchFormValues(setIsSuccessful(!isSuccessful))
-    }
-
     const onHandleSubmit = async (ev) =>
-        handleSubmit(ev, fomrValues, setIsSubmitting, onSuccess, closeModal)
+        handleSubmit(
+            ev,
+            fomrValues,
+            currentWorkout.athlete,
+            setIsSubmitting,
+            onSuccess,
+            closeModal
+        )
 
     return (
         <form className='p-5' onSubmit={onHandleSubmit}>
@@ -81,15 +81,6 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
                     onChange={handleInputChange(setWeight)}
                     className={'w-full'}
                 />
-                {isCompleted && (
-                    <InputCheckbox
-                        label='Exitoso'
-                        name='isSuccessful'
-                        value={isSuccessful}
-                        checked={isSuccessful}
-                        onChange={handleInputCheckboxChange}
-                    />
-                )}
             </div>
             <div className='flex gap-4'>
                 <Button
@@ -113,7 +104,8 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
 
 const handleSubmit = async (
     ev,
-    workout,
+    fomrValues,
+    athlete,
     setIsSubmitting,
     onSuccess,
     closeModal
@@ -121,17 +113,16 @@ const handleSubmit = async (
     ev.preventDefault()
     setIsSubmitting(true)
 
-    const newWorkout = {
-        id: workout.id,
-        name: workout.name.value,
-        sets: Number(workout.sets.value),
-        reps: Number(workout.reps.value),
-        weight: Number(workout.weight.value),
-        date: workout.date,
-        isSuccessful: workout.isSuccessful,
+    const updatedWorkout = {
+        id: fomrValues.id,
+        name: fomrValues.name.value,
+        sets: Number(fomrValues.sets.value),
+        reps: Number(fomrValues.reps.value),
+        weight: Number(fomrValues.weight.value),
+        date: fomrValues.date,
     }
 
-    const res = await editWorkoutService(newWorkout)
+    const res = await editWorkoutCoachAthleteService(updatedWorkout, athlete)
 
     if (res.status === 204) {
         onSuccess()
