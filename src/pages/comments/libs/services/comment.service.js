@@ -9,10 +9,9 @@ export const getCommentsWorkoutService = async (idWorkout, cancelToken) => {
             cancelToken,
         })
 
-        const isOk =
-            HttpStatusCode.OK === status || HttpStatusCode.NO_CONTENT === status
+        const isOk = HttpStatusCode.OK === status
         if (!isOk) {
-            throw new Error(JSON.stringify(error))
+            throw error
         }
 
         return {
@@ -22,7 +21,7 @@ export const getCommentsWorkoutService = async (idWorkout, cancelToken) => {
             aborted: false,
         }
     } catch (error) {
-        const isAborted = JSON.parse(error.message)?.isCancel
+        const isAborted = error?.isCancel
 
         return {
             data: undefined,
@@ -43,7 +42,7 @@ export const getCommentWorkoutService = async (idComment, cancelToken) => {
 
         const isOk = HttpStatusCode.OK === status
         if (!isOk) {
-            throw new Error(JSON.stringify(error))
+            throw error
         }
 
         return {
@@ -52,7 +51,7 @@ export const getCommentWorkoutService = async (idComment, cancelToken) => {
             aborted: false,
         }
     } catch (error) {
-        const isAborted = JSON.parse(error.message)?.isCancel
+        const isAborted = error?.isCancel
 
         return {
             comment: undefined,

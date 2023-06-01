@@ -40,6 +40,18 @@ export const filterReducer = (state, { type, payload }) => {
                 page: payload,
             }
 
+        case FILTERS_ACTION.SET_ATHLETE:
+            return {
+                ...state,
+                athlete: !state.athlete,
+            }
+
+        case FILTERS_ACTION.SET_COACH:
+            return {
+                ...state,
+                coach: !state.coach,
+            }
+
         case FILTERS_ACTION.SET_ITEM_PER_PAGE:
             return {
                 ...state,
@@ -59,6 +71,8 @@ export const getFiltersInitialState = () => ({
     sortBy: SORT_OPTION.DEFAULT,
     page: PAGINATION.DEFAULT_PAGE,
     startDate: normalizeDateISO(getFirstDayOfWeek()),
+    athlete: true,
+    coach: false,
     endDate: normalizeDateISO(getLastDayOfWeek()),
     itemPerPage: PAGINATION.DEFAULT_ITEM_PER_PAGE,
 })

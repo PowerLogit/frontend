@@ -2,10 +2,10 @@ import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import WorkoutCard from '../workout/components/WorkoutCard'
-import useWorkout from '../workout/libs/hooks/useWorkout'
 import CommentRows from './components/CommentRows'
 import WorkoutCommnetCreateForm from './components/forms/WorkoutCommnetCreateForm'
 import useCommentsWorkout from './libs/hooks/useCommentsWorkout'
+import useWorkout from './libs/hooks/useWorkout'
 
 const WorkoutComments = () => {
     const { idWorkout } = useParams()

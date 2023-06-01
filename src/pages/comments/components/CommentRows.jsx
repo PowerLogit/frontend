@@ -11,7 +11,6 @@ const CommentRows = ({ comments, loading, error, settersComment }) => {
     } else if (loading) {
         return <p className='dark:text-white'>Cargando ...</p>
     } else if (!comments.length) {
-        toast('No hay comentarios disponibles en este momento')
         return <p className='dark:text-white'>Sin comentarios</p>
     }
 

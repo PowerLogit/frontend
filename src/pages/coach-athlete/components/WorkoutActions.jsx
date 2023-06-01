@@ -31,13 +31,13 @@ const WorkoutActions = ({ workout }) => {
                         <span className='pl-2'>Eliminar</span>
                     </Dropdown.Item>
                 )}
-                {/*showComments && (
+                {showComments && (
                     <Dropdown.Item>
                         <Link to={`/workout/${workout.id}`}>
                             Ver comentarios
                         </Link>
                     </Dropdown.Item>
-                )*/}
+                )}
             </Dropdown>
         </>
     )

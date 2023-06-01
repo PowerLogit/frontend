@@ -1,5 +1,16 @@
-const InputCheckbox = ({ label, name, value, checked, onChange }) => (
-    <div className='flex flex-col gap-2 items-center justify-center'>
+const InputCheckbox = ({
+    label,
+    name,
+    value,
+    checked,
+    onChange,
+    className,
+}) => (
+    <div
+        className={`flex flex-col gap-2 items-center justify-center ${
+            className ? className : ''
+        }`}
+    >
         <label
             htmlFor={name}
             className='block text-sm font-medium text-gray-900 dark:text-white'

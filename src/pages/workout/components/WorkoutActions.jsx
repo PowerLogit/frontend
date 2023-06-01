@@ -17,7 +17,9 @@ const WorkoutActions = ({ workout }) => {
     } = useWorkoutActions(workout)
 
     const location = useLocation()
-    const showComments = location.pathname === '/workouts'
+
+    const showComment = location.pathname === '/workouts'
+    const showButton = showComment && !workout.coach
 
     return (
         <>
@@ -26,12 +28,12 @@ const WorkoutActions = ({ workout }) => {
             </Modal>
 
             <Dropdown arrowIcon={false} inline={true} label={<ThreeDotsIcon />}>
-                {showComments && (
+                {showButton && (
                     <Dropdown.Item icon={PencilIcon} onClick={setEditForm}>
                         <span className='pl-2'>Editar</span>
                     </Dropdown.Item>
                 )}
-                {showComments && (
+                {showButton && (
                     <Dropdown.Item icon={TrashIcon} onClick={setDeleteForm}>
                         <span className='pl-2'>Eliminar</span>
                     </Dropdown.Item>
@@ -44,7 +46,7 @@ const WorkoutActions = ({ workout }) => {
                         Completar
                     </Dropdown.Item>
                 )}
-                {showComments && (
+                {showComment && (
                     <Dropdown.Item>
                         <Link to={`/workout/${workout.id}`}>
                             Ver comentarios
