@@ -31,8 +31,8 @@ export const setPage = (payload) => ({
     payload,
 })
 
-export const setItemPerPage = (payload) => ({
-    type: FILTERS_ACTION.SET_ITEM_PER_PAGE,
+export const setLimit = (payload) => ({
+    type: FILTERS_ACTION.SET_LIMIT,
     payload,
 })
 

@@ -44,7 +44,7 @@ const CoachAthleteWorkout = () => {
             </WorkoutFormsProvider>
             <ListPagination
                 page={filters.page}
-                itemPerPage={filters.itemPerPage}
+                limit={filters.limit}
                 dispatchFilters={dispatchFilters}
                 totalWorkouts={totalWorkouts}
             />

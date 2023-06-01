@@ -5,6 +5,6 @@ export const FILTERS_ACTION = {
     SET_ATHLETE: 'setAthlete',
     SET_COACH: 'setCoach',
     SET_PAGE: 'setPage',
-    SET_ITEM_PER_PAGE: 'setItemPerPage',
+    SET_LIMIT: 'setLimit',
     RESET: 'reset',
 }

@@ -1,26 +1,26 @@
 import { CREATE_FORM_ACTION } from '../constant/createForm.action'
 
-export const setName = (name) => ({
+export const setName = (payload) => ({
     type: CREATE_FORM_ACTION.SET_NAME,
-    payload: name,
+    payload,
 })
 
-export const setSets = (sets) => ({
+export const setSets = (payload) => ({
     type: CREATE_FORM_ACTION.SET_SETS,
-    payload: sets,
+    payload,
 })
 
-export const setReps = (reps) => ({
+export const setReps = (payload) => ({
     type: CREATE_FORM_ACTION.SET_REPS,
-    payload: reps,
+    payload,
 })
 
-export const setWeight = (weight) => ({
+export const setWeight = (payload) => ({
     type: CREATE_FORM_ACTION.SET_WEIGHT,
-    payload: weight,
+    payload,
 })
 
-export const setDate = (date) => ({
+export const setDate = (payload) => ({
     type: CREATE_FORM_ACTION.SET_DATE,
-    payload: date,
+    payload,
 })

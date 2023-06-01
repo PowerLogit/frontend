@@ -1,4 +1,4 @@
-import { normalizeDateUTC } from '../libs/functions/normaliceDate'
+import { normalizeDateUTC } from '../../../helpers/normaliceDate'
 import WorkoutActions from './WorkoutActions'
 import WorkoutStatus from './WorkoutStatus'
 

@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
 import { sourceCancelToken } from '@api/axios.api'
-import { getWorkoutsService } from '../services/workout.service'
+import { useEffect, useState } from 'react'
+
+import { getWorkoutsAthleteService } from '../services/workoutAthlete.service'
 
 const useWorkouts = (filters) => {
     const [workouts, setWorkouts] = useState(INITIAL_STATE)
@@ -55,10 +56,8 @@ const INITIAL_STATE = {
 const loadWorkouts = async (setters, filters, signal) => {
     setters.setLoading()
 
-    const { workout, count, error, isAborted } = await getWorkoutsService(
-        filters,
-        signal
-    )
+    const { workout, count, error, isAborted } =
+        await getWorkoutsAthleteService(filters, signal)
 
     if (isAborted) return
     if (workout) setters.setData(workout, count)

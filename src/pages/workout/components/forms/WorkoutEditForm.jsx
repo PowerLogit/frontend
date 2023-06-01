@@ -14,13 +14,14 @@ import {
 } from '../../libs/actions/editForm.action'
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 import useEditForm from '../../libs/hooks/useEditForm'
-import { editWorkoutService } from '../../libs/services/workout.service'
+import { editWorkoutAthleteService } from '../../libs/services/workoutAthlete.service'
 
 const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
     const { onSuccess } = useContext(WorkoutFormsContext)
 
     const { fomrValues, isFormInvalid, dispatchFormValues } =
         useEditForm(currentWorkout)
+
     const { name, sets, reps, weight, date, isCompleted, isSuccessful } =
         fomrValues
 
@@ -131,7 +132,7 @@ const handleSubmit = async (
         isSuccessful: workout.isSuccessful,
     }
 
-    const res = await editWorkoutService(newWorkout)
+    const res = await editWorkoutAthleteService(newWorkout)
 
     if (res.status === 204) {
         onSuccess()

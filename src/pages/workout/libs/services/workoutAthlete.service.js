@@ -1,20 +1,18 @@
 import { api } from '@api/axios.api'
 import { HttpStatusCode } from '@constant/HttpStatusCode'
 
-export const getWorkoutsService = async (filters, cancelToken) => {
-    const { itemPerPage: limit, ...restFilters } = filters
-
+export const getWorkoutsAthleteService = async (filters, cancelToken) => {
     try {
         const { status, data, error } = await api({
             method: 'GET',
             url: '/workouts/athlete',
-            params: { ...restFilters, limit },
+            params: filters,
             cancelToken,
         })
 
         const isOk = HttpStatusCode.OK === status
         if (!isOk) {
-            throw new Error(JSON.stringify(error))
+            throw error
         }
 
         const { data: workout, count } = data
@@ -26,7 +24,7 @@ export const getWorkoutsService = async (filters, cancelToken) => {
             aborted: false,
         }
     } catch (error) {
-        const isAborted = JSON.parse(error.message)?.isCancel
+        const isAborted = error?.isCancel
 
         return {
             workout: undefined,
@@ -37,7 +35,7 @@ export const getWorkoutsService = async (filters, cancelToken) => {
     }
 }
 
-export const getWorkoutService = async (id, cancelToken) => {
+export const getWorkoutAthleteService = async (id, cancelToken) => {
     try {
         const { status, data, error } = await api({
             method: 'GET',
@@ -47,7 +45,7 @@ export const getWorkoutService = async (id, cancelToken) => {
 
         const isOk = HttpStatusCode.OK === status
         if (!isOk) {
-            throw new Error(JSON.stringify(error))
+            throw error
         }
 
         return {
@@ -56,7 +54,7 @@ export const getWorkoutService = async (id, cancelToken) => {
             aborted: false,
         }
     } catch (error) {
-        const isAborted = JSON.parse(error.message)?.isCancel
+        const isAborted = error?.isCancel
 
         return {
             workout: undefined,
@@ -66,7 +64,7 @@ export const getWorkoutService = async (id, cancelToken) => {
     }
 }
 
-export const createWorkoutService = async (workout) => {
+export const createWorkoutAthleteService = async (workout) => {
     return api({
         method: 'POST',
         url: '/workouts/athlete',
@@ -74,7 +72,7 @@ export const createWorkoutService = async (workout) => {
     })
 }
 
-export const editWorkoutService = async (workout) => {
+export const editWorkoutAthleteService = async (workout) => {
     const { id, ...rest } = workout
 
     return api({
@@ -84,7 +82,7 @@ export const editWorkoutService = async (workout) => {
     })
 }
 
-export const deleteWorkoutService = async (id) => {
+export const deleteWorkoutAthleteService = async (id) => {
     return api({
         method: 'DELETE',
         url: `/workouts/athlete/${id}`,

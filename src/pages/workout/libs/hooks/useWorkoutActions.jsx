@@ -1,9 +1,9 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import WorkoutCompleteForm from '../../components/forms/WorkoutCompleteForm'
 import WorkoutDeleteForm from '../../components/forms/WorkoutDeleteForm'
 import WorkoutEditForm from '../../components/forms/WorkoutEditForm'
-import { useNavigate } from 'react-router-dom'
 
 const useWorkoutActions = (workout) => {
     const [modalContent, setModalContent] = useState(initialStateModal)

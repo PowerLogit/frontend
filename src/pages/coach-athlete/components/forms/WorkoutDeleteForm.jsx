@@ -3,8 +3,8 @@ import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
 import TrashIcon from '../../../../components/ui/svg/TrashIcon'
+import { normalizeDateUTC } from '../../../../helpers/normaliceDate'
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
-import { normalizeDateUTC } from '../../libs/functions/normaliceDate'
 import { deleteWorkoutCoachAthleteService } from '../../libs/services/workoutCoach.service'
 
 const WorkoutDeleteForm = ({ currentWorkout, closeModal }) => {

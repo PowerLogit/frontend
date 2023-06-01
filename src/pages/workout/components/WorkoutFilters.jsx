@@ -51,13 +51,13 @@ const WorkoutFilters = ({ filters, dispatchFilters }) => {
                 </Select>
                 <InputText
                     type='date'
-                    label='Seleccionar fecha de inicio'
+                    label='Fecha de inicio'
                     value={startDate}
                     onChange={handleStringChange(setStartDate)}
                 />
                 <InputText
                     type='date'
-                    label='Seleccionar fecha de fin'
+                    label='Fecha de fin'
                     value={endDate}
                     onChange={handleStringChange(setEndDate)}
                 />

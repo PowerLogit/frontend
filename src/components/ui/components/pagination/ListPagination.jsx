@@ -1,23 +1,22 @@
+import { PAGINATION } from '@constant/pagination'
+
+import {
+    setLimit,
+    setPage,
+} from '../../../../pages/workout/libs/actions/filters.action'
 import Select from '../form/Select'
 import PageSelector from './PageSelector'
-import { PAGINATION } from '@constant/pagination'
-import { setItemPerPage, setPage } from '@workout/libs/actions/filters.action'
 
-const ListPagination = ({
-    page,
-    itemPerPage,
-    dispatchFilters,
-    totalWorkouts,
-}) => {
+const ListPagination = ({ page, limit, dispatchFilters, totalWorkouts }) => {
     if (!totalWorkouts) return
 
     return (
         <div className='mt-8 flex flex-col justify-center items-center gap-4 sm:flex-row sm:justify-between sm:items-center'>
             <div className='flex items-center gap-4'>
                 <Select
-                    value={itemPerPage}
+                    value={limit}
                     onChange={(ev) =>
-                        dispatchFilters(setItemPerPage(Number(ev.target.value)))
+                        dispatchFilters(setLimit(Number(ev.target.value)))
                     }
                     className='w-20'
                 >
@@ -32,7 +31,7 @@ const ListPagination = ({
             <PageSelector
                 page={page}
                 setPage={(newPage) => dispatchFilters(setPage(newPage))}
-                totalPages={Math.ceil(totalWorkouts / itemPerPage)}
+                totalPages={Math.ceil(totalWorkouts / limit)}
             />
         </div>
     )

@@ -5,7 +5,7 @@ export const getWorkoutService = async (id, cancelToken) => {
     try {
         const { status, data, error } = await api({
             method: 'GET',
-            url: `/workouts/${id}`,
+            url: `/workout/${id}`,
             cancelToken,
         })
 
