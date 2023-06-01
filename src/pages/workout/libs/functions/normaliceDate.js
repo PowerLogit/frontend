@@ -47,10 +47,10 @@ export const formatDate = (date) => {
 
 export const getFirstDayOfWeek = () => {
     const firstDayOfWeek = new Date()
-    const dayOfWeek = firstDayOfWeek.getDay()
+    const dayOfWeek = firstDayOfWeek.getDay() - 1
 
     const diff =
-        firstDayOfWeek.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)
+        firstDayOfWeek.getDate() - dayOfWeek + (dayOfWeek === -1 ? -6 : 1)
 
     firstDayOfWeek.setDate(diff)
     firstDayOfWeek.setHours(0, 0, 0, 0)

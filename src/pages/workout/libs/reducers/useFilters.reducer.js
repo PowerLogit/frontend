@@ -69,10 +69,10 @@ export const filterReducer = (state, { type, payload }) => {
 
 export const getFiltersInitialState = () => ({
     sortBy: SORT_OPTION.DEFAULT,
-    page: PAGINATION.DEFAULT_PAGE,
-    startDate: normalizeDateISO(getFirstDayOfWeek()),
+    startDate: getFirstDayOfWeek(),
+    endDate: getLastDayOfWeek(),
     athlete: true,
     coach: false,
-    endDate: normalizeDateISO(getLastDayOfWeek()),
+    page: PAGINATION.DEFAULT_PAGE,
     itemPerPage: PAGINATION.DEFAULT_ITEM_PER_PAGE,
 })
