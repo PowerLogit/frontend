@@ -7,7 +7,6 @@ import InputText from '../../../components/ui/components/form/InputText'
 import { NODE_ENV } from '../../../config/common'
 import { setError, setIsLoading, setNewAuth } from '../libs/actions/auth.action'
 import { useAuthContext } from '../libs/context/auth.context'
-import { getRedirectPath } from '../libs/helpers/redirectPath.helper'
 import { loginService } from '../libs/services/auth.service'
 
 const isDevMode = NODE_ENV === 'dev'
@@ -42,7 +41,7 @@ const Login = () => {
 
             dispatchAuth(setNewAuth(data.access_token))
 
-            navigate(getRedirectPath())
+            navigate('/')
         } catch (error) {
             const { message, statusCode } = JSON.parse(error)
 
