@@ -44,7 +44,7 @@ export const filterReducer = (state, { type, payload }) => {
             return {
                 ...state,
                 page: PAGINATION.DEFAULT_PAGE,
-                itemPerPage: payload,
+                limit: payload,
             }
 
         case FILTERS_ACTION.RESET:
@@ -60,5 +60,5 @@ export const getFiltersInitialState = () => ({
     page: PAGINATION.DEFAULT_PAGE,
     startDate: normalizeDateISO(getFirstDayOfWeek()),
     endDate: normalizeDateISO(getLastDayOfWeek()),
-    itemPerPage: PAGINATION.DEFAULT_ITEM_PER_PAGE,
+    limit: PAGINATION.DEFAULT_ITEM_PER_PAGE,
 })

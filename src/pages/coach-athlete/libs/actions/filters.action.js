@@ -21,9 +21,9 @@ export const setPage = (page) => ({
     payload: page,
 })
 
-export const setItemPerPage = (itemPerPage) => ({
+export const setlimit = (limit) => ({
     type: FILTERS_ACTION.SET_ITEM_PER_PAGE,
-    payload: itemPerPage,
+    payload: limit,
 })
 
 export const reset = () => ({

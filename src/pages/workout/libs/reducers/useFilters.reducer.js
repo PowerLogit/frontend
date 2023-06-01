@@ -1,11 +1,7 @@
 import { PAGINATION } from '../../../../constant/pagination'
 import { FILTERS_ACTION } from '../constant/filtersAction'
 import { SORT_OPTION } from '../constant/workoutSortOption'
-import {
-    getFirstDayOfWeek,
-    getLastDayOfWeek,
-    normalizeDateISO,
-} from '../functions/normaliceDate'
+import { getFirstDayOfWeek, getLastDayOfWeek } from '../functions/normaliceDate'
 
 export const filterReducer = (state, { type, payload }) => {
     switch (type) {
@@ -52,11 +48,11 @@ export const filterReducer = (state, { type, payload }) => {
                 coach: !state.coach,
             }
 
-        case FILTERS_ACTION.SET_ITEM_PER_PAGE:
+        case FILTERS_ACTION.SET_LIMIT:
             return {
                 ...state,
                 page: PAGINATION.DEFAULT_PAGE,
-                itemPerPage: payload,
+                limit: payload,
             }
 
         case FILTERS_ACTION.RESET:
@@ -74,5 +70,5 @@ export const getFiltersInitialState = () => ({
     athlete: true,
     coach: false,
     page: PAGINATION.DEFAULT_PAGE,
-    itemPerPage: PAGINATION.DEFAULT_ITEM_PER_PAGE,
+    limit: PAGINATION.DEFAULT_ITEM_PER_PAGE,
 })

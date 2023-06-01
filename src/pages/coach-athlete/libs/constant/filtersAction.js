@@ -3,6 +3,6 @@ export const FILTERS_ACTION = {
     SET_START_DATE: 'setStartDate',
     SET_END_DATE: 'setEndDate',
     SET_PAGE: 'setPage',
-    SET_ITEM_PER_PAGE: 'setItemPerPage',
+    SET_ITEM_PER_PAGE: 'setlimit',
     RESET: 'reset',
 }

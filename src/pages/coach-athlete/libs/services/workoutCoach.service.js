@@ -6,7 +6,7 @@ export const getWorkoutsCoachAthleteService = async (
     filters,
     cancelToken
 ) => {
-    const { itemPerPage: limit, ...restFilters } = filters
+    const { limit: limit, ...restFilters } = filters
 
     try {
         const { status, data, error } = await api({

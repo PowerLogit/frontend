@@ -2,19 +2,17 @@ import { api } from '@api/axios.api'
 import { HttpStatusCode } from '@constant/HttpStatusCode'
 
 export const getWorkoutsAthleteService = async (filters, cancelToken) => {
-    const { itemPerPage: limit, ...restFilters } = filters
-
     try {
         const { status, data, error } = await api({
             method: 'GET',
             url: '/workouts/athlete',
-            params: { ...restFilters, limit },
+            params: filters,
             cancelToken,
         })
 
         const isOk = HttpStatusCode.OK === status
         if (!isOk) {
-            throw new Error(JSON.stringify(error))
+            throw error
         }
 
         const { data: workout, count } = data
@@ -26,7 +24,7 @@ export const getWorkoutsAthleteService = async (filters, cancelToken) => {
             aborted: false,
         }
     } catch (error) {
-        const isAborted = JSON.parse(error.message)?.isCancel
+        const isAborted = error?.isCancel
 
         return {
             workout: undefined,
@@ -47,7 +45,7 @@ export const getWorkoutAthleteService = async (id, cancelToken) => {
 
         const isOk = HttpStatusCode.OK === status
         if (!isOk) {
-            throw new Error(JSON.stringify(error))
+            throw error
         }
 
         return {
@@ -56,7 +54,7 @@ export const getWorkoutAthleteService = async (id, cancelToken) => {
             aborted: false,
         }
     } catch (error) {
-        const isAborted = JSON.parse(error.message)?.isCancel
+        const isAborted = error?.isCancel
 
         return {
             workout: undefined,
