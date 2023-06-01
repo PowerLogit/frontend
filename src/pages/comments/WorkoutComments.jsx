@@ -37,8 +37,9 @@ const WorkoutComments = () => {
 
 const getWorkout = ({ workout, workoutLoading, workoutError }) => {
     if (workoutLoading) return <p>Cargando...</p>
-    else if (workoutError) {
-        return toast.error('Ha ocurrido un error al cargar el entrenamiento')
+    else if (workoutError || !workout) {
+        toast.error('Ha ocurrido un error al cargar el entrenamiento')
+        return
     }
 
     return <WorkoutCard workout={workout} />

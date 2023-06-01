@@ -5,7 +5,7 @@ import Button from '../../../../components/ui/components/buttons/Button'
 import TrashIcon from '../../../../components/ui/svg/TrashIcon'
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 import { normalizeDateUTC } from '../../libs/functions/normaliceDate'
-import { deleteWorkoutService } from '../../libs/services/workout.service'
+import { deleteWorkoutAthleteService } from '../../libs/services/workoutAthlete.service'
 
 const WorkoutDeleteForm = ({ currentWorkout, closeModal }) => {
     const { onSuccess } = useContext(WorkoutFormsContext)
@@ -61,7 +61,7 @@ const handleSubmit = async (
     ev.preventDefault()
     setIsSubmitting(true)
 
-    const res = await deleteWorkoutService(workoutId)
+    const res = await deleteWorkoutAthleteService(workoutId)
 
     if (res.status === 204) {
         onSuccess()

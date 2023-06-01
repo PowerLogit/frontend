@@ -12,7 +12,7 @@ import {
 } from '../../libs/actions/createForm.action'
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 import useCreateForm from '../../libs/hooks/useCreateForm'
-import { createWorkoutService } from '../../libs/services/workout.service'
+import { createWorkoutAthleteService } from '../../libs/services/workoutAthlete.service'
 
 const WorkoutCreateForm = ({ closeModal }) => {
     const { onSuccess } = useContext(WorkoutFormsContext)
@@ -26,19 +26,11 @@ const WorkoutCreateForm = ({ closeModal }) => {
         dispatchFormValues(setValue(ev.target.value))
     }
 
+    const onHandleSubmit = async (ev) =>
+        handleSubmit(ev, fomrValues, setIsSubmitting, onSuccess, closeModal)
+
     return (
-        <form
-            className='p-5'
-            onSubmit={(ev) =>
-                handleSubmit(
-                    ev,
-                    fomrValues,
-                    setIsSubmitting,
-                    onSuccess,
-                    closeModal
-                )
-            }
-        >
+        <form className='p-5' onSubmit={onHandleSubmit}>
             <div className='flex gap-4 mb-6'>
                 <InputText
                     label='Nombre'
@@ -123,7 +115,7 @@ const handleSubmit = async (
         date: date,
     }
 
-    const res = await createWorkoutService(workout)
+    const res = await createWorkoutAthleteService(workout)
 
     if (res.status === 201) {
         onSuccess()

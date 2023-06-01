@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 import Button from '../../../../components/ui/components/buttons/Button'
 import AlertIcon from '../../../../components/ui/svg/AlertIcon'
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
-import { editWorkoutService } from '../../libs/services/workout.service'
+import { editWorkoutAthleteService } from '../../libs/services/workoutAthlete.service'
 
 const WorkoutCompleteForm = ({ currentWorkout, closeModal }) => {
     const { onSuccess } = useContext(WorkoutFormsContext)
@@ -60,7 +60,7 @@ const handleSubmit = async (
         isSuccessful,
     }
 
-    const res = await editWorkoutService(updateWorkout)
+    const res = await editWorkoutAthleteService(updateWorkout)
 
     if (res.status === 204) {
         onSuccess()
