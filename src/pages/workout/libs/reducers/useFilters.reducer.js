@@ -1,7 +1,10 @@
 import { PAGINATION } from '../../../../constant/pagination'
+import {
+    getFirstDayOfWeek,
+    getLastDayOfWeek,
+} from '../../../../helpers/normaliceDate'
 import { FILTERS_ACTION } from '../constant/filtersAction'
 import { SORT_OPTION } from '../constant/workoutSortOption'
-import { getFirstDayOfWeek, getLastDayOfWeek } from '../functions/normaliceDate'
 
 export const filterReducer = (state, { type, payload }) => {
     switch (type) {

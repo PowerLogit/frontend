@@ -1,6 +1,6 @@
 import { useReducer } from 'react'
 
-import { normalizeDateISO } from '../functions/normaliceDate'
+import { normalizeDateISO } from '../../../../helpers/normaliceDate'
 import { editFormReducer } from '../reducers/useEditForm.reducer'
 
 const useEditForm = (workout) => {

@@ -19,7 +19,7 @@ export const normalizeDateISO = (date) => {
     return newDate.split('/').reverse().join('-')
 }
 
-export const formatDate = (date) => {
+export const formatDateAgo = (date) => {
     const currentDate = new Date()
     const diff = Math.abs(currentDate - date)
 

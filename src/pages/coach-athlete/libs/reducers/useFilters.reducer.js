@@ -1,11 +1,10 @@
 import { PAGINATION } from '../../../../constant/pagination'
-import { FILTERS_ACTION } from '../constant/filtersAction'
-import { SORT_OPTION } from '../constant/workoutSortOption'
 import {
     getFirstDayOfWeek,
     getLastDayOfWeek,
-    normalizeDateISO,
-} from '../functions/normaliceDate'
+} from '../../../../helpers/normaliceDate'
+import { FILTERS_ACTION } from '../constant/filtersAction'
+import { SORT_OPTION } from '../constant/workoutSortOption'
 
 export const filterReducer = (state, { type, payload }) => {
     switch (type) {
@@ -40,7 +39,7 @@ export const filterReducer = (state, { type, payload }) => {
                 page: payload,
             }
 
-        case FILTERS_ACTION.SET_ITEM_PER_PAGE:
+        case FILTERS_ACTION.SET_LIMIT:
             return {
                 ...state,
                 page: PAGINATION.DEFAULT_PAGE,
@@ -57,8 +56,8 @@ export const filterReducer = (state, { type, payload }) => {
 
 export const getFiltersInitialState = () => ({
     sortBy: SORT_OPTION.DEFAULT,
+    startDate: getFirstDayOfWeek(),
+    endDate: getLastDayOfWeek(),
     page: PAGINATION.DEFAULT_PAGE,
-    startDate: normalizeDateISO(getFirstDayOfWeek()),
-    endDate: normalizeDateISO(getLastDayOfWeek()),
     limit: PAGINATION.DEFAULT_ITEM_PER_PAGE,
 })

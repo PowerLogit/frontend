@@ -1,6 +1,6 @@
 import { useAuthContext } from '@auth/libs/context/auth.context'
 
-import { formatDate } from '../../workout/libs/functions/normaliceDate'
+import { formatDateAgo } from '../../../helpers/normaliceDate'
 import WorkoutCommentActions from './WorkoutCommentActions'
 
 const CommentCard = ({ comment, settersComment }) => {
@@ -10,7 +10,7 @@ const CommentCard = ({ comment, settersComment }) => {
     const { name, surname, username } = author
 
     const date = new Date(createdAt)
-    const formattedDate = formatDate(date)
+    const formattedDateAgo = formatDateAgo(date)
 
     const isEdited = createdAt !== updatedAt
     const isAuthor = username === user.username
@@ -28,7 +28,7 @@ const CommentCard = ({ comment, settersComment }) => {
                         {name} {surname}
                     </p>
                     <p className='text-sm text-gray-600 dark:text-gray-400'>
-                        <time>{formattedDate}</time>
+                        <time>{formattedDateAgo}</time>
                         {isEdited && <i> (editado)</i>}
                     </p>
                 </div>

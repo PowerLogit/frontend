@@ -4,8 +4,8 @@ import { toast } from 'sonner'
 import Button from '../../../../components/ui/components/buttons/Button'
 import TrashIcon from '../../../../components/ui/svg/TrashIcon'
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
-import { normalizeDateUTC } from '../../libs/functions/normaliceDate'
 import { deleteWorkoutAthleteService } from '../../libs/services/workoutAthlete.service'
+import { normalizeDateUTC } from '../../../../helpers/normaliceDate'
 
 const WorkoutDeleteForm = ({ currentWorkout, closeModal }) => {
     const { onSuccess } = useContext(WorkoutFormsContext)
