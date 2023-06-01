@@ -10,15 +10,14 @@ import { normalizeDateUTC } from '../../../../helpers/normaliceDate'
 const WorkoutDeleteForm = ({ currentWorkout, closeModal }) => {
     const { onSuccess } = useContext(WorkoutFormsContext)
     const [isSubmitting, setIsSubmitting] = useState(false)
+
     const { id, name, sets, reps, weight, date } = currentWorkout
 
+    const onHandleSubmit = async (ev) =>
+        handleSubmit(ev, id, setIsSubmitting, onSuccess, closeModal)
+
     return (
-        <form
-            className='p-5 text-center'
-            onSubmit={(ev) =>
-                handleSubmit(ev, id, setIsSubmitting, onSuccess, closeModal)
-            }
-        >
+        <form className='p-5 text-center' onSubmit={onHandleSubmit}>
             <TrashIcon
                 className={
                     'text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto'

@@ -1,29 +1,29 @@
 import { FILTERS_ACTION } from '../constant/filtersAction'
 import { getFiltersInitialState } from '../reducers/useFilters.reducer'
 
-export const setSortBy = (sortBy) => ({
+export const setSortBy = (payload) => ({
     type: FILTERS_ACTION.SET_SORT_BY,
-    payload: sortBy,
+    payload,
 })
 
-export const setStartDate = (startDate) => ({
+export const setStartDate = (payload) => ({
     type: FILTERS_ACTION.SET_START_DATE,
-    payload: startDate,
+    payload,
 })
 
-export const setEndDate = (endDate) => ({
+export const setEndDate = (payload) => ({
     type: FILTERS_ACTION.SET_END_DATE,
-    payload: endDate,
+    payload,
 })
 
-export const setPage = (page) => ({
+export const setPage = (payload) => ({
     type: FILTERS_ACTION.SET_PAGE,
-    payload: page,
+    payload,
 })
 
-export const setlimit = (limit) => ({
-    type: FILTERS_ACTION.SET_ITEM_PER_PAGE,
-    payload: limit,
+export const setLimit = (payload) => ({
+    type: FILTERS_ACTION.SET_LIMIT,
+    payload,
 })
 
 export const reset = () => ({

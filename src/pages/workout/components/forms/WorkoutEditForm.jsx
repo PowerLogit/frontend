@@ -21,6 +21,7 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
 
     const { fomrValues, isFormInvalid, dispatchFormValues } =
         useEditForm(currentWorkout)
+
     const { name, sets, reps, weight, date, isCompleted, isSuccessful } =
         fomrValues
 

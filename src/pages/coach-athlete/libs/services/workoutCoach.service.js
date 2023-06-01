@@ -6,13 +6,11 @@ export const getWorkoutsCoachAthleteService = async (
     filters,
     cancelToken
 ) => {
-    const { limit: limit, ...restFilters } = filters
-
     try {
         const { status, data, error } = await api({
             method: 'GET',
             url: `/workouts/coach/${idAthlete}/athlete`,
-            params: { ...restFilters, limit },
+            params: filters,
             cancelToken,
         })
 
@@ -33,36 +31,6 @@ export const getWorkoutsCoachAthleteService = async (
         return {
             workout: undefined,
             count: 0,
-            error: !isAborted,
-            isAborted,
-        }
-    }
-}
-
-// TODO: NEED TO BE UPDATED
-export const getWorkoutCoachAthleteService = async (id, cancelToken) => {
-    try {
-        const { status, data, error } = await api({
-            method: 'GET',
-            url: `/workouts/coach/${id}`,
-            cancelToken,
-        })
-
-        const isOk = HttpStatusCode.OK === status
-        if (!isOk) {
-            throw new Error(JSON.stringify(error))
-        }
-
-        return {
-            workout: data,
-            error: !isOk,
-            aborted: false,
-        }
-    } catch (error) {
-        const isAborted = JSON.parse(error.message)?.isCancel
-
-        return {
-            workout: undefined,
             error: !isAborted,
             isAborted,
         }

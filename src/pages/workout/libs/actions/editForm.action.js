@@ -1,31 +1,31 @@
 import { EDIT_FORM_ACTION } from '../constant/editForm.action'
 
-export const setName = (name) => ({
+export const setName = (payload) => ({
     type: EDIT_FORM_ACTION.SET_NAME,
-    payload: name,
+    payload,
 })
 
-export const setSets = (sets) => ({
+export const setSets = (payload) => ({
     type: EDIT_FORM_ACTION.SET_SETS,
-    payload: sets,
+    payload,
 })
 
-export const setReps = (reps) => ({
+export const setReps = (payload) => ({
     type: EDIT_FORM_ACTION.SET_REPS,
-    payload: reps,
+    payload,
 })
 
-export const setWeight = (weight) => ({
+export const setWeight = (payload) => ({
     type: EDIT_FORM_ACTION.SET_WEIGHT,
-    payload: weight,
+    payload,
 })
 
-export const setDate = (date) => ({
+export const setDate = (payload) => ({
     type: EDIT_FORM_ACTION.SET_DATE,
-    payload: date,
+    payload,
 })
 
-export const setIsSuccessful = (isSuccessful) => ({
+export const setIsSuccessful = (payload) => ({
     type: EDIT_FORM_ACTION.SET_IS_SUCCESSFUL,
-    payload: isSuccessful,
+    payload,
 })
