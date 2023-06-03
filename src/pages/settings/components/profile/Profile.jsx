@@ -1,6 +1,5 @@
 import UserPassword from './UserPassword'
 import UserProfile from './UserProfile'
-import UserToCoach from './UserToCoach'
 
 const Profile = () => {
     return (
@@ -9,9 +8,6 @@ const Profile = () => {
             <div className='flex flex-col xl:flex-row justify-center gap-12 mb-6'>
                 <UserProfile />
                 <UserPassword />
-            </div>
-            <div>
-                <UserToCoach />
             </div>
         </div>
     )

@@ -2,6 +2,7 @@ import { Sidebar } from 'flowbite-react'
 import { useState } from 'react'
 
 import Profile from './components/profile/Profile'
+import UserToCoach from './components/coach/UserToCoach'
 
 const Settings = () => {
     const [showPage, setShowPage] = useState(initialState)
@@ -39,6 +40,6 @@ const initialState = {
     component: Profile,
 }
 
-const pages = [initialState]
+const pages = [initialState, { name: 'Entrenador', component: UserToCoach }]
 
 export default Settings
