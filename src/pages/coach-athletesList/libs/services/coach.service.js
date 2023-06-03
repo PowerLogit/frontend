@@ -8,7 +8,7 @@ export const getAthletesService = async (filters, cancelToken) => {
             error,
         } = await api({
             method: 'GET',
-            url: '/coach/athletes',
+            url: '/coaches/athletes',
             params: filters,
             cancelToken,
         })

@@ -2,7 +2,7 @@ import { toast } from 'sonner'
 
 import Button from '../../../components/ui/components/buttons/Button'
 import { getAvatar } from '../../../helpers/uiAvatars'
-import { sendRequestToCoach } from '../libs/services/coach.service'
+import { sendRequestToCoach } from '../libs/services/athlete.service'
 
 const CardCoach = ({ coach }) => {
     const { name, surname, username, role } = coach

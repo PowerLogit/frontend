@@ -2,13 +2,11 @@ import { api } from '@api/axios.api'
 
 import { HttpStatusCode } from '../../../../constant/HttpStatusCode'
 
-export const getProfileService = async (bearer, cancelToken) => {
+export const addCoachRoleService = async () => {
     try {
         const { data, status, error } = await api({
-            method: 'GET',
-            url: '/users',
-            bearer,
-            cancelToken,
+            method: 'PATCH',
+            url: '/coaches/add-role',
         })
 
         const isOk = HttpStatusCode.OK === status
@@ -18,26 +16,22 @@ export const getProfileService = async (bearer, cancelToken) => {
 
         return {
             data,
+            status,
             error: !isOk,
-            aborted: false,
         }
     } catch (error) {
-        const isAborted = error?.isCancel
-
         return {
             data: undefined,
-            error: !isAborted,
-            isAborted,
+            error: error.message,
         }
     }
 }
 
-export const udpateProfileService = async (payload) => {
+export const removeCoachRoleService = async () => {
     try {
         const { data, status, error } = await api({
             method: 'PATCH',
-            url: '/users',
-            payload,
+            url: '/coaches/remove-role',
         })
 
         const isOk = HttpStatusCode.OK === status

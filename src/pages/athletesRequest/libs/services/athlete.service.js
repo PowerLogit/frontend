@@ -8,7 +8,7 @@ export const getAthleteRequestsService = async (filters, cancelToken) => {
             error,
         } = await api({
             method: 'GET',
-            url: '/coach/athlete-requests',
+            url: '/coaches/athlete-requests',
             params: filters,
             cancelToken,
         })
@@ -43,13 +43,13 @@ export const getAthleteRequestsService = async (filters, cancelToken) => {
 export const acceptAthleteService = async (idAthlete) => {
     return await api({
         method: 'POST',
-        url: `/coach/${idAthlete}/accept-athlete`,
+        url: `/coaches/${idAthlete}/accept-athlete`,
     })
 }
 
 export const rejectAthleteService = async (idAthlete) => {
     return await api({
         method: 'DELETE',
-        url: `/coach/${idAthlete}/reject-athlete`,
+        url: `/coaches/${idAthlete}/reject-athlete`,
     })
 }
