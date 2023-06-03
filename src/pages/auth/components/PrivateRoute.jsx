@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { useAuthContext } from '../libs/context/auth.context'
 
@@ -8,30 +8,34 @@ const PrivateRoute = ({ roles }) => {
     const location = useLocation()
     const navigate = useNavigate()
 
-    const hasPermission = roles?.every((role) => user?.role?.includes(role))
+    const hasPermission = roles
+        ? roles?.every((role) => user?.role?.includes(role))
+        : true
 
     useEffect(() => {
-        if (token && loading) return
+        if (!!token && loading) return
 
-        if (!isAuthenticated || !hasPermission) {
-            if (!loading) {
-                navigate('/authenticate', {
-                    replace: true,
-                    state: { from: location },
-                })
-            }
+        if (!!token && isAuthenticated && !hasPermission && !loading) {
+            navigate(-1)
+        }
+
+        if (!token && !isAuthenticated && !loading) {
+            navigate('/authenticate', {
+                replace: true,
+                state: { from: location },
+            })
         }
     }, [isAuthenticated, loading, navigate, token, hasPermission, location])
 
-    if (token && loading) {
-        return <h3>Loading...</h3>
-    }
+    // if (!!token && loading) {
+    //     return <h3>Loading...</h3>
+    // }
 
     if (isAuthenticated && hasPermission) {
         return <Outlet />
     }
 
-    return <Navigate to='/authenticate' state={{ from: location }} replace />
+    return null
 }
 
 export default PrivateRoute
