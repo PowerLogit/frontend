@@ -1,11 +1,16 @@
+import { useAuthContext } from '@auth/libs/context/auth.context'
 import { Sidebar } from 'flowbite-react'
 import { useState } from 'react'
 
-import Profile from './components/profile/Profile'
+import UserToAthlete from './components/athlete/UserToAthlete'
 import UserToCoach from './components/coach/UserToCoach'
+import Profile from './components/profile/Profile'
 
 const Settings = () => {
+    const { user } = useAuthContext()
     const [showPage, setShowPage] = useState(initialState)
+
+    const pages = getPages(user.role)
 
     return (
         <div className='max-w-screen-xl mx-auto mt-8 flex gap-8 px-4 xl:px-0'>
@@ -40,6 +45,18 @@ const initialState = {
     component: Profile,
 }
 
-const pages = [initialState, { name: 'Entrenador', component: UserToCoach }]
+const getPages = (roles) => {
+    const athleteTitle = getTitle(roles.includes('athlete'), 'Atleta')
+    const coachTitle = getTitle(roles.includes('coach'), 'Entrenador')
+
+    return [
+        initialState,
+        { name: athleteTitle, component: UserToAthlete },
+        { name: coachTitle, component: UserToCoach },
+    ]
+}
+
+const getTitle = (conditional, title) =>
+    conditional ? `Dejar de ser ${title}` : `Ser ${title}`
 
 export default Settings
