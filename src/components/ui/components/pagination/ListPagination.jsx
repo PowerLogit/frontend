@@ -8,7 +8,7 @@ import Select from '../form/Select'
 import PageSelector from './PageSelector'
 
 const ListPagination = ({ page, limit, dispatchFilters, totalWorkouts }) => {
-    if (!totalWorkouts) return
+    if (!totalWorkouts || totalWorkouts <= 6) return
 
     return (
         <div className='mt-8 flex flex-col justify-center items-center gap-4 sm:flex-row sm:justify-between sm:items-center'>
@@ -28,11 +28,13 @@ const ListPagination = ({ page, limit, dispatchFilters, totalWorkouts }) => {
                 </Select>
                 <p>Elementos por pagina</p>
             </div>
-            <PageSelector
-                page={page}
-                setPage={(newPage) => dispatchFilters(setPage(newPage))}
-                totalPages={Math.ceil(totalWorkouts / limit)}
-            />
+            {totalWorkouts > limit && (
+                <PageSelector
+                    page={page}
+                    setPage={(newPage) => dispatchFilters(setPage(newPage))}
+                    totalPages={Math.ceil(totalWorkouts / limit)}
+                />
+            )}
         </div>
     )
 }
