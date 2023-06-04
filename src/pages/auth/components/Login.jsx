@@ -5,15 +5,15 @@ import { useNavigate } from 'react-router-dom'
 import Button from '../../../components/ui/components/buttons/Button'
 import InputText from '../../../components/ui/components/form/InputText'
 import { NODE_ENV } from '../../../config/common'
-import { setError, setIsLoading, setNewAuth } from '../libs/actions/auth.action'
+import { setError, setNewAuth } from '../libs/actions/auth.action'
 import { useAuthContext } from '../libs/context/auth.context'
-import { getRedirectPath } from '../libs/helpers/redirectPath.helper'
 import { loginService } from '../libs/services/auth.service'
 
 const isDevMode = NODE_ENV === 'dev'
 
 const Login = () => {
-    const { loading, error, dispatchAuth } = useAuthContext()
+    const { error, dispatchAuth } = useAuthContext()
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const navigate = useNavigate()
 
@@ -29,33 +29,8 @@ const Login = () => {
         })
     }
 
-    const handleSubmit = async (ev) => {
-        ev.preventDefault()
-        dispatchAuth(setIsLoading())
-
-        try {
-            const { data, status, error } = await loginService(credential)
-
-            if (status !== HttpStatusCode.OK) {
-                throw JSON.stringify(error.message)
-            }
-
-            dispatchAuth(setNewAuth(data.access_token))
-
-            navigate(getRedirectPath())
-        } catch (error) {
-            const { message, statusCode } = JSON.parse(error)
-
-            const errorMessages = {
-                400: 'Formato inválido',
-                409: 'Credenciales inválidas',
-            }
-
-            const msg = errorMessages[statusCode] || message
-
-            dispatchAuth(setError(msg))
-        }
-    }
+    const onHandleSubmit = async (ev) =>
+        handleSubmit(ev, credential, dispatchAuth, setIsSubmitting, navigate)
 
     return (
         <form className='space-y-4 md:space-y-6'>
@@ -83,11 +58,51 @@ const Login = () => {
                 </p>
             )}
 
-            <Button type='submit' onClick={handleSubmit} loading={loading}>
+            <Button
+                type='submit'
+                onClick={onHandleSubmit}
+                loading={isSubmitting}
+            >
                 Iniciar sesión
             </Button>
         </form>
     )
+}
+
+const handleSubmit = async (
+    ev,
+    credential,
+    dispatchAuth,
+    setIsSubmitting,
+    navigate
+) => {
+    ev.preventDefault()
+    setIsSubmitting(true)
+
+    try {
+        const { data, status, error } = await loginService(credential)
+
+        if (status !== HttpStatusCode.OK) {
+            throw JSON.stringify(error.message)
+        }
+
+        dispatchAuth(setNewAuth(data.access_token))
+
+        navigate('/')
+    } catch (error) {
+        const { message, statusCode } = JSON.parse(error)
+
+        const errorMessages = {
+            400: 'Formato inválido',
+            409: 'Credenciales inválidas',
+        }
+
+        const msg = errorMessages[statusCode] || message
+
+        dispatchAuth(setError(msg))
+    }
+
+    setIsSubmitting(false)
 }
 
 export default Login

@@ -9,7 +9,7 @@ import {
     setRepeatNewPassword,
 } from '../../libs/actions/userPassword.action'
 import useUserPassword from '../../libs/hooks/useUserPasswordy'
-import { udpatePasswordService } from '../../libs/services/user.service'
+import { udpatePasswordService } from '../../libs/services/auth.service'
 
 const UserPassword = () => {
     const { form, isFormInvalid, setResetForm, handleInput } = useUserPassword()

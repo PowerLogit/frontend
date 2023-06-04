@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
 import { setNewAuth } from '../../../auth/libs/actions/auth.action'
-import { addCoachRoleService } from '../../libs/services/user.service'
+import { addCoachRoleService } from '../../libs/services/coach.service'
 
 const AddCoachRole = ({ closeModal }) => {
     const { dispatchAuth } = useAuthContext()

@@ -20,8 +20,7 @@ const UserProfile = () => {
 
     if (isLoading) return <div className='mx-auto text-center'>Cargando...</div>
 
-    const roles = data.role.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    const rolesFormat = new Intl.ListFormat('es-ES').format(roles)
+    const rolesFormat = getRoles(data.role)
 
     const onHandleSubmit = async (ev) =>
         handleSubmit(ev, form, setIsSubmitting, dispatchAuth)
@@ -107,6 +106,13 @@ const handleSubmit = async (ev, form, setIsSubmitting, dispatchAuth) => {
     }
 
     setIsSubmitting(false)
+}
+
+const getRoles = (roles) => {
+    if (!roles.length) return 'Sin roles asignados'
+
+    const rolesFormat = roles.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    return new Intl.ListFormat('es-ES').format(rolesFormat)
 }
 
 export default UserProfile

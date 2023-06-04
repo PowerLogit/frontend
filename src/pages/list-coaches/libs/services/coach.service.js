@@ -9,7 +9,7 @@ export const getCoachesService = async (filters, cancelToken) => {
             error,
         } = await api({
             method: 'GET',
-            url: '/coach',
+            url: '/coaches',
             params: filters,
             cancelToken,
         })
@@ -39,11 +39,4 @@ export const getCoachesService = async (filters, cancelToken) => {
             isAborted,
         }
     }
-}
-
-export const sendRequestToCoach = async (idCoach) => {
-    return await api({
-        method: 'POST',
-        url: `/athlete/${idCoach}/send-request-to-coach`,
-    })
 }
