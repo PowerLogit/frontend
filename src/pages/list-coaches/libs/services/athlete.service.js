@@ -6,3 +6,10 @@ export const sendRequestToCoach = async (idCoach) => {
         url: `/athletes/${idCoach}/send-request-to-coach`,
     })
 }
+
+export const cancelRequestToCoach = async (idCoach) => {
+    return await api({
+        method: 'DELETE',
+        url: `/athletes/${idCoach}/cancel-request-to-coach`,
+    })
+}

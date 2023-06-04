@@ -6,7 +6,8 @@ import useCoaches from './libs/hooks/useCoaches'
 
 const ListCoaches = () => {
     const [filters, setFilters] = useState(initialFilters)
-    const { data, totalPages, isLoading, error } = useCoaches(filters)
+    const { data, totalPages, isLoading, error, toogleData } =
+        useCoaches(filters)
 
     const setPage = (page) => setFilters({ ...filters, page })
 
@@ -16,7 +17,12 @@ const ListCoaches = () => {
                 Lista de Entrenadores
             </h1>
 
-            <CoachesRow data={data} isLoading={isLoading} error={error} />
+            <CoachesRow
+                data={data}
+                isLoading={isLoading}
+                error={error}
+                toogleData={toogleData}
+            />
 
             {!!data.length && (
                 <PageSelector
