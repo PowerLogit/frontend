@@ -1,9 +1,10 @@
+import InputText from '../../components/ui/components/form/InputText'
 import PageSelector from '../../components/ui/components/pagination/PageSelector'
 import AthletesListRow from './components/AthletesListRow'
 import useAthletes from './libs/hooks/useAthletes'
 
 const AthletesList = () => {
-    const { data, isLoading, error, totalPages, filters, setPage } =
+    const { data, isLoading, error, totalPages, filters, setSearch, setPage } =
         useAthletes()
 
     return (
@@ -12,9 +13,17 @@ const AthletesList = () => {
                 Listado de atletas
             </h1>
 
+            <InputText
+                placeholder='Buscar entrenador...'
+                type='search'
+                className='mb-6 max-w-sm'
+                value={filters.search}
+                onChange={setSearch}
+            />
+
             <AthletesListRow data={data} isLoading={isLoading} error={error} />
 
-            {!!data.length && (
+            {totalPages > 1 && (
                 <PageSelector
                     page={filters.page}
                     setPage={setPage}

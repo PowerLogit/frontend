@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { sourceCancelToken } from '../../../../api/axios.api'
 import { getAthletesService } from '../services/coach.service'
@@ -23,7 +23,15 @@ const useAthletes = () => {
     const setLoading = () =>
         setRequests((prevCoaches) => ({ ...prevCoaches, isLoading: true }))
 
-    const setPage = (page) => setFilters({ ...filters, page })
+    const setPage = useCallback(
+        (page) => setFilters({ ...filters, page }),
+        [filters]
+    )
+
+    const setSearch = useCallback(
+        (ev) => setFilters((prev) => ({ ...prev, search: ev.target.value })),
+        []
+    )
 
     const onSuccess = () =>
         setFilters((prevFilters) => ({
@@ -33,11 +41,16 @@ const useAthletes = () => {
 
     useEffect(() => {
         const cancelToken = sourceCancelToken()
-        const setters = { setLoading, setData, setError }
 
-        loadAthletes(filters, setters, cancelToken)
+        const timeoutId = setTimeout(() => {
+            const setters = { setLoading, setData, setError }
+            loadAthletes(filters, setters, cancelToken)
+        }, 400)
 
-        return () => cancelToken.cancel()
+        return () => {
+            cancelToken.cancel()
+            clearTimeout(timeoutId)
+        }
     }, [filters])
 
     return {
@@ -48,6 +61,7 @@ const useAthletes = () => {
         error: requests.error,
         filters,
         setPage,
+        setSearch,
         onSuccess,
     }
 }
@@ -63,16 +77,17 @@ const INITIAL_STATE = {
 const initialFilters = {
     limit: 10,
     page: 1,
+    search: '',
     change: false,
 }
 
 const loadAthletes = async (filters, setters, signal) => {
     setters.setLoading()
 
-    const { limit, page } = filters
+    const { limit, page, search } = filters
 
     const { data, count, totalPages, error, isAborted } =
-        await getAthletesService({ limit, page }, signal)
+        await getAthletesService({ limit, page, search }, signal)
 
     if (isAborted) return
     if (data) setters.setData(data, count, totalPages)
