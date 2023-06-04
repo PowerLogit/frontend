@@ -5,16 +5,17 @@ import { useState } from 'react'
 import UserToAthlete from './components/athlete/UserToAthlete'
 import UserToCoach from './components/coach/UserToCoach'
 import Profile from './components/profile/Profile'
+import MyCoach from './components/my-coach/MyCoach'
 
 const Settings = () => {
     const { user } = useAuthContext()
     const [showPage, setShowPage] = useState(initialState)
 
-    const pages = getPages(user.role)
+    const pages = getPages(user)
 
     return (
         <div className='max-w-screen-xl mx-auto mt-8 flex gap-8 px-4 xl:px-0'>
-            <div className='w-fit'>
+            <div className='h-full'>
                 <Sidebar aria-label='Sidebar with call to action button example'>
                     <Sidebar.Items>
                         <Sidebar.ItemGroup>
@@ -22,7 +23,7 @@ const Settings = () => {
                                 <Sidebar.Item
                                     key={page.name}
                                     onClick={() => setShowPage(page)}
-                                    className={`cursor-pointer ${
+                                    className={`cursor-pointer hover:!bg-primary-800 ${
                                         page.name === showPage.name
                                             ? 'bg-primary-700'
                                             : ''
@@ -45,15 +46,22 @@ const initialState = {
     component: Profile,
 }
 
-const getPages = (roles) => {
-    const athleteTitle = getTitle(roles.includes('athlete'), 'Atleta')
-    const coachTitle = getTitle(roles.includes('coach'), 'Entrenador')
+const getPages = (user) => {
+    const athleteTitle = getTitle(user?.roles?.includes('athlete'), 'Atleta')
+    const coachTitle = getTitle(user?.roles?.includes('coach'), 'Entrenador')
+    const hasCoach = user?.coach
 
-    return [
+    const pages = [
         initialState,
         { name: athleteTitle, component: UserToAthlete },
         { name: coachTitle, component: UserToCoach },
     ]
+
+    if (hasCoach) {
+        pages.push({ name: 'Mi Entrenador', component: MyCoach })
+    }
+
+    return pages
 }
 
 const getTitle = (conditional, title) =>
