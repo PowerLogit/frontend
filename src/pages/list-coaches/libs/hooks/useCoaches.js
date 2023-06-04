@@ -16,6 +16,17 @@ const useCoaches = (filters) => {
         })
     }
 
+    const toogleData = (coachId) => {
+        setCoaches((prevCoaches) => ({
+            ...prevCoaches,
+            data: prevCoaches.data.map((coach) =>
+                coach.id === coachId
+                    ? { ...coach, hasRequest: !coach.hasRequest }
+                    : coach
+            ),
+        }))
+    }
+
     const setError = (newError) =>
         setCoaches({ ...INITIAL_STATE, isLoading: false, error: newError })
 
@@ -37,6 +48,7 @@ const useCoaches = (filters) => {
         totalPages: coaches.totalPages,
         isLoading: coaches.isLoading,
         error: coaches.error,
+        toogleData,
     }
 }
 

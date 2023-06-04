@@ -2,10 +2,13 @@ import { toast } from 'sonner'
 
 import Button from '../../../components/ui/components/buttons/Button'
 import { getAvatar } from '../../../helpers/uiAvatars'
-import { sendRequestToCoach } from '../libs/services/athlete.service'
+import {
+    cancelRequestToCoach,
+    sendRequestToCoach,
+} from '../libs/services/athlete.service'
 
-const CardCoach = ({ coach }) => {
-    const { name, surname, username, role } = coach
+const CardCoach = ({ coach, toogleData }) => {
+    const { name, surname, username, role, hasRequest } = coach
 
     const avatarImg = getAvatar(name, surname)
 
@@ -14,7 +17,10 @@ const CardCoach = ({ coach }) => {
     )
     const roleFormat = new Intl.ListFormat('es-ES').format(roles)
 
-    const onHandleSubmit = async () => handleSubmit(coach.id)
+    const onHandleSendRequest = async () =>
+        handleSendRequest(coach.id, toogleData)
+    const onHandleCancelRequest = async () =>
+        handleCancelRequest(coach.id, toogleData)
 
     return (
         <div className='w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
@@ -33,22 +39,42 @@ const CardCoach = ({ coach }) => {
                 <span className='mb-4 text-sm text-center text-gray-500 dark:text-gray-400'>
                     {roleFormat}
                 </span>
-                <Button onClick={onHandleSubmit}>Mandar solucitud</Button>
+                {hasRequest ? (
+                    <Button kind='outline' onClick={onHandleCancelRequest}>
+                        Cancelar solucitud
+                    </Button>
+                ) : (
+                    <Button onClick={onHandleSendRequest}>
+                        Mandar solucitud
+                    </Button>
+                )}
             </div>
         </div>
     )
 }
 
-const handleSubmit = async (idCoach) => {
+const handleSendRequest = async (idCoach, toogleData) => {
     const { status } = await sendRequestToCoach(idCoach)
 
     if (status === 201) {
         toast.success('¡Solicitud enviada exitosamente!')
-    } else if (status === 409) {
-        toast.error('Ya has enviado una solicitud previamente')
+        toogleData(idCoach)
     } else {
         toast.error(
             'Ha ocurrido un error al enviar la solicitud. Por favor, inténtalo de nuevo.'
+        )
+    }
+}
+
+const handleCancelRequest = async (idCoach, toogleData) => {
+    const { status } = await cancelRequestToCoach(idCoach)
+
+    if (status === 204) {
+        toast.success('¡Solicitud cancelada exitosamente!')
+        toogleData(idCoach)
+    } else {
+        toast.error(
+            'Ha ocurrido un error al cancelar la solicitud. Por favor, inténtalo de nuevo.'
         )
     }
 }
