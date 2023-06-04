@@ -27,7 +27,7 @@ const AthletesRequest = ({ athletesRequest }) => {
                 handlers={handlers}
             />
 
-            {!!data.length && (
+            {totalPages > 1 && (
                 <PageSelector
                     page={filters.page}
                     setPage={setPage}
