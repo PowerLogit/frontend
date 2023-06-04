@@ -35,11 +35,16 @@ const useCoaches = (filters) => {
 
     useEffect(() => {
         const cancelToken = sourceCancelToken()
-        const setters = { setLoading, setData, setError }
 
-        loadCoaches(filters, setters, cancelToken)
+        const timeoutId = setTimeout(() => {
+            const setters = { setLoading, setData, setError }
+            loadCoaches(filters, setters, cancelToken)
+        }, 400)
 
-        return () => cancelToken.cancel()
+        return () => {
+            cancelToken.cancel()
+            clearTimeout(timeoutId)
+        }
     }, [filters])
 
     return {
