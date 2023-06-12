@@ -5,7 +5,6 @@ import { useState } from 'react'
 import UserToAthlete from './components/athlete/UserToAthlete'
 import UserToCoach from './components/coach/UserToCoach'
 import Profile from './components/profile/Profile'
-import MyCoach from './components/my-coach/MyCoach'
 
 const Settings = () => {
     const { user } = useAuthContext()
@@ -49,17 +48,12 @@ const initialState = {
 const getPages = (user) => {
     const athleteTitle = getTitle(user?.roles?.includes('athlete'), 'Atleta')
     const coachTitle = getTitle(user?.roles?.includes('coach'), 'Entrenador')
-    const hasCoach = user?.coach
 
     const pages = [
         initialState,
         { name: athleteTitle, component: UserToAthlete },
         { name: coachTitle, component: UserToCoach },
     ]
-
-    if (hasCoach) {
-        pages.push({ name: 'Mi Entrenador', component: MyCoach })
-    }
 
     return pages
 }

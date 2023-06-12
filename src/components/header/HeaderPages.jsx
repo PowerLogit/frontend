@@ -24,7 +24,11 @@ const HeaderPages = () => {
                 ))}
             {isAthlete &&
                 headerPagesAthlete.map(({ title, url }) => {
-                    if (hasCoach && url === '/coaches') return null
+                    if (
+                        (hasCoach && url === '/coaches') ||
+                        (!hasCoach && url === '/coach')
+                    )
+                        return null
 
                     return (
                         <li key={url}>

@@ -1,6 +1,5 @@
 import { sourceCancelToken } from '@api/axios.api'
 import { useEffect, useState } from 'react'
-
 import { getCoachProfileService } from '../services/athlete.service'
 
 const useCoachProfile = () => {
