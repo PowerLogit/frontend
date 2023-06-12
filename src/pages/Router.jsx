@@ -11,12 +11,15 @@ import PageNotFound from '../components/PageNotFound'
 import AthletesRequest from './athletesRequest/AthletesRequest'
 import useAthletesRequest from './athletesRequest/libs/hooks/useAthletesRequest'
 import Calculate from './calculate/Calculate'
+import CoachAthleteWorkout from './coach-athlete/CoachAthleteWorkout'
+import AthletesList from './coach-athletesList/AthletesList'
+import ChatCoach from './coach-athletesList/components/chat/Chat'
 import WorkoutComments from './comments/WorkoutComments'
 import Home from './home/Home'
 import ListCoaches from './list-coaches/ListCoaches'
+import ChatAthlete from './my-coach/components/chat/Chat'
+import MyCoach from './my-coach/MyCoach'
 import Settings from './settings/SideBar'
-import AthletesList from './coach-athletesList/AthletesList'
-import CoachAthleteWorkout from './coach-athlete/CoachAthleteWorkout'
 
 const Router = () => {
     return (
@@ -59,6 +62,11 @@ const RouterMain = () => {
                         />
                         <Route path='/calc/:weight?' element={<Calculate />} />
                         <Route path='/coaches' element={<ListCoaches />} />
+                        <Route path='/coach' element={<MyCoach />} />
+                        <Route
+                            path='/coach-chat/:idCoach'
+                            element={<ChatAthlete />}
+                        />
                     </Route>
 
                     {/* Private routes coach */}
@@ -78,6 +86,10 @@ const RouterMain = () => {
                         <Route
                             path='/athlete/:idAthlete/:username'
                             element={<CoachAthleteWorkout />}
+                        />
+                        <Route
+                            path='/athlete-chat/:idAthlete/:username'
+                            element={<ChatCoach />}
                         />
                     </Route>
 

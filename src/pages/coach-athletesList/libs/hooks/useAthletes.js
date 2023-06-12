@@ -75,7 +75,7 @@ const INITIAL_STATE = {
 }
 
 const initialFilters = {
-    limit: 10,
+    limit: 8,
     page: 1,
     search: '',
     change: false,

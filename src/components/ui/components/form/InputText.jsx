@@ -21,12 +21,14 @@ const InputText = ({
 
     return (
         <div className={className}>
-            <label
-                htmlFor={name}
-                className={`block mb-2 text-sm font-medium ${labelClass}`}
-            >
-                {label}
-            </label>
+            {!!label && (
+                <label
+                    htmlFor={name}
+                    className={`block mb-2 text-sm font-medium ${labelClass}`}
+                >
+                    {label}
+                </label>
+            )}
             <input
                 type={type}
                 id={name}

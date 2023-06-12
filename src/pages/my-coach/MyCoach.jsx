@@ -2,16 +2,16 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
-import Modal from '../../../../components/Modal'
-import Button from '../../../../components/ui/components/buttons/Button'
-import { setNewAuth } from '../../../auth/libs/actions/auth.action'
-import { useAuthContext } from '../../../auth/libs/context/auth.context'
-import useCoachProfile from '../../libs/hooks/useCoachProfile'
-import { leaveCoachService } from '../../libs/services/athlete.service'
-import CardCoach from './CardCoach'
+import Modal from '../../components/Modal'
+import Button from '../../components/ui/components/buttons/Button'
+import { setNewAuth } from '../auth/libs/actions/auth.action'
+import { useAuthContext } from '../auth/libs/context/auth.context'
+import CardCoach from './components/CardCoach'
+import useCoachProfile from './libs/hooks/useCoachProfile'
+import { leaveCoachService } from './libs/services/athlete.service'
 
 const MyCoach = () => {
-    const { dispatchAuth } = useAuthContext()
+    const { user, dispatchAuth } = useAuthContext()
     const { data, isLoading, error } = useCoachProfile()
     const navigate = useNavigate()
 
@@ -21,16 +21,29 @@ const MyCoach = () => {
     const onHandleSubmit = async (ev) =>
         handleSubmit(ev, setIsSubmitting, dispatchAuth, navigate)
 
+    const openChat = () => {
+        navigate(`/coach-chat/${user.coach}`)
+    }
+
     if (isLoading) return <p>Loading...</p>
     if (error) return <p>Error</p>
 
     return (
         <div className='mx-auto flex flex-col justify-center items-center gap-6 pb-1'>
-            <h2 className='text-4xl font-bold'>Dejar el entrenador</h2>
+            <h2 className='text-4xl font-bold'>Mi entrenador</h2>
             <CardCoach coach={data} />
-            <Button className='mx-auto' onClick={() => setShowModal(true)}>
-                Dejar el entrenador
-            </Button>
+            <div className='w-full max-w-sm flex gap-4'>
+                <Button
+                    className='w-full'
+                    kind='outline'
+                    onClick={() => setShowModal(true)}
+                >
+                    Dejar el entrenador
+                </Button>
+                <Button className='w-full' onClick={openChat}>
+                    Abrir chat
+                </Button>
+            </div>
 
             {showModal && (
                 <Modal

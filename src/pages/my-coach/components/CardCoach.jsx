@@ -1,4 +1,4 @@
-import { getAvatar } from '../../../../helpers/uiAvatars'
+import { getAvatar } from '../../../helpers/uiAvatars'
 
 const CardCoach = ({ coach }) => {
     const { name, surname, username } = coach
