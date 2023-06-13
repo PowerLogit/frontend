@@ -1,14 +1,12 @@
 import { useState } from 'react'
 
 import Button from '../../../components/ui/components/buttons/Button'
-import { getAvatar } from '../../../helpers/uiAvatars'
+import useAvatar from '../../../hooks/useAvatar'
 
 const AthletesRequestCard = ({ athlete, onSuccess, handlers }) => {
+    const { avatar, avatarAlt } = useAvatar(athlete)
+
     const [isSubmitting, setIsSubmitting] = useState(false)
-
-    const { name, surname, username } = athlete
-
-    const avatarImg = getAvatar(name, surname)
 
     const onHandleAccept = async () =>
         handlers.handleAccept(athlete.id, setIsSubmitting, onSuccess)
@@ -21,14 +19,14 @@ const AthletesRequestCard = ({ athlete, onSuccess, handlers }) => {
             <div className='flex flex-col items-center p-10'>
                 <img
                     className='w-24 h-24 mb-3 rounded-full shadow-lg'
-                    src={avatarImg}
-                    alt={name + ' image'}
+                    src={avatar}
+                    alt={avatarAlt}
                 />
                 <h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white'>
-                    {name} {surname}
+                    {athlete.name} {athlete.surname}
                 </h5>
                 <h5 className='mb-4 text-md text-gray-900 dark:text-white'>
-                    @{username}
+                    @{athlete.username}
                 </h5>
                 <div className='flex gap-4'>
                     <Button

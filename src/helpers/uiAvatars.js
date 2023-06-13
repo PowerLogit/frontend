@@ -1,6 +1,7 @@
-export const getAvatar = (name, surname) => {
-    if (!surname)
-        return `https://ui-avatars.com/api/?name=${name}&size=96?format=svg`
+export const getAvatar = ({ name, surname }) => {
+    const avatarApiUrl = 'https://ui-avatars.com/api?size=96?format=svg'
 
-    return `https://ui-avatars.com/api/?name=${name}+${surname}&size=96?format=svg`
+    return !surname
+        ? `${avatarApiUrl}&name=${name}`
+        : `${avatarApiUrl}&name=${name}${surname}`
 }

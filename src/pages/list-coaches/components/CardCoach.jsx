@@ -1,7 +1,7 @@
 import { toast } from 'sonner'
 
 import Button from '../../../components/ui/components/buttons/Button'
-import { getAvatar } from '../../../helpers/uiAvatars'
+import useAvatar from '../../../hooks/useAvatar'
 import {
     cancelRequestToCoach,
     sendRequestToCoach,
@@ -10,7 +10,7 @@ import {
 const CardCoach = ({ coach, toogleData }) => {
     const { name, surname, username, role, hasRequest } = coach
 
-    const avatarImg = getAvatar(name, surname)
+    const { avatar, avatarAlt } = useAvatar(coach)
 
     const roles = role.map(
         (word) => word.charAt(0).toUpperCase() + word.slice(1)
@@ -27,8 +27,8 @@ const CardCoach = ({ coach, toogleData }) => {
             <div className='flex flex-col items-center p-10'>
                 <img
                     className='w-24 h-24 mb-3 rounded-full shadow-lg'
-                    src={avatarImg}
-                    alt={name + ' image'}
+                    src={avatar}
+                    alt={avatarAlt}
                 />
                 <h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white'>
                     {name} {surname}
