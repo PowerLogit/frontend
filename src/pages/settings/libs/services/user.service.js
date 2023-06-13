@@ -57,3 +57,29 @@ export const udpateProfileService = async (payload) => {
         }
     }
 }
+
+export const udpateAvatarService = async (payload) => {
+    try {
+        const { data, status, error } = await api({
+            method: 'POST',
+            url: '/users/avatar',
+            payload,
+        })
+
+        const isOk = HttpStatusCode.CREATED === status
+        if (!isOk) {
+            throw error
+        }
+
+        return {
+            data,
+            status,
+            error: !isOk,
+        }
+    } catch (error) {
+        return {
+            data: undefined,
+            error: error.message,
+        }
+    }
+}
