@@ -1,16 +1,15 @@
+import { useId } from 'react'
+
 const InputText = ({
     type = 'text',
     label,
     error,
     className,
     placeholder,
-    name,
-    defaultValue,
-    onChange,
-    onBlur,
-    required,
     ...props
 }) => {
+    const name = useId()
+
     const labelClass = error
         ? 'text-red-700 dark:text-red-500'
         : 'text-gray-900 dark:text-white'
@@ -34,10 +33,6 @@ const InputText = ({
                 id={name}
                 name={name}
                 placeholder={placeholder}
-                defaultValue={defaultValue}
-                onChange={onChange}
-                onBlur={onBlur}
-                required={required}
                 className={`border text-sm rounded-lg block w-full p-2.5 ${inputClass}`}
                 {...props}
             />
