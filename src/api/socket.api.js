@@ -9,5 +9,8 @@ export const connectSocket = (token) => {
         extraHeaders: {
             Authorization: `Bearer ${token}`,
         },
+        reconnectionDelay: 1000,
+        reconnection: true,
+        reconnectionAttempts: 10,
     })
 }
