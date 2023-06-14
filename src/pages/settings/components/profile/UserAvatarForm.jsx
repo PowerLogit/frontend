@@ -5,6 +5,7 @@ import Button from '../../../../components/ui/components/buttons/Button'
 import { setNewAuth } from '../../../auth/libs/actions/auth.action'
 import { useAuthContext } from '../../../auth/libs/context/auth.context'
 import { udpateAvatarService } from '../../libs/services/user.service'
+import { readFileAsDataURL } from '../../../../helpers/readFileAsDataURL'
 
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
 const MAX_FILE_SIZE = 128 * 1024 // 128KB
@@ -72,7 +73,7 @@ const UserAvatarForm = ({ closeModal }) => {
 
 export default UserAvatarForm
 
-const handleChange = (ev, setPreviewImage) => {
+const handleChange = async (ev, setPreviewImage) => {
     const file = ev.target.files[0]
 
     if (!file) {
@@ -91,17 +92,17 @@ const handleChange = (ev, setPreviewImage) => {
         })
     }
 
-    if (file) {
-        const reader = new FileReader()
-        reader.onloadend = () => {
-            setPreviewImage({
-                src: reader.result,
-                name: file.name,
-            })
-        }
-        reader.readAsDataURL(file)
-    } else {
-        setPreviewImage(null)
+    try {
+        const fileDataUrl = await readFileAsDataURL(file)
+        setPreviewImage({
+            src: fileDataUrl,
+            name: file.name,
+        })
+    } catch (error) {
+        toast.error(
+            'Ha ocurrido un error al leer el archivo. Por favor, inténtalo de nuevo.'
+        )
+        return setPreviewImage(null)
     }
 }
 
