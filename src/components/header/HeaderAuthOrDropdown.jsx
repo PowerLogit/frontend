@@ -7,6 +7,8 @@ import DropdownHeader from './DropdownHeader'
 const HeaderAuthOrDropdown = ({ athletesRequest }) => {
     const { isAuthenticated, dispatchAuth, user } = useAuthContext()
 
+    if (isAuthenticated && !user) return
+
     if (!isAuthenticated)
         return (
             <Link

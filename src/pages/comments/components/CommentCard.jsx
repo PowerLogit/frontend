@@ -1,12 +1,15 @@
 import { useAuthContext } from '@auth/libs/context/auth.context'
 
 import { formatDateAgo } from '../../../helpers/normaliceDate'
+import useAvatar from '../../../hooks/useAvatar'
 import WorkoutCommentActions from './WorkoutCommentActions'
 
 const CommentCard = ({ comment, settersComment }) => {
-    const { user } = useAuthContext()
-
     const { author, text, createdAt, updatedAt } = comment
+
+    const { user } = useAuthContext()
+    const { avatar, avatarAlt } = useAvatar(author)
+
     const { name, surname, username } = author
 
     const date = new Date(createdAt)
@@ -22,8 +25,8 @@ const CommentCard = ({ comment, settersComment }) => {
                     <p className='inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white'>
                         <img
                             className='mr-2 w-6 h-6 rounded-full'
-                            src='https://cdn-icons-png.flaticon.com/512/6073/6073873.png'
-                            alt={username}
+                            src={avatar}
+                            alt={avatarAlt}
                         />
                         {name} {surname}
                     </p>

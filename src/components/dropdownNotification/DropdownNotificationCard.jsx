@@ -12,6 +12,7 @@ const DropdownNotificationCard = ({ user, onSuccess, handlers }) => {
 
     const onHandleReject = async () =>
         handlers.handleReject(user.id, setIsSubmitting, onSuccess)
+
     return (
         <Dropdown.Item>
             {user.name} {user.surname}

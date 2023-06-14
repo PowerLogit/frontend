@@ -18,6 +18,7 @@ export const api = async ({
     params,
     payload,
     cancelToken,
+    ...props
 }) => {
     try {
         const res = await apiAxios({
@@ -27,6 +28,7 @@ export const api = async ({
             params,
             data: payload,
             cancelToken: cancelToken?.token,
+            ...props,
         })
 
         return {

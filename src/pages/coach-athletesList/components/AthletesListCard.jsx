@@ -1,14 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 
 import Button from '../../../components/ui/components/buttons/Button'
-import { getAvatar } from '../../../helpers/uiAvatars'
+import useAvatar from '../../../hooks/useAvatar'
 
 const AthletesListCard = ({ athlete }) => {
+    const { avatar, avatarAlt } = useAvatar(athlete)
     const navigate = useNavigate()
 
     const { id, name, surname, username } = athlete
-
-    const avatarImg = getAvatar(name, surname)
 
     const openWorkouts = () => {
         navigate(`/athlete/${id}/${username}`)
@@ -23,8 +22,8 @@ const AthletesListCard = ({ athlete }) => {
             <div className='flex flex-col items-center p-10'>
                 <img
                     className='w-24 h-24 mb-3 rounded-full shadow-lg'
-                    src={avatarImg}
-                    alt={name + ' image'}
+                    src={avatar}
+                    alt={avatarAlt}
                 />
                 <h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white text-center'>
                     {name} {surname}
