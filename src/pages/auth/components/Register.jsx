@@ -16,9 +16,11 @@ import { useAuthContext } from '../libs/context/auth.context'
 import { getRedirectPath } from '../libs/helpers/redirectPath.helper'
 import useRegisterForm from '../libs/hooks/useRegisterForm'
 import { loginService, registerService } from '../libs/services/auth.service'
+import { useTranslation } from 'react-i18next'
 
 const Register = () => {
     const navigate = useNavigate()
+    const { t } = useTranslation()
 
     const { loading, error, dispatchAuth } = useAuthContext()
     const { form, isFormValid, handleChange } = useRegisterForm()
@@ -29,50 +31,49 @@ const Register = () => {
     return (
         <form className='space-y-4 md:space-y-6'>
             <InputText
-                label='Nombre de usuario'
-                placeholder='username'
+                label={t('auth.register.username.label')}
+                placeholder={t('auth.register.username.placeholder')}
                 value={form.username.value}
-                error={form.username.error}
+                error={t(form.username.error)}
                 onChange={handleChange(setUsername)}
             />
 
             <InputText
-                label='Nombre'
-                placeholder='name'
+                label={t('auth.register.name.label')}
+                placeholder={t('auth.register.name.placeholder')}
                 value={form.name.value}
-                error={form.name.error}
+                error={t(form.name.error)}
                 onChange={handleChange(setName)}
             />
 
             <InputText
-                label='Apellido'
-                placeholder='surname'
+                label={t('auth.register.surname.label')}
+                placeholder={t('auth.register.surname.placeholder')}
                 value={form.surname.value}
-                error={form.surname.error}
+                error={t(form.surname.error)}
                 onChange={handleChange(setSurname)}
             />
 
             <InputText
-                name='email'
-                label='Email'
-                placeholder='name@company.com'
+                label={t('auth.register.email.label')}
+                placeholder={t('auth.register.email.placeholder')}
                 value={form.email.value}
-                error={form.email.error}
+                error={t(form.email.error)}
                 onChange={handleChange(setEmail)}
             />
 
             <InputText
                 type='password'
-                label='Contraseña'
-                placeholder='••••••••'
+                label={t('auth.register.password.label')}
+                placeholder={t('auth.register.password.placeholder')}
                 value={form.password.value}
-                error={form.password.error}
+                error={t(form.password.error)}
                 onChange={handleChange(setPassword)}
             />
 
             {error && (
                 <p className='m-0 text-sm text-red-600 dark:text-red-500'>
-                    {error}
+                    {t(error)}
                 </p>
             )}
 
@@ -82,7 +83,7 @@ const Register = () => {
                 loading={loading}
                 disabled={isFormValid}
             >
-                Registrarse
+                {t('auth.register.title')}
             </Button>
         </form>
     )
@@ -118,10 +119,22 @@ const handleSubmit = async (ev, form, dispatchAuth, navigate) => {
 
         navigate(getRedirectPath())
     } catch (error) {
-        const { message } = error
+        const msg = getErrorMessages(error)
 
-        dispatchAuth(setError(message.join(', ')))
+        dispatchAuth(setError(msg))
     }
+}
+
+const getErrorMessages = ({ statusCode, message }) => {
+    if (statusCode === 409 && message === 'Email already exists') {
+        return 'auth.register.errors.email'
+    }
+
+    if (statusCode === 409 && message === 'Username already exists') {
+        return 'auth.register.errors.username'
+    }
+
+    return 'auth.login.errors.500'
 }
 
 export default Register

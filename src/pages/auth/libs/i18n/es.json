@@ -1,0 +1,64 @@
+{
+    "login": {
+        "title": "Iniciar sesión",
+        "emailLabel": "Email",
+        "emailPlaceholder": "name@company.com",
+        "passwordLabel": "Contraseña",
+        "passwordPlaceholder": "••••••••",
+        "errors": {
+            "400": "Formato inválido",
+            "409": "Credenciales inválidas",
+            "500": "Error del servidor",
+            "email": "Email inválido",
+            "password": "Contraseña inválida"
+        }
+    },
+    "register": {
+        "title": "Registrarse",
+        "username": {
+            "label": "Nombre de usuario",
+            "placeholder": "Carletes"
+        },
+        "name": {
+            "label": "Nombre",
+            "placeholder": "Fidel"
+        },
+        "surname": {
+            "label": "Apellidos",
+            "placeholder": "Ursatus Patillas"
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "name@gmail.com"
+        },
+        "password": {
+            "label": "Contraseña",
+            "placeholder": "••••••••"
+        },
+        "errors": {
+            "email": "Email inválido",
+            "username": "Nombre de usuario inválido"
+        }
+    },
+    "errors": {
+        "required": "Este campo es requerido",
+        "username": {
+            "min": "Debe tener al menos 4 caracteres",
+            "pattern": "Solo puede contener letras y números"
+        },
+        "name": {
+            "min": "Debe tener al menos 3 caracteres",
+            "pattern": "Solo puede contener letras"
+        },
+        "surname": {
+            "min": "Debe tener al menos 3 caracteres",
+            "pattern": "Solo puede contener letras"
+        },
+        "email": "Email inválido",
+        "password": {
+            "min": "Debe tener al menos 6 caracteres",
+            "number": "Debe tener al menos un número",
+            "letter": "Debe tener al menos una letra mayúscula"
+        }
+    }
+}

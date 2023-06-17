@@ -1,6 +1,8 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
+import authEN from '../pages/auth/libs/i18n/en.json'
+import authES from '../pages/auth/libs/i18n/es.json'
 import homeEN from '../pages/home/i18n/en.json'
 import homeES from '../pages/home/i18n/es.json'
 import footerEN from './footer/en.json'
@@ -17,6 +19,7 @@ i18n.use(initReactI18next).init({
                 header: headerES,
                 footer: footerES,
                 home: homeES,
+                auth: authES,
             },
         },
         en: {
@@ -24,6 +27,7 @@ i18n.use(initReactI18next).init({
                 header: headerEN,
                 footer: footerEN,
                 home: homeEN,
+                auth: authEN,
             },
         },
     },

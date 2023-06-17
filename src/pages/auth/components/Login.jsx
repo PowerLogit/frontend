@@ -10,9 +10,11 @@ import { useAuthContext } from '../libs/context/auth.context'
 import useLoginform from '../libs/hooks/useLoginform'
 import { loginService } from '../libs/services/auth.service'
 import { extractValuesFromForm } from '../../../helpers/extractValuesFromForm'
+import { useTranslation } from 'react-i18next'
 
 const Login = () => {
     const navigate = useNavigate()
+    const { t } = useTranslation()
 
     const { error, dispatchAuth } = useAuthContext()
     const { form, isFormValid, handleChange } = useLoginform()
@@ -26,25 +28,25 @@ const Login = () => {
         <form className='space-y-4 md:space-y-6'>
             <InputText
                 type='email'
-                label='Email'
-                placeholder='name@company.com'
+                label={t('auth.login.emailLabel')}
+                placeholder={t('auth.login.emailPlaceholder')}
                 value={form.email.value}
-                error={form.email.error}
+                error={t(form.email.error)}
                 onChange={handleChange(setEmail)}
             />
 
             <InputText
                 type='password'
-                label='Contraseña'
-                placeholder='••••••••'
+                label={t('auth.login.passwordLabel')}
+                placeholder={t('auth.login.passwordPlaceholder')}
                 value={form.password.value}
-                error={form.password.error}
+                error={t(form.password.error)}
                 onChange={handleChange(setPassword)}
             />
 
             {error && (
                 <p className='m-0 text-sm text-red-600 dark:text-red-500'>
-                    {error}
+                    {t(`auth.login.errors.${error}`)}
                 </p>
             )}
 
@@ -54,7 +56,7 @@ const Login = () => {
                 loading={isSubmitting}
                 disabled={isFormValid}
             >
-                Iniciar sesión
+                {t('auth.login.title')}
             </Button>
         </form>
     )
@@ -83,14 +85,14 @@ const handleSubmit = async (
 
         navigate('/')
     } catch (error) {
-        const { message, statusCode } = error
+        const { statusCode } = error
 
         const errorMessages = {
-            400: 'Formato inválido',
-            409: 'Credenciales inválidas',
+            400: 400,
+            409: 409,
         }
 
-        const msg = errorMessages[statusCode] || message
+        const msg = errorMessages[statusCode] || 'auth.login.errors.500'
 
         dispatchAuth(setError(msg))
     }

@@ -5,9 +5,11 @@ import Register from './components/Register'
 import { setResetError } from './libs/actions/auth.action'
 import { AUTH } from './libs/constant/authOption'
 import { useAuthContext } from './libs/context/auth.context'
+import { useTranslation } from 'react-i18next'
 
 const Authenticate = () => {
     const { dispatchAuth } = useAuthContext()
+    const { t } = useTranslation()
 
     const [formVariant, setFormVariant] = useState(AUTH.LOGIN)
 
@@ -31,14 +33,14 @@ const Authenticate = () => {
                     className={kindRendered(AUTH.LOGIN)}
                     onClick={() => pageRendered(AUTH.LOGIN)}
                 >
-                    Iniciar sesión
+                    {t('auth.login.title')}
                 </button>
                 <button
                     type='button'
                     className={kindRendered(AUTH.REGISTER)}
                     onClick={() => pageRendered(AUTH.REGISTER)}
                 >
-                    Registrarse
+                    {t('auth.register.title')}
                 </button>
             </div>
             <div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 xl:p-0 dark:bg-gray-800 dark:border-gray-700'>

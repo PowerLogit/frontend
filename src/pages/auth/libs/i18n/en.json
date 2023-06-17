@@ -1,0 +1,64 @@
+{
+    "login": {
+        "title": "Log in",
+        "emailLabel": "Email",
+        "emailPlaceholder": "name@company.com",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "••••••••",
+        "errors": {
+            "400": "Invalid format",
+            "409": "Invalid credentials",
+            "500": "Server error",
+            "email": "Invalid email",
+            "password": "Invalid password"
+        }
+    },
+    "register": {
+        "title": "Register",
+        "username": {
+            "label": "Username",
+            "placeholder": "Carletes"
+        },
+        "name": {
+            "label": "Name",
+            "placeholder": "Fidel"
+        },
+        "surname": {
+            "label": "Surname",
+            "placeholder": "Ursatus"
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "name@gmail.com"
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "••••••••"
+        },
+        "errors": {
+            "email": "Invalid email",
+            "username": "Invalid username"
+        }
+    },
+    "errors": {
+        "required": "This field is required",
+        "username": {
+            "min": "Must have at least 4 characters",
+            "pattern": "Can only contain letters and numbers"
+        },
+        "name": {
+            "min": "Must have at least 3 characters",
+            "pattern": "Can only contain letters"
+        },
+        "surname": {
+            "min": "Must have at least 3 characters",
+            "pattern": "Can only contain letters"
+        },
+        "email": "Invalid email",
+        "password": {
+            "min": "Must have at least 6 characters",
+            "number": "Must have at least one number",
+            "letter": "Must have at least one uppercase letter"
+        }
+    }
+}
