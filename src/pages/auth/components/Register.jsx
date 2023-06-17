@@ -1,120 +1,73 @@
 import { HttpStatusCode } from '@constant/HttpStatusCode'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Button from '../../../components/ui/components/buttons/Button'
 import InputText from '../../../components/ui/components/form/InputText'
+import { extractValuesFromForm } from '../../../helpers/extractValuesFromForm'
 import { setError, setNewAuth } from '../libs/actions/auth.action'
+import {
+    setEmail,
+    setName,
+    setPassword,
+    setSurname,
+    setUsername,
+} from '../libs/actions/register.action'
 import { useAuthContext } from '../libs/context/auth.context'
 import { getRedirectPath } from '../libs/helpers/redirectPath.helper'
+import useRegisterForm from '../libs/hooks/useRegisterForm'
 import { loginService, registerService } from '../libs/services/auth.service'
 
 const Register = () => {
-    const { loading, error, dispatchAuth } = useAuthContext()
     const navigate = useNavigate()
 
-    const [credential, setCredential] = useState({
-        id: '',
-        username: '',
-        email: '',
-        password: '',
-        name: '',
-        surname: '',
-    })
+    const { loading, error, dispatchAuth } = useAuthContext()
+    const { form, isFormValid, handleChange } = useRegisterForm()
 
-    const handleChange = (ev) => {
-        console.log(ev)
-
-        setCredential({
-            ...credential,
-            [ev.target.name]: ev.target.value,
-        })
-    }
-
-    const isFormRequired =
-        !credential.username ||
-        !credential.email ||
-        !credential.password ||
-        !credential.name ||
-        !credential.surname
-
-    const handleSubmit = async (ev) => {
-        ev.preventDefault()
-
-        try {
-            const newUser = { ...credential, id: crypto.randomUUID() }
-
-            const { status, error } = await registerService(newUser)
-
-            if (status !== HttpStatusCode.CREATED) {
-                throw JSON.stringify(error.message)
-            }
-
-            const loginCredentials = {
-                email: credential.email,
-                password: credential.password,
-            }
-
-            const login = await loginService(loginCredentials)
-
-            if (login.status !== HttpStatusCode.OK) {
-                throw JSON.stringify(login.error.message)
-            }
-
-            const { access_token } = login.data
-
-            dispatchAuth(setNewAuth(access_token))
-
-            navigate(getRedirectPath())
-        } catch (error) {
-            const { message } = JSON.parse(error)
-
-            dispatchAuth(setError(message.join(', ')))
-        }
-    }
+    const onHandleSubmit = async (ev) =>
+        handleSubmit(ev, form, dispatchAuth, navigate)
 
     return (
         <form className='space-y-4 md:space-y-6'>
             <InputText
-                name='username'
                 label='Nombre de usuario'
                 placeholder='username'
-                onChange={handleChange}
-                value={credential.username}
+                value={form.username.value}
+                error={form.username.error}
+                onChange={handleChange(setUsername)}
             />
 
             <InputText
-                name='name'
                 label='Nombre'
                 placeholder='name'
-                onChange={handleChange}
-                value={credential.name}
+                value={form.name.value}
+                error={form.name.error}
+                onChange={handleChange(setName)}
             />
 
             <InputText
-                name='surname'
                 label='Apellido'
                 placeholder='surname'
-                onChange={handleChange}
-                value={credential.surname}
+                value={form.surname.value}
+                error={form.surname.error}
+                onChange={handleChange(setSurname)}
             />
 
             <InputText
-                type='email'
                 name='email'
                 label='Email'
                 placeholder='name@company.com'
-                onChange={handleChange}
-                value={credential.email}
+                value={form.email.value}
+                error={form.email.error}
+                onChange={handleChange(setEmail)}
             />
 
             <InputText
                 type='password'
-                name='password'
                 label='Contraseña'
                 placeholder='••••••••'
-                onChange={handleChange}
-                value={credential.password}
+                value={form.password.value}
+                error={form.password.error}
+                onChange={handleChange(setPassword)}
             />
 
             {error && (
@@ -125,14 +78,52 @@ const Register = () => {
 
             <Button
                 type='submit'
-                onClick={handleSubmit}
+                onClick={onHandleSubmit}
                 loading={loading}
-                disabled={isFormRequired}
+                disabled={isFormValid}
             >
                 Registrarse
             </Button>
         </form>
     )
+}
+
+const handleSubmit = async (ev, form, dispatchAuth, navigate) => {
+    ev.preventDefault()
+
+    try {
+        const formValues = extractValuesFromForm(form)
+        const newUser = { ...formValues, id: crypto.randomUUID() }
+
+        console.log(newUser)
+
+        const { status, error } = await registerService(newUser)
+
+        if (status !== HttpStatusCode.CREATED) {
+            throw error.message
+        }
+
+        const loginCredentials = {
+            email: newUser.email,
+            password: newUser.password,
+        }
+
+        const login = await loginService(loginCredentials)
+
+        if (login.status !== HttpStatusCode.OK) {
+            throw login.error.message
+        }
+
+        const { access_token } = login.data
+
+        dispatchAuth(setNewAuth(access_token))
+
+        navigate(getRedirectPath())
+    } catch (error) {
+        const { message } = error
+
+        dispatchAuth(setError(message.join(', ')))
+    }
 }
 
 export default Register
