@@ -95,8 +95,6 @@ const handleSubmit = async (ev, form, dispatchAuth, navigate) => {
         const formValues = extractValuesFromForm(form)
         const newUser = { ...formValues, id: crypto.randomUUID() }
 
-        console.log(newUser)
-
         const { status, error } = await registerService(newUser)
 
         if (status !== HttpStatusCode.CREATED) {

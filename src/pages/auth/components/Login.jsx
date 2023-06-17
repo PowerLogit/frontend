@@ -9,6 +9,7 @@ import { setEmail, setPassword } from '../libs/actions/form.action'
 import { useAuthContext } from '../libs/context/auth.context'
 import useLoginform from '../libs/hooks/useLoginform'
 import { loginService } from '../libs/services/auth.service'
+import { extractValuesFromForm } from '../../../helpers/extractValuesFromForm'
 
 const Login = () => {
     const navigate = useNavigate()
@@ -61,7 +62,7 @@ const Login = () => {
 
 const handleSubmit = async (
     ev,
-    credential,
+    form,
     dispatchAuth,
     setIsSubmitting,
     navigate
@@ -71,17 +72,18 @@ const handleSubmit = async (
     setIsSubmitting(true)
 
     try {
-        const { data, status, error } = await loginService(credential)
+        const formValues = extractValuesFromForm(form)
+        const { data, status, error } = await loginService(formValues)
 
         if (status !== HttpStatusCode.OK) {
-            throw JSON.stringify(error.message)
+            throw error.message
         }
 
         dispatchAuth(setNewAuth(data.access_token))
 
         navigate('/')
     } catch (error) {
-        const { message, statusCode } = JSON.parse(error)
+        const { message, statusCode } = error
 
         const errorMessages = {
             400: 'Formato inválido',
