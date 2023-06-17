@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom'
 
 import Bell from '../ui/svg/Bell'
 import DropdownNotificationRows from './DropdownNotificationRows'
+import { useTranslation } from 'react-i18next'
 
 const DropdownNotification = ({ athletesRequest }) => {
+    const { t } = useTranslation()
+
     const { data, count, onSuccess, handlers } = athletesRequest
 
     return (
@@ -16,14 +19,18 @@ const DropdownNotification = ({ athletesRequest }) => {
         >
             <Dropdown.Header>
                 <div>
-                    <span className='font-bold'>Notificaciones </span>
+                    <span className='font-bold'>
+                        {t('header.notification.title')}
+                    </span>
                     <span className='italic'> (coaching) </span>
                     {!!count && count}
                 </div>
             </Dropdown.Header>
             {!count ? (
                 <Dropdown.Item>
-                    <span className='italic'>Sin notificaciones</span>
+                    <span className='italic'>
+                        {t('header.notification.noNotifications')}
+                    </span>
                 </Dropdown.Item>
             ) : (
                 <>
@@ -35,7 +42,7 @@ const DropdownNotification = ({ athletesRequest }) => {
                     <Dropdown.Divider />
                     <Dropdown.Item>
                         <Link to={'/athletes-request'}>
-                            Ver todas las solicitudes
+                            {t('header.notification.viewAllRequests')}
                         </Link>
                     </Dropdown.Item>
                 </>

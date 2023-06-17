@@ -1,0 +1,20 @@
+{
+    "authenticate": "Identificarse",
+    "pages": {
+        "home": "Inicio",
+        "workouts": "Workouts",
+        "calc": "Calc",
+        "coaches": "Entrenadores",
+        "coach": "Mi entrenador",
+        "athletes": "Atletas"
+    },
+    "auth": {
+        "settings": "Ajustes",
+        "logout": "Cerrar sesión"
+    },
+    "notification": {
+        "title": "Notificaciones",
+        "noNotifications": "Sin notificaciones",
+        "viewAllRequests": "Ver todas las solicitudes"
+    }
+}
