@@ -9,6 +9,8 @@ import calcEN from '../pages/calculate/libs/i18n/en.json'
 import calcES from '../pages/calculate/libs/i18n/es.json'
 import homeEN from '../pages/home/i18n/en.json'
 import homeES from '../pages/home/i18n/es.json'
+import CoachesEN from '../pages/list-coaches/libs/i18n/en.json'
+import CoachesES from '../pages/list-coaches/libs/i18n/es.json'
 import footerEN from './footer/en.json'
 import footerES from './footer/es.json'
 import headerEN from './header/en.json'
@@ -26,6 +28,7 @@ i18n.use(initReactI18next).init({
                 auth: authES,
                 athletesRequest: athletesRequestES,
                 calc: calcES,
+                coaches: CoachesES,
             },
         },
         en: {
@@ -36,6 +39,7 @@ i18n.use(initReactI18next).init({
                 auth: authEN,
                 athletesRequest: athletesRequestEN,
                 calc: calcEN,
+                coaches: CoachesEN,
             },
         },
     },

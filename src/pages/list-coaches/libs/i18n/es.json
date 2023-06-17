@@ -1,0 +1,20 @@
+{
+    "title": "Lista de Entrenadores",
+    "search": "Buscar entrenador...",
+    "noCoaches": "Sin Atletas",
+    "loading": "Cargando ...",
+    "card": {
+        "send": "Mandar solucitud",
+        "cancel": "Cancelar solucitud"
+    },
+    "toast": {
+        "send": {
+            "success": "¡Solicitud enviada exitosamente!",
+            "error": "Ha ocurrido un error al enviar la solicitud. Por favor, inténtalo de nuevo."
+        },
+        "cancel": {
+            "success": "¡Solicitud cancelada exitosamente!",
+            "error": "Ha ocurrido un error al cancelar la solicitud. Por favor, inténtalo de nuevo."
+        }
+    }
+}

@@ -6,9 +6,10 @@ import { removeBearer } from '../../helpers/bearer.helper'
 import useAvatar from '../../hooks/useAvatar'
 import { setIsNotAuth } from '../../pages/auth/libs/actions/auth.action'
 import { useTranslation } from 'react-i18next'
+import { getRoleFormat } from '../../helpers/roleFormat'
 
 const DropdownHeader = ({ dispatchAuth, user }) => {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
 
     const { avatar } = useAvatar(user)
     const navigate = useNavigate()
@@ -19,8 +20,7 @@ const DropdownHeader = ({ dispatchAuth, user }) => {
         navigate('/')
     }
 
-    const roles = user?.role.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    const rolesFormat = new Intl.ListFormat('es-ES').format(roles)
+    const rolesFormat = getRoleFormat(user.role, i18n.language)
 
     return (
         <>
