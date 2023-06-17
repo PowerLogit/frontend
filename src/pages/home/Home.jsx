@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import CardCoach from './CardCoach'
@@ -5,31 +6,28 @@ import CardStatistic from './CardStatistic'
 import { coaches, statistics } from './homeData'
 
 const Home = () => {
+    const { t } = useTranslation()
+
     return (
         <>
             <section className='bg-gray-100 dark:bg-gray-900 py-10'>
                 <div className='max-w-screen-xl mx-auto px-5 xl:px-0'>
                     <h1 className='text-4xl font-bold text-center mb-4'>
-                        Entrena como un campeón con PowerLog
+                        {t('home.title')}
                     </h1>
-                    <p className='text-center'>
-                        PowerLog es la herramienta definitiva para entrenar en
-                        el mundo del Powerlifting. Crea tus workouts, revisa tus
-                        estadísticas y habla con tu coach, todo en un solo
-                        lugar.
-                    </p>
+                    <p className='text-center'>{t('home.description')}</p>
                     <div className='flex justify-center mt-8'>
                         <Link
                             to={'/authenticate'}
                             className='bg-primary-700 text-white py-2 px-4 rounded-full hover:bg-primary-600 mr-4'
                         >
-                            Regístrate ahora
+                            {t('home.registerNow')}
                         </Link>
                         <Link
                             to={'/'}
                             className='bg-gray-500 text-white py-2 px-4 rounded-full hover:bg-gray-400'
                         >
-                            Más información
+                            {t('home.learnMore')}
                         </Link>
                     </div>
                 </div>
@@ -38,13 +36,9 @@ const Home = () => {
             <section className='bg-gray-100 dark:bg-gray-900 py-10 '>
                 <div className='max-w-screen-xl mx-auto px-5 xl:px-0'>
                     <h2 className='text-3xl font-bold mb-4'>
-                        Nuestros coaches
+                        {t('home.coachesTitle')}
                     </h2>
-                    <p className='mb-8'>
-                        En PowerLog, contamos con un equipo de coaches
-                        experimentados que te ayudarán a alcanzar tus objetivos
-                        en el Powerlifting.
-                    </p>
+                    <p className='mb-8'>{t('home.coachesDescription')}</p>
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8'>
                         {coaches.map((coach, index) => (
                             <CardCoach
@@ -60,7 +54,7 @@ const Home = () => {
             <section className='bg-gray-100 dark:bg-gray-900 py-10'>
                 <div className='max-w-screen-xl mx-auto px-5 xl:px-0'>
                     <h2 className='text-3xl font-bold mb-4'>
-                        Últimas estadísticas
+                        {t('home.statsTitle')}
                     </h2>
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8'>
                         {statistics.map((statistic, index) => (
