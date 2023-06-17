@@ -4,7 +4,7 @@ import {
     validPassword,
     validSurname,
     validUsername,
-} from '../validations/register.validation'
+} from '../validations/auth.validation'
 
 export const setUsername = (value) => (prevForm) => {
     const error = validUsername(value)

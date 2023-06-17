@@ -4,52 +4,41 @@ import { useNavigate } from 'react-router-dom'
 
 import Button from '../../../components/ui/components/buttons/Button'
 import InputText from '../../../components/ui/components/form/InputText'
-import { NODE_ENV } from '../../../config/common'
 import { setError, setNewAuth } from '../libs/actions/auth.action'
+import { setEmail, setPassword } from '../libs/actions/form.action'
 import { useAuthContext } from '../libs/context/auth.context'
+import useLoginform from '../libs/hooks/useLoginform'
 import { loginService } from '../libs/services/auth.service'
 
-const isDevMode = NODE_ENV === 'dev'
-
 const Login = () => {
-    const { error, dispatchAuth } = useAuthContext()
-    const [isSubmitting, setIsSubmitting] = useState(false)
-
     const navigate = useNavigate()
 
-    const [credential, setCredential] = useState({
-        email: isDevMode ? 'usuario@gmail.com' : '',
-        password: isDevMode ? 'Admin1' : '',
-    })
+    const { error, dispatchAuth } = useAuthContext()
+    const { form, isFormValid, handleChange } = useLoginform()
 
-    const handleChange = (ev) => {
-        setCredential({
-            ...credential,
-            [ev.target.name]: ev.target.value,
-        })
-    }
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const onHandleSubmit = async (ev) =>
-        handleSubmit(ev, credential, dispatchAuth, setIsSubmitting, navigate)
+        handleSubmit(ev, form, dispatchAuth, setIsSubmitting, navigate)
 
     return (
         <form className='space-y-4 md:space-y-6'>
             <InputText
                 type='email'
-                name='email'
                 label='Email'
                 placeholder='name@company.com'
-                onChange={handleChange}
-                value={credential.email}
+                value={form.email.value}
+                error={form.email.error}
+                onChange={handleChange(setEmail)}
             />
 
             <InputText
                 type='password'
-                name='password'
                 label='Contraseña'
                 placeholder='••••••••'
-                onChange={handleChange}
-                value={credential.password}
+                value={form.password.value}
+                error={form.password.error}
+                onChange={handleChange(setPassword)}
             />
 
             {error && (
@@ -62,6 +51,7 @@ const Login = () => {
                 type='submit'
                 onClick={onHandleSubmit}
                 loading={isSubmitting}
+                disabled={isFormValid}
             >
                 Iniciar sesión
             </Button>
@@ -77,6 +67,7 @@ const handleSubmit = async (
     navigate
 ) => {
     ev.preventDefault()
+
     setIsSubmitting(true)
 
     try {

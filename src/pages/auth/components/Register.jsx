@@ -11,7 +11,7 @@ import {
     setPassword,
     setSurname,
     setUsername,
-} from '../libs/actions/register.action'
+} from '../libs/actions/form.action'
 import { useAuthContext } from '../libs/context/auth.context'
 import { getRedirectPath } from '../libs/helpers/redirectPath.helper'
 import useRegisterForm from '../libs/hooks/useRegisterForm'
