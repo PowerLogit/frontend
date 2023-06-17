@@ -7,14 +7,18 @@ import authEN from '../pages/auth/libs/i18n/en.json'
 import authES from '../pages/auth/libs/i18n/es.json'
 import calcEN from '../pages/calculate/libs/i18n/en.json'
 import calcES from '../pages/calculate/libs/i18n/es.json'
+import athletesEN from '../pages/coach-athletesList/libs/i18n/en.json'
+import athletesES from '../pages/coach-athletesList/libs/i18n/es.json'
 import homeEN from '../pages/home/i18n/en.json'
 import homeES from '../pages/home/i18n/es.json'
-import CoachesEN from '../pages/list-coaches/libs/i18n/en.json'
-import CoachesES from '../pages/list-coaches/libs/i18n/es.json'
+import coachesEN from '../pages/list-coaches/libs/i18n/en.json'
+import coachesES from '../pages/list-coaches/libs/i18n/es.json'
 import footerEN from './footer/en.json'
 import footerES from './footer/es.json'
 import headerEN from './header/en.json'
 import headerES from './header/es.json'
+import paginationEN from './pagination/en.json'
+import paginationES from './pagination/es.json'
 
 i18n.use(initReactI18next).init({
     lng: 'es',
@@ -28,7 +32,9 @@ i18n.use(initReactI18next).init({
                 auth: authES,
                 athletesRequest: athletesRequestES,
                 calc: calcES,
-                coaches: CoachesES,
+                coaches: coachesES,
+                athletes: athletesES,
+                pagination: paginationES,
             },
         },
         en: {
@@ -39,7 +45,9 @@ i18n.use(initReactI18next).init({
                 auth: authEN,
                 athletesRequest: athletesRequestEN,
                 calc: calcEN,
-                coaches: CoachesEN,
+                coaches: coachesEN,
+                athletes: athletesEN,
+                pagination: paginationEN,
             },
         },
     },

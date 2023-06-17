@@ -37,7 +37,7 @@ const AthletesListCard = ({ athlete }) => {
                         kind='outline'
                         onClick={openWorkouts}
                     >
-                        Entrenamientos
+                        Workouts
                     </Button>
                     <Button className='w-full' onClick={openChat}>
                         Chat

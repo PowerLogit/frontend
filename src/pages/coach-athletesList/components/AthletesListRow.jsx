@@ -1,17 +1,16 @@
-import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 
 import AthletesListCard from './AthletesListCard'
 
 const AthletesListRow = ({ data, isLoading, error }) => {
+    const { t } = useTranslation()
+
     if (error) {
-        toast.error(
-            'Ha ocurrido un error al cargar los atletas. Por favor, inténtalo de nuevo.'
-        )
-        return <p className='dark:text-white'>Sin Atletas</p>
+        return <p className='dark:text-white'>{t('athletes.noAthletes')}</p>
     } else if (isLoading) {
-        return <p className='dark:text-white'>Cargando ...</p>
+        return <p className='dark:text-white'>{t('athletes.loading')}</p>
     } else if (!data.length) {
-        return <p className='dark:text-white'>Sin Atletas</p>
+        return <p className='dark:text-white'>{t('athletes.noAthletes')}</p>
     }
 
     return (
