@@ -1,18 +1,20 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import Button from '../../../components/ui/components/buttons/Button'
 import useAvatar from '../../../hooks/useAvatar'
 
 const AthletesRequestCard = ({ athlete, onSuccess, handlers }) => {
+    const { t } = useTranslation()
     const { avatar, avatarAlt } = useAvatar(athlete)
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const onHandleAccept = async () =>
-        handlers.handleAccept(athlete.id, setIsSubmitting, onSuccess)
+        handlers.handleAccept(athlete.id, setIsSubmitting, onSuccess, t)
 
     const onHandleReject = async () =>
-        handlers.handleReject(athlete.id, setIsSubmitting, onSuccess)
+        handlers.handleReject(athlete.id, setIsSubmitting, onSuccess, t)
 
     return (
         <div className='w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
@@ -34,14 +36,14 @@ const AthletesRequestCard = ({ athlete, onSuccess, handlers }) => {
                         loading={isSubmitting}
                         onClick={onHandleReject}
                     >
-                        Rechazar
+                        {t('athletesRequest.card.decline')}
                     </Button>
                     <Button
                         kind='success'
                         loading={isSubmitting}
                         onClick={onHandleAccept}
                     >
-                        Aceptar
+                        {t('athletesRequest.card.accept')}
                     </Button>
                 </div>
             </div>

@@ -1,0 +1,20 @@
+{
+    "title": "Calculadora",
+    "buttons": {
+        "basic": "Básico",
+        "aprox": "Aproximaciones"
+    },
+    "form": {
+        "bar": "Peso de la barra",
+        "total": "Peso total",
+        "toogle": "Modo avanzado"
+    },
+    "movement": {
+        "SQ_VOLUMEN": "SQ Volumen",
+        "SQ_PEAKING": "SQ Peaking",
+        "BP_VOLUMEN": "BP Volumen",
+        "BP_PEAKING": "BP Peaking",
+        "DL_VOLUMEN": "DL Volumen",
+        "DL_PEAKING": "DL Peaking"
+    }
+}

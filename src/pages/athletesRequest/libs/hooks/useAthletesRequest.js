@@ -11,6 +11,7 @@ import {
 
 const useAthletesRequest = () => {
     const { user } = useAuthContext()
+
     const [requests, setRequests] = useState(INITIAL_STATE)
     const [filters, setFilters] = useState(initialFilters)
 
@@ -94,35 +95,31 @@ const loadRequests = async (filters, setters, signal) => {
     else setters.setError(error)
 }
 
-const handleAccept = async (idAthlete, setIsSubmitting, onSuccess) => {
+const handleAccept = async (idAthlete, setIsSubmitting, onSuccess, t) => {
     setIsSubmitting(true)
 
     const { status } = await acceptAthleteService(idAthlete)
 
     if (status === 201) {
         onSuccess()
-        toast.success('Atleta aceptado exitosamente!')
+        toast.success(t('athletesRequest.toast.accept.success'))
     } else {
-        toast.error(
-            'Ha ocurrido un error al aceptar el atleta. Por favor, inténtalo de nuevo.'
-        )
+        toast.error(t('athletesRequest.toast.accept.error'))
     }
 
     setIsSubmitting(false)
 }
 
-const handleReject = async (idAthlete, setIsSubmitting, onSuccess) => {
+const handleReject = async (idAthlete, setIsSubmitting, onSuccess, t) => {
     setIsSubmitting(true)
 
     const { status } = await rejectAthleteService(idAthlete)
 
     if (status === 204) {
         onSuccess()
-        toast.success('Atleta rechazado exitosamente!')
+        toast.success(t('athletesRequest.toast.decline.success'))
     } else {
-        toast.error(
-            'Ha ocurrido un error al rechazar el atleta. Por favor, inténtalo de nuevo.'
-        )
+        toast.error(t('athletesRequest.toast.decline.error'))
     }
 
     setIsSubmitting(false)

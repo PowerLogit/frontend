@@ -1,31 +1,20 @@
+import { useTranslation } from 'react-i18next'
+
 import PageSelector from '../../components/ui/components/pagination/PageSelector'
 import AthletesRequestRow from './components/AthletesRequestRow'
 
 const AthletesRequest = ({ athletesRequest }) => {
-    const {
-        data,
-        totalPages,
-        isLoading,
-        error,
-        filters,
-        setPage,
-        onSuccess,
-        handlers,
-    } = athletesRequest
+    const { t } = useTranslation()
+
+    const { totalPages, filters, setPage, ...rest } = athletesRequest
 
     return (
         <div className='max-w-screen-xl mx-auto mt-8 px-4 xl:px-0'>
             <h1 className='text-4xl text-center font-bold mb-8'>
-                Solicitudes de atletas
+                {t('athletesRequest.title')}
             </h1>
 
-            <AthletesRequestRow
-                data={data}
-                isLoading={isLoading}
-                error={error}
-                onSuccess={onSuccess}
-                handlers={handlers}
-            />
+            <AthletesRequestRow {...rest} />
 
             {totalPages > 1 && (
                 <PageSelector

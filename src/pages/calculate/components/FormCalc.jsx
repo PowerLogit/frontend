@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 import CheckBoxToogle from '../../../components/ui/components/form/CheckBoxToogle'
 import InputText from '../../../components/ui/components/form/InputText'
 import Select from '../../../components/ui/components/form/Select'
@@ -11,6 +13,8 @@ const FormCalc = ({
     toggleCheckbox,
     showApprox = false,
 }) => {
+    const { t } = useTranslation()
+
     return (
         <div className='max-w-sm mx-auto mt-6 bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700'>
             <div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
@@ -19,7 +23,7 @@ const FormCalc = ({
                         <InputText
                             type='number'
                             name='bar'
-                            label='Peso de la barra'
+                            label={t('calc.form.bar')}
                             placeholder='20'
                             onChange={handleChange}
                             value={form.bar}
@@ -28,7 +32,7 @@ const FormCalc = ({
                         <InputText
                             type='number'
                             name='total'
-                            label='Peso total'
+                            label={t('calc.form.total')}
                             placeholder='666'
                             onChange={handleChange}
                             value={form.total}
@@ -44,7 +48,7 @@ const FormCalc = ({
                             {Object.entries(MOVEMENT_APPROX).map(
                                 ([key, value]) => (
                                     <option key={key} value={value}>
-                                        {value}
+                                        {t(`calc.movement.${key}`)}
                                     </option>
                                 )
                             )}

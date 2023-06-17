@@ -1,0 +1,20 @@
+{
+    "title": "Solicitudes de atletas",
+    "noAthletes": "Sin Atletas",
+    "loading": "Cargando ...",
+    "error": "Ha ocurrido un error al cargar los atletas. Por favor, inténtalo de nuevo.",
+    "card": {
+        "accept": "Aceptar",
+        "decline": "Rechazar"
+    },
+    "toast": {
+        "accept": {
+            "success": "Atleta aceptado exitosamente!",
+            "error": "Ha ocurrido un error al aceptar el atleta. Por favor, inténtalo de nuevo."
+        },
+        "decline": {
+            "success": "Atleta rechazado exitosamente!",
+            "error": "Ha ocurrido un error al rechazar el atleta. Por favor, inténtalo de nuevo."
+        }
+    }
+}
