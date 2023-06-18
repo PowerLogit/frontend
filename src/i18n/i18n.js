@@ -15,6 +15,8 @@ import coachesEN from '../pages/list-coaches/libs/i18n/en.json'
 import coachesES from '../pages/list-coaches/libs/i18n/es.json'
 import myCoachEN from '../pages/my-coach/libs/i18n/en.json'
 import myCoachES from '../pages/my-coach/libs/i18n/es.json'
+import settingsEN from '../pages/settings/libs/i18n/en.json'
+import settingsES from '../pages/settings/libs/i18n/es.json'
 import workoutsEN from '../pages/workout/libs/i18n/en.json'
 import workoutsES from '../pages/workout/libs/i18n/es.json'
 import commonEN from './common/en.json'
@@ -44,6 +46,7 @@ i18n.use(initReactI18next).init({
                 myCoach: myCoachES,
                 workouts: workoutsES,
                 common: commonES,
+                settings: settingsES,
             },
         },
         en: {
@@ -60,6 +63,7 @@ i18n.use(initReactI18next).init({
                 myCoach: myCoachEN,
                 workouts: workoutsEN,
                 common: commonEN,
+                settings: settingsEN,
             },
         },
     },

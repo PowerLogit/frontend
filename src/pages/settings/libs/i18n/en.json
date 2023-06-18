@@ -1,0 +1,133 @@
+{
+    "sidebar": {
+        "profile": "My Profile",
+        "athlete": {
+            "add": "Become Athlete",
+            "remove": "Stop Being Athlete"
+        },
+        "coach": {
+            "add": "Become Coach",
+            "remove": "Stop Being Coach"
+        }
+    },
+    "profile": {
+        "title": "MY ACCOUNT",
+        "myProfile": {
+            "title": "Profile",
+            "form": {
+                "name": "Name",
+                "surname": "Surname",
+                "username": "Username",
+                "email": "Email",
+                "roles": "Roles",
+                "buttons": {
+                    "save": "Update",
+                    "cancel": "Cancel"
+                },
+                "toast": {
+                    "success": "Profile updated successfully!",
+                    "error": "An error occurred while updating the profile. Please try again."
+                }
+            },
+            "noRoles": "You don't have any assigned roles",
+            "loading": "Loading..."
+        },
+        "password": {
+            "title": "Change Password",
+            "form": {
+                "currentPassword": {
+                    "label": "Current Password",
+                    "placeholder": "••••••••"
+                },
+                "newPassword": {
+                    "label": "New Password",
+                    "placeholder": "••••••••"
+                },
+                "repeatPassword": {
+                    "label": "Confirm Password",
+                    "placeholder": "••••••••"
+                },
+                "buttons": {
+                    "save": "Update",
+                    "cancel": "Cancel"
+                },
+                "toast": {
+                    "success": "Password updated successfully!",
+                    "error": "An error occurred while updating the password. Please try again."
+                },
+                "errors": {
+                    "required": "Required field",
+                    "minlength": "Must be at least 6 characters long",
+                    "numberFormat": "Must contain at least one number",
+                    "letterFormat": "Must contain at least one uppercase letter",
+                    "newPassword": "Passwords are equal",
+                    "repeatPassword": "Passwords do not match"
+                }
+            }
+        }
+    },
+    "beingAthlete": {
+        "remove": {
+            "title": "Stop Being Athlete",
+            "text": "We understand that circumstances may change, and you may no longer want to be an athlete in PowerLog. If you have decided to stop being an athlete, we want to make sure you are making the right decision. \nBy stopping being an athlete, you will lose the ability to create personalized training programs, as well as use the plate calculator and have a coach. \nIf you are sure you want to stop being an athlete, click on the \"Stop Being Athlete\" button below.",
+            "modal": {
+                "paragraph1": "By clicking the \"Stop Being Athlete\" button, you confirm that you understand the consequences of this action and that you are willing to give up your functions and privileges as an athlete in PowerLog.",
+                "paragraph2": "Remember that you will always be welcome as an athlete on our platform and you can enjoy the benefits of having a dedicated coach for your training if you wish.",
+                "paragraph3": "We appreciate your contribution as an athlete in PowerLog and we hope you have enjoyed this role.",
+                "paragraph4": "If you decide to resume your role as an athlete in the future, we will be happy to welcome you back to our community.",
+                "cancel": "Cancel",
+                "remove": "Stop Being Athlete",
+                "toast": {
+                    "success": "Thank you for your understanding and for being part of PowerLog!",
+                    "error": "An error occurred while stopping being an athlete. Please try again."
+                }
+            }
+        },
+        "add": {
+            "title": "Become Athlete",
+            "text": "Thank you for your interest in becoming an athlete! By becoming an athlete, you will be able to create personalized training programs, access the plate calculator and approximations, and of course, have a coach to take care of your progress. \nIf you are ready to take the next step and become an athlete, click on the \"Become Athlete\" button below.",
+            "modal": {
+                "paragraph1": "By clicking the \"Become Athlete\" button, you agree to assume the responsibilities and commitments associated with being an athlete on our platform.",
+                "paragraph2": "We are excited to have new athletes like you in our community and we hope you make the most of this opportunity to share your passion for powerlifting.",
+                "cancel": "No, Cancel",
+                "add": "Yes, Become Athlete",
+                "toast": {
+                    "success": "Go ahead and start your career as an athlete in PowerLog!",
+                    "error": "An error occurred while becoming an athlete. Please try again."
+                }
+            }
+        }
+    },
+    "beingCoach": {
+        "remove": {
+            "title": "Stop Being Coach",
+            "text": "We understand that circumstances may change, and you may no longer want to be a coach in PowerLog. If you have decided to stop being a coach, we want to make sure you are making the right decision. \nBy stopping being a coach, you will lose the ability to create personalized training programs, as well as provide support and guidance to athletes. \nIf you are sure you want to stop being a coach, click on the \"Stop Being Coach\" button below.",
+            "modal": {
+                "paragraph1": "By clicking the \"Stop Being Coach\" button, you confirm that you understand the consequences of this action and that you are willing to give up your functions and privileges as a coach in PowerLog.",
+                "paragraph2": "Remember that you will always be welcome as a coach on our platform and you can enjoy the benefits of being a coach.",
+                "paragraph3": "We appreciate your contribution as a coach in PowerLog and we hope you have had a rewarding experience during your time in this role.",
+                "paragraph4": "If you decide to resume your role as a coach in the future, we will be happy to welcome you back to our community.",
+                "cancel": "Cancel",
+                "remove": "Yes, Stop Being Coach",
+                "toast": {
+                    "success": "Thank you for your understanding and for being part of PowerLog!",
+                    "error": "An error occurred while stopping being a coach. Please try again."
+                }
+            }
+        },
+        "add": {
+            "title": "Become Coach",
+            "text": "Thank you for your interest in becoming a coach! By doing so, you will have the opportunity to share your knowledge and experience with other athletes, helping them achieve their goals and improve their performance in powerlifting. \nBy becoming a coach, you will be able to create personalized training programs, track the progress of your athletes, and provide them with the support and guidance they need to reach their full potential. \nIf you are ready to take the next step and become a coach, click on the \"Become Coach\" button below.",
+            "modal": {
+                "paragraph1": "By clicking the \"Become Coach\" button, you agree to assume the responsibilities and commitments associated with being a coach on our platform. You also confirm that you have the knowledge and experience necessary to guide and support athletes on their powerlifting training journey.",
+                "paragraph2": "We are excited to have new coaches like you in our community and we hope you make the most of this opportunity to share your passion for powerlifting with other athletes.",
+                "cancel": "No, Cancel",
+                "add": "Yes, Become Coach",
+                "toast": {
+                    "success": "Go ahead and start your career as a coach in PowerLog!",
+                    "error": "An error occurred while becoming a coach. Please try again."
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
@@ -12,37 +13,54 @@ import useUserPassword from '../../libs/hooks/useUserPasswordy'
 import { udpatePasswordService } from '../../libs/services/auth.service'
 
 const UserPassword = () => {
+    const { t } = useTranslation()
     const { form, isFormInvalid, setResetForm, handleInput } = useUserPassword()
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
-    const onHandleSubmit = async (ev) => handleSubmit(ev, form, setIsSubmitting)
+    const onHandleSubmit = async (ev) =>
+        handleSubmit(ev, form, setIsSubmitting, t)
 
     return (
         <form onSubmit={onHandleSubmit} className='flex flex-col gap-6'>
             <h2 className='text-4xl text-center font-bold mb-2'>
-                Cambiar contraseña
+                {t('settings.profile.password.title')}
             </h2>
             <div className='flex flex-col gap-6'>
                 <InputText
-                    label='Contraseña actual'
+                    label={t(
+                        'settings.profile.password.form.currentPassword.label'
+                    )}
+                    placeholder={t(
+                        'settings.profile.password.form.currentPassword.placeholder'
+                    )}
                     type='password'
                     value={form.currentPassword.value}
-                    error={form.currentPassword.error}
+                    error={t(form.currentPassword.error)}
                     onChange={handleInput(setCurrentPassword)}
                 />
                 <InputText
-                    label='Nueva contraseña'
+                    label={t(
+                        'settings.profile.password.form.newPassword.label'
+                    )}
+                    placeholder={t(
+                        'settings.profile.password.form.newPassword.placeholder'
+                    )}
                     type='password'
                     value={form.newPassword.value}
-                    error={form.newPassword.error}
+                    error={t(form.newPassword.error)}
                     onChange={handleInput(setNewPassword)}
                 />
                 <InputText
-                    label='Repetir contraseña'
+                    label={t(
+                        'settings.profile.password.form.repeatPassword.label'
+                    )}
+                    placeholder={t(
+                        'settings.profile.password.form.repeatPassword.placeholder'
+                    )}
                     type='password'
                     value={form.repeatNewPassword.value}
-                    error={form.repeatNewPassword.error}
+                    error={t(form.repeatNewPassword.error)}
                     onChange={handleInput(setRepeatNewPassword)}
                 />
             </div>
@@ -53,7 +71,7 @@ const UserPassword = () => {
                     onClick={setResetForm}
                     className='w-full'
                 >
-                    Cancelar
+                    {t('settings.profile.password.form.buttons.cancel')}
                 </Button>
                 <Button
                     type='submit'
@@ -61,14 +79,14 @@ const UserPassword = () => {
                     disabled={isFormInvalid}
                     className='w-full'
                 >
-                    Actualizar
+                    {t('settings.profile.password.form.buttons.save')}
                 </Button>
             </div>
         </form>
     )
 }
 
-const handleSubmit = async (ev, form, setIsSubmitting) => {
+const handleSubmit = async (ev, form, setIsSubmitting, t) => {
     ev.preventDefault()
 
     setIsSubmitting(true)
@@ -81,11 +99,9 @@ const handleSubmit = async (ev, form, setIsSubmitting) => {
     const { status } = await udpatePasswordService(payload)
 
     if (status === 204) {
-        toast.success('Contraseña actualizada exitosamente!')
+        toast.success(t('settings.profile.password.form.toast.success'))
     } else {
-        toast.error(
-            'Ha ocurrido un error al actualizar la contraseña. Por favor, inténtalo de nuevo.'
-        )
+        toast.error(t('settings.profile.password.form.toast.error'))
     }
 
     setIsSubmitting(false)

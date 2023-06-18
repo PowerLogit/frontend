@@ -1,0 +1,133 @@
+{
+    "sidebar": {
+        "profile": "Mi Perfil",
+        "athlete": {
+            "add": "Ser Atleta",
+            "remove": "Dejar de ser Atleta"
+        },
+        "coach": {
+            "add": "Ser Entrenador",
+            "remove": "Dejar de ser Entrenador"
+        }
+    },
+    "profile": {
+        "title": "MI CUENTA",
+        "myProfile": {
+            "title": "Perfil",
+            "form": {
+                "name": "Nombre",
+                "surname": "Apellidos",
+                "username": "Nombre de usuario",
+                "email": "Email",
+                "roles": "Roles",
+                "buttons": {
+                    "save": "Actualizar",
+                    "cancel": "Cancelar"
+                },
+                "toast": {
+                    "success": "¡Perfil actualizado exitosamente!",
+                    "error": "Ha ocurrido un error al actualizar el perfil. Por favor, inténtalo de nuevo."
+                }
+            },
+            "noRoles": "No tienes ningún rol asignado",
+            "loading": "Cargando ..."
+        },
+        "password": {
+            "title": "Cambiar contraseña",
+            "form": {
+                "currentPassword": {
+                    "label": "Contraseña actual",
+                    "placeholder": "••••••••"
+                },
+                "newPassword": {
+                    "label": "Nueva contraseña",
+                    "placeholder": "••••••••"
+                },
+                "repeatPassword": {
+                    "label": "Confirmar contraseña",
+                    "placeholder": "••••••••"
+                },
+                "buttons": {
+                    "save": "Actualizar",
+                    "cancel": "Cancelar"
+                },
+                "toast": {
+                    "success": "Contraseña actualizada exitosamente!",
+                    "error": "Ha ocurrido un error al actualizar la contraseña. Por favor, inténtalo de nuevo."
+                },
+                "errors": {
+                    "required": "Campo requerido",
+                    "minlength": "Debe tener al menos 6 caracteres",
+                    "numberFormat": "Debe contener al menos un número",
+                    "letterFormat": "Debe contener al menos una letra mayúscula",
+                    "newPassword": "Son iguales",
+                    "repeatPassword": "No coincide"
+                }
+            }
+        }
+    },
+    "beingAthlete": {
+        "remove": {
+            "title": "Dejar de ser Atleta",
+            "text": "Entendemos que las circunstancias pueden cambiar y que es posible que ya no desees ejercer como atleta en PowerLog. Si has decidido dejar de ser atleta, queremos asegurarnos de que estás tomando la decisión correcta. \nAl dejar de ser atleta, perderás la capacidad de crear programas de entrenamiento personalizados, así como del uso de la calculadora de discos y el poder tener un entrenador. \nSi estás seguro de que deseas dejar de ser atleta, haz clic en el botón \"Dejar de ser Atleta\" a continuación.",
+            "modal": {
+                "paragraph1": "Al hacer clic en el botón \"Dejar de ser Atleta\", confirmas que comprendes las consecuencias de esta acción y que estás dispuesto a renunciar a tus funciones y privilegios como atleta en PowerLog",
+                "paragraph2": "Recuerda que siempre serás bienvenido como atleta en nuestra plataforma y podrás disfrutar de los beneficios de tener un entrenador dedicado para tu entrenamiento si así lo deseas.",
+                "paragraph3": "Agradecemos tu contribución como atleta en PowerLog y esperamos en este rol.",
+                "paragraph4": "Si en el futuro decides retomar tu papel como atleta, estaremos encantados de recibirte nuevamente en nuestra comunidad.",
+                "cancel": "Cancelar",
+                "remove": "Dejar de ser Atleta",
+                "toast": {
+                    "success": "¡Gracias por tu comprensión y por formar parte de PowerLog!",
+                    "error": "Ha ocurrido un error al dejar de ser atleta. Por favor, inténtalo de nuevo"
+                }
+            }
+        },
+        "add": {
+            "title": "Convertirse en Atleta",
+            "text": "¡Gracias por tu interés en convertirte en atleta!\nAl convertirte en atleta, podrás crear programas de entrenamiento personalizados, acceso a la calculadora de discos y aproximaciones y por su puesto poder tener un entrenador que se encarge de tu seguimiento \nSi estás listo para dar el siguiente paso y convertirte en atleta, haz clic en el botón \"Convertirse en Atleta\" a continuación.",
+            "modal": {
+                "paragraph1": "Al hacer clic en el botón \"Convertirse en Atleta\", aceptas asumir las responsabilidades y compromisos asociados con ser un atleta en nuestra plataforma.",
+                "paragraph2": "Estamos emocionados de tener nuevos atletas como tú en nuestra comunidad y esperamos que aproveches al máximo esta oportunidad de compartir tu pasión por el powerlifting.",
+                "cancel": "No, cancelar",
+                "add": "Sí, convertirse en Atleta",
+                "toast": {
+                    "success": "¡Adelante y comienza tu carrera como atleta en PowerLog!",
+                    "error": "Ha ocurrido un error al convertirse en atleta. Por favor, inténtalo de nuevo"
+                }
+            }
+        }
+    },
+    "beingCoach": {
+        "remove": {
+            "title": "Dejar de ser Entrenador",
+            "text": "Entendemos que las circunstancias pueden cambiar y que es posible que ya no desees ejercer como entrenador en PowerLog. Si has decidido dejar de ser entrenador, queremos asegurarnos de que estás tomando la decisión correcta. \nAl dejar de ser entrenador, perderás la capacidad de crear programas de entrenamiento personalizados, así como de brindar apoyo y orientación a los atletas. \nSi estás seguro de que deseas dejar de ser entrenador, haz clic en el botón \"Dejar de ser Entrenador\" a continuación.",
+            "modal": {
+                "paragraph1": "Al hacer clic en el botón &quot;Dejar de ser Entrenador&quot;, confirmas que comprendes las consecuencias de esta acción y que estás dispuesto a renunciar a tus funciones y privilegios como entrenador en PowerLog.",
+                "paragraph2": "Recuerda que siempre serás bienvenido como entrenador en nuestra plataforma y podrás disfrutar de los beneficios de serlo",
+                "paragraph3": "Agradecemos tu contribución como entrenador en PowerLog y esperamos que hayas tenido una experiencia gratificante durante tu tiempo en este rol.",
+                "paragraph4": "Si en el futuro decides retomar tu papel como entrenador, estaremos encantados de recibirte nuevamente en nuestra comunidad.",
+                "cancel": "Cancelar",
+                "remove": "Si, deajar de serlo",
+                "toast": {
+                    "success": "¡Gracias por tu comprensión y por formar parte de PowerLog!",
+                    "error": "Ha ocurrido un error al dejar de ser entrenador. Por favor, inténtalo de nuevo"
+                }
+            }
+        },
+        "add": {
+            "title": "Convertirse en Entrenador",
+            "text": "¡Gracias por tu interés en convertirte en entrenador! Al hacerlo, tendrás la oportunidad de compartir tus conocimientos y experiencia con otros atletas, ayudándoles a alcanzar sus metas y mejorar su desempeño en el powerlifting. \nAl convertirte en entrenador, podrás crear programas de entrenamiento personalizados, realizar un seguimiento del progreso de tus atletas y brindarles el apoyo y la orientación necesarios para alcanzar su máximo potencial. \nSi estás listo para dar el siguiente paso y convertirte en entrenador, haz clic en el botón \"Convertirse en Entrenador\" a continuación.",
+            "modal": {
+                "paragraph1": "Al hacer clic en el botón \"Convertirse en Entrenador\", aceptas asumir las responsabilidades y compromisos asociados con ser un entrenador en nuestra plataforma. Además, confirmas que cuentas con los conocimientos y la experiencia necesarios para guiar y apoyar a los atletas en su viaje de entrenamiento de powerlifting.",
+                "paragraph2": "Estamos emocionados de tener nuevos entrenadores como tú en nuestra comunidad y esperamos que aproveches al máximo esta oportunidad de compartir tu pasión por el powerlifting con otros atletas.",
+                "cancel": "No, cancelar",
+                "add": "Sí, convertirse",
+                "toast": {
+                    "success": "¡Adelante y comienza tu carrera como entrenador en PowerLog!",
+                    "error": "Ha ocurrido un error al convertirse en entrenador. Por favor, inténtalo de nuevo"
+                }
+            }
+        }
+    }
+}

@@ -1,5 +1,6 @@
 import { useAuthContext } from '@auth/libs/context/auth.context'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
@@ -7,34 +8,27 @@ import { setNewAuth } from '../../../auth/libs/actions/auth.action'
 import { removeCoachRoleService } from '../../libs/services/coach.service'
 
 const RemoveCoachRole = ({ closeModal }) => {
+    const { t } = useTranslation()
+
     const { dispatchAuth } = useAuthContext()
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const onHandleSubmit = async (ev) =>
-        handleSubmit(ev, setIsSubmitting, closeModal, dispatchAuth)
+        handleSubmit(ev, setIsSubmitting, closeModal, dispatchAuth, t)
 
     return (
         <form className='p-5' onSubmit={onHandleSubmit}>
             <p className='mb-2 text-gray-500 dark:text-gray-300'>
-                Al hacer clic en el botón &quot;Dejar de ser Entrenador&quot;,
-                confirmas que comprendes las consecuencias de esta acción y que
-                estás dispuesto a renunciar a tus funciones y privilegios como
-                entrenador en PowerLog.
+                {t('settings.beingCoach.remove.modal.paragraph1')}
             </p>
             <p className='mb-2 text-gray-500 dark:text-gray-300'>
-                Recuerda que siempre serás bienvenido como atleta en nuestra
-                plataforma y podrás disfrutar de los beneficios de tener un
-                entrenador dedicado para tu entrenamiento si así lo deseas.
+                {t('settings.beingCoach.remove.modal.paragraph2')}
             </p>
             <p className='mb-2 text-gray-500 dark:text-gray-300'>
-                Agradecemos tu contribución como entrenador en PowerLog y
-                esperamos que hayas tenido una experiencia gratificante durante
-                tu tiempo en este rol.
+                {t('settings.beingCoach.remove.modal.paragraph3')}
             </p>
             <p className='mb-6 text-gray-500 dark:text-gray-300'>
-                Si en el futuro decides retomar tu papel como entrenador,
-                estaremos encantados de recibirte nuevamente en nuestra
-                comunidad.
+                {t('settings.beingCoach.remove.modal.paragraph4')}
             </p>
             <div className='flex justify-center items-center gap-4'>
                 <Button
@@ -42,17 +36,23 @@ const RemoveCoachRole = ({ closeModal }) => {
                     loading={isSubmitting}
                     onClick={closeModal}
                 >
-                    No, cancelar
+                    {t('settings.beingCoach.remove.modal.cancel')}
                 </Button>
                 <Button type='submit' kind='danger' loading={isSubmitting}>
-                    Si, deajar de serlo
+                    {t('settings.beingCoach.remove.modal.remove')}
                 </Button>
             </div>
         </form>
     )
 }
 
-const handleSubmit = async (ev, setIsSubmitting, closeModal, dispatchAuth) => {
+const handleSubmit = async (
+    ev,
+    setIsSubmitting,
+    closeModal,
+    dispatchAuth,
+    t
+) => {
     ev.preventDefault()
     setIsSubmitting(true)
 
@@ -61,13 +61,9 @@ const handleSubmit = async (ev, setIsSubmitting, closeModal, dispatchAuth) => {
     if (status === 200) {
         dispatchAuth(setNewAuth(data.access_token))
         closeModal()
-        toast.success(
-            '¡Gracias por tu comprensión y por formar parte de PowerLog!'
-        )
+        toast.success(t('settings.beingCoach.remove.modal.toast.success'))
     } else {
-        toast.error(
-            'Ha ocurrido un error al dejar de ser entrenador. Por favor, inténtalo de nuevo'
-        )
+        toast.error(t('settings.beingCoach.remove.modal.toast.error'))
     }
 
     setIsSubmitting(false)
