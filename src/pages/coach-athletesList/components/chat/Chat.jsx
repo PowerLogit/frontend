@@ -50,6 +50,8 @@ const ChatCoach = () => {
     const handleChange = (ev) => setNewMessage(ev.target.value)
 
     const sendMessage = () => {
+        console.log('sendMessage')
+
         const message = {
             id: crypto.randomUUID(),
             to: idAthlete,
