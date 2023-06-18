@@ -28,7 +28,7 @@ const CommentCard = ({ comment, settersComment }) => {
                     <p className='inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white'>
                         <img
                             className='mr-2 w-6 h-6 rounded-full'
-                            src={avatar}
+                            src={'/default.png'}
                             alt={avatarAlt}
                         />
                         {name} {surname}
