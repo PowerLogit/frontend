@@ -2,5 +2,9 @@
     "title": "Listado de atletas",
     "search": "Buscar atleta...",
     "noAthletes": "Sin Atletas",
-    "loading": "Cargando ..."
+    "loading": "Cargando ...",
+    "chat": {
+        "placeholder": "Escribe un mensaje...",
+        "send": "Enviar"
+    }
 }

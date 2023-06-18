@@ -1,5 +1,6 @@
 import { useAuthContext } from '@auth/libs/context/auth.context'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { connectSocket } from '../../../../api/socket.api'
@@ -10,6 +11,8 @@ import InputText from '../../../../components/ui/components/form/InputText'
 
 const ChatCoach = () => {
     const { idAthlete, username } = useParams()
+    const { t } = useTranslation()
+
     const { user, token } = useAuthContext()
 
     const [socket, setSocket] = useState(null)
@@ -87,14 +90,14 @@ const ChatCoach = () => {
 
                 <div className='w-full flex gap-4'>
                     <InputText
-                        placeholder='Escribe un mesaje aquí'
+                        placeholder={t('myCoach.chat.placeholder')}
                         value={newMessage}
                         onChange={handleChange}
                         onKeyPress={handleKeyPress}
                         className='flex-grow'
                     />
                     <Button onClick={sendMessage} disabled={!newMessage}>
-                        Enviar
+                        {t('myCoach.chat.send')}
                     </Button>
                 </div>
             </div>
