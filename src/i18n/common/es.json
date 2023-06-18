@@ -1,0 +1,12 @@
+{
+    "formatDateAgo": {
+        "second": "hace {{second}} segundo",
+        "seconds": "hace {{seconds}} segundos",
+        "minute": "hace {{minute}} minuto",
+        "minutes": "hace {{minutes}} minutos",
+        "hours": "hace {{hours}} horas",
+        "days": "hace {{days}} días",
+        "months": "hace {{months}} meses",
+        "years": "hace {{years}} años"
+    }
+}

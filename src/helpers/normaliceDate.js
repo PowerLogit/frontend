@@ -1,5 +1,7 @@
-export const normalizeDateUTC = (date) => {
-    const newDate = new Date(date).toLocaleString('es-ES', {
+export const normalizeDateUTC = (date, language = 'es') => {
+    language = language === 'es' ? 'es-ES' : 'en-EN'
+
+    const newDate = new Date(date).toLocaleString(language, {
         weekday: 'short',
         day: '2-digit',
         month: 'short',
@@ -19,7 +21,7 @@ export const normalizeDateISO = (date) => {
     return newDate.split('/').reverse().join('-')
 }
 
-export const formatDateAgo = (date) => {
+export const formatDateAgo = (date, t) => {
     const currentDate = new Date()
     const diff = Math.abs(currentDate - date)
 
@@ -31,17 +33,17 @@ export const formatDateAgo = (date) => {
     const years = Math.floor(months / 12)
 
     if (seconds < 60) {
-        return `hace ${seconds} segundos`
+        return t('common.formatDateAgo.seconds', { seconds })
     } else if (minutes < 60) {
-        return `hace ${minutes} minutos`
+        return t('common.formatDateAgo.minutes', { minutes })
     } else if (hours < 24) {
-        return `hace ${hours} horas`
+        return t('common.formatDateAgo.hours', { hours })
     } else if (days < 30) {
-        return `hace ${days} días`
+        return t('common.formatDateAgo.days', { days })
     } else if (months < 12) {
-        return `hace ${months} meses`
+        return t('common.formatDateAgo.months', { months })
     } else {
-        return `hace ${years} años`
+        return t('common.formatDateAgo.years', { years })
     }
 }
 

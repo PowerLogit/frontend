@@ -1,10 +1,13 @@
 import { useAuthContext } from '@auth/libs/context/auth.context'
+import { useTranslation } from 'react-i18next'
 
 import { formatDateAgo } from '../../../helpers/normaliceDate'
 import useAvatar from '../../../hooks/useAvatar'
 import WorkoutCommentActions from './WorkoutCommentActions'
 
 const CommentCard = ({ comment, settersComment }) => {
+    const { t } = useTranslation()
+
     const { author, text, createdAt, updatedAt } = comment
 
     const { user } = useAuthContext()
@@ -13,7 +16,7 @@ const CommentCard = ({ comment, settersComment }) => {
     const { name, surname, username } = author
 
     const date = new Date(createdAt)
-    const formattedDateAgo = formatDateAgo(date)
+    const formattedDateAgo = formatDateAgo(date, t)
 
     const isEdited = createdAt !== updatedAt
     const isAuthor = username === user.username
@@ -32,7 +35,9 @@ const CommentCard = ({ comment, settersComment }) => {
                     </p>
                     <p className='text-sm text-gray-600 dark:text-gray-400'>
                         <time>{formattedDateAgo}</time>
-                        {isEdited && <i> (editado)</i>}
+                        {isEdited && (
+                            <i> ({t('workouts.comments.card.edited')})</i>
+                        )}
                     </p>
                 </div>
                 {isAuthor && (

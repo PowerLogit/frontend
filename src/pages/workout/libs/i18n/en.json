@@ -1,0 +1,188 @@
+{
+    "title": "Workouts",
+    "filters": {
+        "createNewWorkout": "Create a new workout",
+        "sortByLabel": "Sort By",
+        "defaultSortOption": "Default",
+        "descSortOption": "Descending",
+        "startDateLabel": "Start Date",
+        "endDateLabel": "End Date",
+        "dropdownFilter": {
+            "label": "Filters",
+            "athlete": "Athlete",
+            "coach": "Coach"
+        },
+        "createButton": "Create"
+    },
+    "rows": {
+        "error": "An error occurred while creating the workout. Please try again.",
+        "noWorkouts": "No workouts",
+        "loading": "Loading..."
+    },
+    "card": {
+        "status": {
+            "pending": "Pending",
+            "completed": "Completed",
+            "failed": "Failed",
+            "default": ""
+        },
+        "actions": {
+            "edit": "Edit",
+            "delete": "Delete",
+            "plates": "Plates",
+            "completed": "Complete",
+            "comments": "View Comments"
+        }
+    },
+    "modal": {
+        "create": {
+            "title": "Create a new workout",
+            "buttons": {
+                "cancel": "Cancel",
+                "create": "Create"
+            },
+            "toast": {
+                "success": "Workout created successfully!",
+                "error": "An error occurred while creating the workout. Please try again."
+            }
+        },
+        "edit": {
+            "title": "Edit workout",
+            "buttons": {
+                "cancel": "Cancel",
+                "edit": "Edit"
+            },
+            "toast": {
+                "success": "Workout updated successfully!",
+                "error": "An error occurred while updating the workout. Please try again."
+            }
+        },
+        "delete": {
+            "title": "Delete workout",
+            "description": "Are you sure you want to delete this workout?",
+            "buttons": {
+                "cancel": "Cancel",
+                "delete": "Delete"
+            },
+            "toast": {
+                "success": "Workout deleted successfully!",
+                "error": "An error occurred while deleting the workout. Please try again."
+            }
+        },
+        "complete": {
+            "title": "Complete workout",
+            "description": "Have you successfully completed the workout?",
+            "buttons": {
+                "fail": "No, failed",
+                "success": "Yes, successful"
+            },
+            "toast": {
+                "success": "Workout completed successfully!",
+                "error": "An error occurred while completing the workout. Please try again."
+            }
+        }
+    },
+    "form": {
+        "name": {
+            "label": "Name",
+            "placeholder": "SQLB"
+        },
+        "date": {
+            "label": "Date"
+        },
+        "sets": {
+            "label": "Sets",
+            "placeholder": 4
+        },
+        "reps": {
+            "label": "Reps",
+            "placeholder": 6
+        },
+        "weight": {
+            "label": "Weight",
+            "placeholder": 110
+        },
+        "isSuccessful": {
+            "label": "Successful"
+        }
+    },
+    "errors": {
+        "name": {
+            "doubleSpace": "Cannot contain double space",
+            "max": "Maximum length 50 characters"
+        },
+        "sets": {
+            "required": "This field is required",
+            "number": "Must be a number",
+            "min": "Minimum sets: 1",
+            "max": "Maximum value: 99"
+        },
+        "reps": {
+            "required": "This field is required",
+            "number": "Must be a number",
+            "min": "Minimum reps: 1",
+            "max": "Maximum reps: 999"
+        },
+        "weight": {
+            "required": "This field is required",
+            "invalidFormat": "Invalid format. e.g., 130, 130@8, or @6",
+            "min": "Minimum weight: 1kg",
+            "max": "Maximum weight: 1999kg"
+        }
+    },
+    "comments": {
+        "rows": {
+            "errorWorkout": "An error occurred while loading the workout. Please try again.",
+            "error": "An error occurred while loading the comments. Please try again.",
+            "noComments": "No comments",
+            "loading": "Loading..."
+        },
+        "card": {
+            "edited": "Edited",
+            "actions": {
+                "edit": "Edit",
+                "delete": "Delete"
+            }
+        },
+        "modal": {
+            "edit": {
+                "title": "Edit comment",
+                "buttons": {
+                    "cancel": "Cancel",
+                    "edit": "Edit"
+                },
+                "toast": {
+                    "success": "Comment updated successfully!",
+                    "error": "An error occurred while updating the comment. Please try again."
+                }
+            },
+            "delete": {
+                "title": "Delete comment",
+                "description": "Are you sure you want to delete this comment?",
+                "buttons": {
+                    "cancel": "Cancel",
+                    "delete": "Delete"
+                },
+                "toast": {
+                    "success": "Comment deleted successfully!",
+                    "error": "An error occurred while deleting the comment. Please try again."
+                }
+            }
+        },
+        "form": {
+            "placeholder": "Write a comment...",
+            "buttons": {
+                "cancel": "Cancel",
+                "create": "Create"
+            },
+            "toast": {
+                "success": "Comment created successfully!",
+                "error": "An error occurred while creating the comment. Please try again."
+            },
+            "errors": {
+                "required": "This field is required",
+                "max": "Maximum length 500 characters"
+            }
+        }
+    }
+}

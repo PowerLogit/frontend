@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
@@ -6,6 +7,7 @@ import useCommentCreateForm from '../../libs/hooks/useCommentCreateForm'
 import { createWorkoutCommentService } from '../../libs/services/comment.service'
 
 const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
+    const { t } = useTranslation()
     const { form, isFormInvalid, handleInputChange, setResetForm, setText } =
         useCommentCreateForm()
 
@@ -18,7 +20,8 @@ const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
             idWorkout,
             setIsSubmitting,
             setResetForm,
-            addComment
+            addComment,
+            t
         )
 
     return (
@@ -30,15 +33,15 @@ const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
                     </label>
                     <textarea
                         id='comment'
+                        placeholder={t('workouts.comments.form.placeholder')}
                         rows='3'
                         value={form.text.value}
                         onChange={handleInputChange(setText)}
-                        placeholder='Escribir un comentario...'
                         className='w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400'
                     ></textarea>
                     {form.text.error && (
                         <span className='mt-2 text-sm text-red-600 dark:text-red-500'>
-                            {form.text.error}
+                            {t(form.text.error)}
                         </span>
                     )}
                 </div>
@@ -49,7 +52,7 @@ const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
                         onClick={setResetForm}
                         className={'max-w-40'}
                     >
-                        Cancelar
+                        {t('workouts.comments.form.buttons.cancel')}
                     </Button>
                     <Button
                         type='submit'
@@ -57,7 +60,7 @@ const WorkoutCommnetCreateForm = ({ idWorkout, addComment }) => {
                         disabled={isFormInvalid}
                         className={'max-w-40'}
                     >
-                        Crear
+                        {t('workouts.comments.form.buttons.create')}
                     </Button>
                 </div>
             </div>
@@ -71,7 +74,8 @@ const handleSubmit = async (
     idWorkout,
     setIsSubmitting,
     setResetForm,
-    addComment
+    addComment,
+    t
 ) => {
     ev.preventDefault()
     setIsSubmitting(true)
@@ -87,11 +91,9 @@ const handleSubmit = async (
     if (status === 201) {
         setResetForm()
         addComment(data)
-        toast.success('¡Comentario creado exitosamente!')
+        toast.success(t('workouts.comments.form.toast.success'))
     } else {
-        toast.error(
-            'Ha ocurrido un error al crear el comentario. Por favor, inténtalo de nuevo.'
-        )
+        toast.error(t('workouts.comments.form.toast.error'))
     }
 
     setIsSubmitting(false)

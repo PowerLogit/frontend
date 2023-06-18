@@ -1,17 +1,22 @@
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
 import WorkoutCard from './WorkoutCard'
 
 const WorkoutRows = ({ workouts, loading, error }) => {
+    const { t } = useTranslation()
+
     if (error) {
-        toast.error(
-            'Ha ocurrido un error al cargar los entrenamientos. Por favor, inténtalo de nuevo.'
+        toast.error(t('workouts.rows.error'))
+        return (
+            <p className='dark:text-white'>{t('workouts.rows.noWorkouts')}</p>
         )
-        return
     } else if (loading) {
-        return <p className='dark:text-white'>Cargando ...</p>
+        return <p className='dark:text-white'>{t('workouts.rows.loading')}</p>
     } else if (!workouts.length) {
-        return <p className='dark:text-white'>Sin entrenamientos</p>
+        return (
+            <p className='dark:text-white'>{t('workouts.rows.noWorkouts')}</p>
+        )
     }
 
     return (

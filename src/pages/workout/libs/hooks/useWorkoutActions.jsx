@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import WorkoutCompleteForm from '../../components/forms/WorkoutCompleteForm'
@@ -6,13 +7,14 @@ import WorkoutDeleteForm from '../../components/forms/WorkoutDeleteForm'
 import WorkoutEditForm from '../../components/forms/WorkoutEditForm'
 
 const useWorkoutActions = (workout) => {
-    const [modalContent, setModalContent] = useState(initialStateModal)
-
+    const { t } = useTranslation()
     const navigate = useNavigate()
+
+    const [modalContent, setModalContent] = useState(initialStateModal)
 
     const setEditForm = () => {
         setModalContent({
-            title: 'Editar workout',
+            title: t('workouts.modal.edit.title'),
             body: (
                 <WorkoutEditForm
                     currentWorkout={workout}
@@ -24,7 +26,7 @@ const useWorkoutActions = (workout) => {
 
     const setDeleteForm = () => {
         setModalContent({
-            title: 'Eliminar workout',
+            title: t('workouts.modal.delete.title'),
             body: (
                 <WorkoutDeleteForm
                     currentWorkout={workout}
@@ -36,7 +38,7 @@ const useWorkoutActions = (workout) => {
 
     const setIsComplete = () => {
         setModalContent({
-            title: 'Completar workout',
+            title: t('workouts.modal.complete.title'),
             body: (
                 <WorkoutCompleteForm
                     currentWorkout={workout}

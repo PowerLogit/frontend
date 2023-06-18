@@ -1,9 +1,13 @@
+import { Dropdown } from 'flowbite-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import Modal from '../../../components/Modal'
 import Button from '../../../components/ui/components/buttons/Button'
+import InputCheckbox from '../../../components/ui/components/form/InputCheckbox'
 import InputText from '../../../components/ui/components/form/InputText'
 import Select from '../../../components/ui/components/form/Select'
+import FilterIcon from '../../../components/ui/svg/FilterIcon'
 import {
     setAthlete,
     setCoach,
@@ -13,11 +17,10 @@ import {
 } from '../libs/actions/filters.action'
 import { SORT_OPTION } from '../libs/constant/workoutSortOption'
 import WorkoutCreateForm from './forms/WorkoutCreateForm'
-import { Dropdown } from 'flowbite-react'
-import InputCheckbox from '../../../components/ui/components/form/InputCheckbox'
-import FilterIcon from '../../../components/ui/svg/FilterIcon'
 
 const WorkoutFilters = ({ filters, dispatchFilters }) => {
+    const { t } = useTranslation()
+
     const [showModal, setShowModal] = useState(false)
 
     const handleStringChange = (setValue) => (ev) => {
@@ -33,7 +36,7 @@ const WorkoutFilters = ({ filters, dispatchFilters }) => {
     return (
         <>
             <Modal
-                title={'Crear un nuevo workout'}
+                title={t('workouts.modal.create.title')}
                 closeModal={() => setShowModal(false)}
             >
                 {showModal && (
@@ -42,22 +45,26 @@ const WorkoutFilters = ({ filters, dispatchFilters }) => {
             </Modal>
             <div className='w-full mb-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 items-end'>
                 <Select
-                    label='Ordenar'
+                    label={t('workouts.filters.sortByLabel')}
                     defaultValue={sortBy}
                     onChange={handleNumberChange(setSortBy)}
                 >
-                    <option value={SORT_OPTION.DEFAULT}>Por defecto</option>
-                    <option value={SORT_OPTION.DATE_DESC}>Descendente</option>
+                    <option value={SORT_OPTION.DEFAULT}>
+                        {t('workouts.filters.defaultSortOption')}
+                    </option>
+                    <option value={SORT_OPTION.DATE_DESC}>
+                        {t('workouts.filters.descSortOption')}
+                    </option>
                 </Select>
                 <InputText
                     type='date'
-                    label='Fecha de inicio'
+                    label={t('workouts.filters.startDateLabel')}
                     value={startDate}
                     onChange={handleStringChange(setStartDate)}
                 />
                 <InputText
                     type='date'
-                    label='Fecha de fin'
+                    label={t('workouts.filters.endDateLabel')}
                     value={endDate}
                     onChange={handleStringChange(setEndDate)}
                 />
@@ -68,13 +75,15 @@ const WorkoutFilters = ({ filters, dispatchFilters }) => {
                     label={
                         <div className='w-full flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'>
                             <FilterIcon />
-                            <span>Filtros</span>
+                            <span>
+                                {t('workouts.filters.dropdownFilter.label')}
+                            </span>
                         </div>
                     }
                 >
                     <Dropdown.Item>
                         <InputCheckbox
-                            label='Atleta'
+                            label={t('workouts.filters.dropdownFilter.athlete')}
                             name='Atleta'
                             value={athlete}
                             checked={athlete}
@@ -84,7 +93,7 @@ const WorkoutFilters = ({ filters, dispatchFilters }) => {
                     </Dropdown.Item>
                     <Dropdown.Item>
                         <InputCheckbox
-                            label='Entrenador'
+                            label={t('workouts.filters.dropdownFilter.coach')}
                             name='Entrenador'
                             value={coach}
                             checked={coach}
@@ -93,7 +102,9 @@ const WorkoutFilters = ({ filters, dispatchFilters }) => {
                         />
                     </Dropdown.Item>
                 </Dropdown>
-                <Button onClick={() => setShowModal(true)}>Crear</Button>
+                <Button onClick={() => setShowModal(true)}>
+                    {t('workouts.filters.createButton')}
+                </Button>
             </div>
         </>
     )

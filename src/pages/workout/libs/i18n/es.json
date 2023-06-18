@@ -1,0 +1,188 @@
+{
+    "title": "Workouts",
+    "filters": {
+        "createNewWorkout": "Crear un nuevo workout",
+        "sortByLabel": "Ordenar",
+        "defaultSortOption": "Por defecto",
+        "descSortOption": "Descendente",
+        "startDateLabel": "Fecha de inicio",
+        "endDateLabel": "Fecha de fin",
+        "dropdownFilter": {
+            "label": "Filtros",
+            "athlete": "Atleta",
+            "coach": "Entrenador"
+        },
+        "createButton": "Crear"
+    },
+    "rows": {
+        "error": "Ha ocurrido un error al crear el workout. Por favor, inténtalo de nuevo",
+        "noWorkouts": "Sin entrenamientos",
+        "loading": "Cargando..."
+    },
+    "card": {
+        "status": {
+            "pending": "Pendiente",
+            "completed": "Completado",
+            "failed": "Fallido",
+            "default": ""
+        },
+        "actions": {
+            "edit": "Editar",
+            "delete": "Eliminar",
+            "plates": "Discos",
+            "completed": "Completar",
+            "comments": "Ver comentarios"
+        }
+    },
+    "modal": {
+        "create": {
+            "title": "Crear un nuevo workout",
+            "buttons": {
+                "cancel": "Cancelar",
+                "create": "Crear"
+            },
+            "toast": {
+                "success": "Workout creado exitosamente!",
+                "error": "Ha ocurrido un error al crear el workout. Por favor, inténtalo de nuevo"
+            }
+        },
+        "edit": {
+            "title": "Editar workout",
+            "buttons": {
+                "cancel": "Cancelar",
+                "edit": "Editar"
+            },
+            "toast": {
+                "success": "Workout actualizado exitosamente!",
+                "error": "Ha ocurrido un error al actualizar el workout. Por favor, inténtalo de nuevo"
+            }
+        },
+        "delete": {
+            "title": "Eliminar workout",
+            "description": "¿Estás seguro que deseas eliminar este workout?",
+            "buttons": {
+                "cancel": "Cancelar",
+                "delete": "Eliminar"
+            },
+            "toast": {
+                "success": "Workout eliminado exitosamente!",
+                "error": "Ha ocurrido un error al eliminar el workout. Por favor, inténtalo de nuevo"
+            }
+        },
+        "complete": {
+            "title": "Completar workout",
+            "description": "¿Has completado de forma exitosa el workout ?",
+            "buttons": {
+                "fail": "No, fallido",
+                "success": "Si, exitoso"
+            },
+            "toast": {
+                "success": "Workout completado exitosamente!",
+                "error": "Ha ocurrido un error al completar el workout. Por favor, inténtalo de nuevo"
+            }
+        }
+    },
+    "form": {
+        "name": {
+            "label": "Nombre",
+            "placeholder": "SQLB"
+        },
+        "date": {
+            "label": "Fecha"
+        },
+        "sets": {
+            "label": "Series",
+            "placeholder": 4
+        },
+        "reps": {
+            "label": "Repes",
+            "placeholder": 6
+        },
+        "weight": {
+            "label": "Peso",
+            "placeholder": 110
+        },
+        "isSuccessful": {
+            "label": "Exitoso"
+        }
+    },
+    "errors": {
+        "name": {
+            "doubleSpace": "No puede contener doble espacio",
+            "max": "Longitud máxima 50 caracteres"
+        },
+        "sets": {
+            "required": "Este campo es requerido",
+            "number": "Debe ser un número",
+            "min": "Series mínimas: 1",
+            "max": "Valor máximo: 99"
+        },
+        "reps": {
+            "required": "Este campo es requerido",
+            "number": "Debe ser un número",
+            "min": "Repeticiones mínimas: 1",
+            "max": "Repeticiones máximas: 999"
+        },
+        "weight": {
+            "required": "Este campo es requerido",
+            "invalidFormat": "Formato inválido. Ej: 130, 130@8 o @6",
+            "min": "Peso mínimo: 1kg",
+            "max": "Peso máximo: 1999kg"
+        }
+    },
+    "comments": {
+        "rows": {
+            "errorWorkout": "Ha ocurrido un error al cargar el workout. Por favor, inténtalo de nuevo",
+            "error": "Ha ocurrido un error al cargar los comentarios. Por favor, inténtalo de nuevo.",
+            "noComments": "Sin comentarios",
+            "loading": "Cargando..."
+        },
+        "card": {
+            "edited": "Editado",
+            "actions": {
+                "edit": "Editar",
+                "delete": "Eliminar"
+            }
+        },
+        "modal": {
+            "edit": {
+                "title": "Editar comentario",
+                "buttons": {
+                    "cancel": "Cancelar",
+                    "edit": "Editar"
+                },
+                "toast": {
+                    "success": "¡Comentario actualizado exitosamente!",
+                    "error": "Ha ocurrido un error al actualizar el comentario. Por favor, inténtalo de nuevo"
+                }
+            },
+            "delete": {
+                "title": "Eliminar comentario",
+                "description": "¿Estás seguro que deseas eliminar este comentario?",
+                "buttons": {
+                    "cancel": "Cancelar",
+                    "delete": "Eliminar"
+                },
+                "toast": {
+                    "success": "¡Comentario eliminado exitosamente!",
+                    "error": "Ha ocurrido un error al eliminar el comentario. Por favor, inténtalo de nuevo"
+                }
+            }
+        },
+        "form": {
+            "placeholder": "Escribe un comentario...",
+            "buttons": {
+                "cancel": "Cancelar",
+                "create": "Crear"
+            },
+            "toast": {
+                "success": "Comentario creado exitosamente!",
+                "error": "Ha ocurrido un error al crear el comentario. Por favor, inténtalo de nuevo"
+            },
+            "errors": {
+                "required": "Este campo es requerido",
+                "max": "Longitud máxima 500 caracteres"
+            }
+        }
+    }
+}

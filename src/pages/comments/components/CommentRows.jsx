@@ -1,17 +1,26 @@
 import { toast } from 'sonner'
 
 import CommentCard from './CommentCard'
+import { useTranslation } from 'react-i18next'
 
 const CommentRows = ({ comments, loading, error, settersComment }) => {
+    const { t } = useTranslation()
+
     if (error) {
-        toast.error(
-            'Ha ocurrido un error al cargar los comentarios. Por favor, inténtalo de nuevo.'
-        )
+        toast.error(t('workouts.comments.rows.error'))
         return
     } else if (loading) {
-        return <p className='dark:text-white'>Cargando ...</p>
+        return (
+            <p className='dark:text-white'>
+                {t('workouts.comments.rows.loading')}
+            </p>
+        )
     } else if (!comments.length) {
-        return <p className='dark:text-white'>Sin comentarios</p>
+        return (
+            <p className='dark:text-white'>
+                {t('workouts.comments.rows.noComments')}
+            </p>
+        )
     }
 
     return (

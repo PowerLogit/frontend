@@ -1,0 +1,12 @@
+{
+    "formatDateAgo": {
+        "second": "{{second}} second ago",
+        "seconds": "{{seconds}} seconds ago",
+        "minute": "{{minute}} minute ago",
+        "minutes": "{{minutes}} minutes ago",
+        "hours": "{{hours}} hours ago",
+        "days": "{{days}} days ago",
+        "months": "{{months}} months ago",
+        "years": "{{years}} years ago"
+    }
+}

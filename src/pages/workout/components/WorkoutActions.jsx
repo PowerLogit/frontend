@@ -1,4 +1,5 @@
 import { Dropdown } from 'flowbite-react'
+import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 
 import Modal from '../../../components/Modal'
@@ -8,6 +9,9 @@ import TrashIcon from '../../../components/ui/svg/TrashIcon'
 import useWorkoutActions from '../libs/hooks/useWorkoutActions'
 
 const WorkoutActions = ({ workout }) => {
+    const { t } = useTranslation()
+    const location = useLocation()
+
     const {
         modalContent,
         setEditForm,
@@ -15,8 +19,6 @@ const WorkoutActions = ({ workout }) => {
         setIsComplete,
         resetModalContent,
     } = useWorkoutActions(workout)
-
-    const location = useLocation()
 
     const showComment = location.pathname === '/workouts'
     const showButton = showComment && !workout.coach
@@ -30,26 +32,32 @@ const WorkoutActions = ({ workout }) => {
             <Dropdown arrowIcon={false} inline={true} label={<ThreeDotsIcon />}>
                 {showButton && (
                     <Dropdown.Item icon={PencilIcon} onClick={setEditForm}>
-                        <span className='pl-2'>Editar</span>
+                        <span className='pl-2'>
+                            {t('workouts.card.actions.edit')}
+                        </span>
                     </Dropdown.Item>
                 )}
                 {showButton && (
                     <Dropdown.Item icon={TrashIcon} onClick={setDeleteForm}>
-                        <span className='pl-2'>Eliminar</span>
+                        <span className='pl-2'>
+                            {t('workouts.card.actions.delete')}
+                        </span>
                     </Dropdown.Item>
                 )}
                 <Dropdown.Item>
-                    <Link to={`/calc/${workout.weight}`}>Discos</Link>
+                    <Link to={`/calc/${workout.weight}`}>
+                        {t('workouts.card.actions.plates')}
+                    </Link>
                 </Dropdown.Item>
                 {!workout.isCompleted && (
                     <Dropdown.Item onClick={setIsComplete}>
-                        Completar
+                        {t('workouts.card.actions.completed')}
                     </Dropdown.Item>
                 )}
                 {showComment && (
                     <Dropdown.Item>
                         <Link to={`/workout/${workout.id}`}>
-                            Ver comentarios
+                            {t('workouts.card.actions.comments')}
                         </Link>
                     </Dropdown.Item>
                 )}

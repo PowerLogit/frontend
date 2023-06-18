@@ -10,8 +10,7 @@ const useCommentCreateForm = () => {
     }
 
     const validateText = (text) => {
-        if (text.length < 1 || text.length > 201)
-            return 'Longitud entre 1 y 200 caracteres'
+        if (text.length > 201) return 'workouts.comments.form.errors.max'
     }
 
     const setText = (value) => {
