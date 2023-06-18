@@ -1,21 +1,38 @@
 export const validCurrentPassword = (password) => {
-    if (!password.length) return 'Campo requerido'
-    if (password.length < 6) return 'Mínimo 6 caracteres'
-    if (!/\d/.test(password)) return 'Debe contener al menos un número'
+    if (!password.length)
+        return 'settings.profile.password.form.errors.required'
+
+    if (password.length < 6)
+        return 'settings.profile.password.form.errors.minlength'
+
+    if (!/\d/.test(password))
+        return 'settings.profile.password.form.errors.numberFormat'
+
     if (!/[A-Z]/.test(password))
-        return 'Debe contener al menos una letra mayúscula'
+        return 'settings.profile.password.form.errors.letterFormat'
 }
 
 export const validNewPassword = (newPassword, currentPassword) => {
-    if (!newPassword.length) return 'Campo requerido'
-    if (newPassword.length < 6) return 'Mínimo 6 caracteres'
-    if (!/\d/.test(newPassword)) return 'Debe contener al menos un número'
+    if (!newPassword.length)
+        return 'settings.profile.password.form.errors.required'
+
+    if (newPassword.length < 6)
+        return 'settings.profile.password.form.errors.minlength'
+
+    if (!/\d/.test(newPassword))
+        return 'settings.profile.password.form.errors.numberFormat'
+
     if (!/[A-Z]/.test(newPassword))
-        return 'Debe contener al menos una letra mayúscula'
-    if (newPassword === currentPassword) return 'Las contraseñas son iguales'
+        return 'settings.profile.password.form.errors.letterFormat'
+
+    if (newPassword === currentPassword)
+        return 'settings.profile.password.form.errors.newPassword'
 }
 
 export const validRepeatNewPassword = (repeatNewPassword, newPassword) => {
-    if (!repeatNewPassword.length) return 'Campo requerido'
-    if (repeatNewPassword !== newPassword) return 'La contraseña no coincide'
+    if (!repeatNewPassword.length)
+        return 'settings.profile.password.form.errors.required'
+
+    if (repeatNewPassword !== newPassword)
+        return 'settings.profile.password.form.errors.repeatPassword'
 }

@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
 import InputText from '../../../../components/ui/components/form/InputText'
+import { getRoleFormat } from '../../../../helpers/roleFormat'
 import { setNewAuth } from '../../../auth/libs/actions/auth.action'
 import { useAuthContext } from '../../../auth/libs/context/auth.context'
 import useUserProfile from '../../libs/hooks/useUserProfile'
@@ -10,6 +12,7 @@ import { udpateProfileService } from '../../libs/services/user.service'
 import UserAvatarModal from './UserAvatarModal'
 
 const UserProfile = () => {
+    const { t, i18n } = useTranslation()
     const { dispatchAuth } = useAuthContext()
 
     const { data, isLoading, form, isFormInvalid, handleInput, setters } =
@@ -17,28 +20,35 @@ const UserProfile = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
-    if (isLoading) return <div className='mx-auto text-center'>Cargando...</div>
+    if (isLoading)
+        return (
+            <div className='mx-auto text-center'>
+                {t('settings.profile.myProfile.loading')}
+            </div>
+        )
 
-    const rolesFormat = getRoles(data.role)
+    const rolesFormat = getRoles(data.role, t, i18n.language)
     const { setReset, setName, setSurname, setUsername, setEmail } = setters
 
     const onHandleSubmit = async (ev) =>
-        handleSubmit(ev, form, setIsSubmitting, dispatchAuth)
+        handleSubmit(ev, form, setIsSubmitting, dispatchAuth, t)
 
     return (
         <div className='flex flex-col gap-6'>
-            <h2 className='text-4xl text-center font-bold mb-2'>Perfil</h2>
+            <h2 className='text-4xl text-center font-bold mb-2'>
+                {t('settings.profile.myProfile.title')}
+            </h2>
             <UserAvatarModal />
             <form onSubmit={onHandleSubmit} className='flex flex-col gap-6'>
                 <div className='w-full flex gap-4'>
                     <InputText
-                        label='Nombre'
+                        label={t('settings.profile.myProfile.form.name')}
                         value={form.name.value}
                         error={form.name.error}
                         onChange={handleInput(setName)}
                     />
                     <InputText
-                        label='Apellidos'
+                        label={t('settings.profile.myProfile.form.surname')}
                         value={form.surname.value}
                         error={form.surname.error}
                         onChange={handleInput(setSurname)}
@@ -46,7 +56,7 @@ const UserProfile = () => {
                 </div>
                 <div>
                     <InputText
-                        label='Nombre de usuario'
+                        label={t('settings.profile.myProfile.form.username')}
                         value={form.username.value}
                         error={form.username.error}
                         onChange={handleInput(setUsername)}
@@ -54,14 +64,18 @@ const UserProfile = () => {
                 </div>
                 <div>
                     <InputText
-                        label='Correo electrónico'
+                        label={t('settings.profile.myProfile.form.email')}
                         value={form.email.value}
                         error={form.email.error}
                         onChange={handleInput(setEmail)}
                     />
                 </div>
                 <div>
-                    <InputText label='Roles' value={rolesFormat} disabled />
+                    <InputText
+                        label={t('settings.profile.myProfile.form.roles')}
+                        value={rolesFormat}
+                        disabled
+                    />
                 </div>
                 <div className='flex gap-4'>
                     <Button
@@ -70,7 +84,7 @@ const UserProfile = () => {
                         onClick={setReset}
                         className='w-full'
                     >
-                        Cancelar
+                        {t('settings.profile.myProfile.form.buttons.cancel')}
                     </Button>
                     <Button
                         type='submit'
@@ -78,7 +92,7 @@ const UserProfile = () => {
                         disabled={isFormInvalid}
                         className='w-full'
                     >
-                        Actualizar
+                        {t('settings.profile.myProfile.form.buttons.save')}
                     </Button>
                 </div>
             </form>
@@ -86,7 +100,7 @@ const UserProfile = () => {
     )
 }
 
-const handleSubmit = async (ev, form, setIsSubmitting, dispatchAuth) => {
+const handleSubmit = async (ev, form, setIsSubmitting, dispatchAuth, t) => {
     ev.preventDefault()
     setIsSubmitting(true)
 
@@ -101,21 +115,18 @@ const handleSubmit = async (ev, form, setIsSubmitting, dispatchAuth) => {
 
     if (status === 200) {
         dispatchAuth(setNewAuth(data.access_token))
-        toast.success('¡Perfil actualizado exitosamente!')
+        toast.success(t('settings.profile.myProfile.form.toast.success'))
     } else {
-        toast.error(
-            'Ha ocurrido un error al actualizar el perfil. Por favor, inténtalo de nuevo.'
-        )
+        toast.error(t('settings.profile.myProfile.form.toast.error'))
     }
 
     setIsSubmitting(false)
 }
 
-const getRoles = (roles) => {
-    if (!roles.length) return 'Sin roles asignados'
+const getRoles = (roles, t, language) => {
+    if (!roles.length) return t('settings.profile.myProfile.noRoles')
 
-    const rolesFormat = roles.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    return new Intl.ListFormat('es-ES').format(rolesFormat)
+    return getRoleFormat(roles, language)
 }
 
 export default UserProfile

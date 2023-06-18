@@ -1,20 +1,24 @@
 import { useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
 import TrashIcon from '../../../../components/ui/svg/TrashIcon'
+import { normalizeDateUTC } from '../../../../helpers/normaliceDate'
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 import { deleteWorkoutAthleteService } from '../../libs/services/workoutAthlete.service'
-import { normalizeDateUTC } from '../../../../helpers/normaliceDate'
 
 const WorkoutDeleteForm = ({ currentWorkout, closeModal }) => {
+    const { t, i18n } = useTranslation()
     const { onSuccess } = useContext(WorkoutFormsContext)
+
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const { id, name, sets, reps, weight, date } = currentWorkout
+    const dateFormat = normalizeDateUTC(date, i18n.language)
 
     const onHandleSubmit = async (ev) =>
-        handleSubmit(ev, id, setIsSubmitting, onSuccess, closeModal)
+        handleSubmit(ev, id, setIsSubmitting, onSuccess, closeModal, t)
 
     return (
         <form className='p-5 text-center' onSubmit={onHandleSubmit}>
@@ -24,10 +28,10 @@ const WorkoutDeleteForm = ({ currentWorkout, closeModal }) => {
                 }
             />
             <p className='mb-1 text-gray-500 dark:text-gray-300'>
-                Estas seguro que quieres elimar el workout:
+                {t('workouts.modal.delete.description')}
             </p>
             <p className='mb-6 text-gray-500 dark:text-gray-300'>
-                {name}: {sets}x{reps}x{weight} Kg - {normalizeDateUTC(date)}
+                {name}: {sets}x{reps}x{weight} Kg - {dateFormat}
             </p>
             <div className='flex justify-center items-center gap-4'>
                 <Button
@@ -35,7 +39,7 @@ const WorkoutDeleteForm = ({ currentWorkout, closeModal }) => {
                     loading={isSubmitting}
                     onClick={closeModal}
                 >
-                    Cancelar
+                    {t('workouts.modal.delete.buttons.cancel')}
                 </Button>
                 <Button
                     type='submit'
@@ -43,7 +47,7 @@ const WorkoutDeleteForm = ({ currentWorkout, closeModal }) => {
                     icon={TrashIcon}
                     loading={isSubmitting}
                 >
-                    Eliminar
+                    {t('workouts.modal.delete.buttons.delete')}
                 </Button>
             </div>
         </form>
@@ -55,7 +59,8 @@ const handleSubmit = async (
     workoutId,
     setIsSubmitting,
     onSuccess,
-    closeModal
+    closeModal,
+    t
 ) => {
     ev.preventDefault()
     setIsSubmitting(true)
@@ -65,11 +70,9 @@ const handleSubmit = async (
     if (res.status === 204) {
         onSuccess()
         closeModal()
-        toast.success('¡Entrenamiento eliminado exitosamente!')
+        toast.success(t('workouts.modal.delete.toast.success'))
     } else {
-        toast.error(
-            'Ha ocurrido un error al eliminar el entrenamiento. Por favor, inténtalo de nuevo'
-        )
+        toast.error(t('workouts.modal.delete.toast.error'))
     }
 
     setIsSubmitting(false)

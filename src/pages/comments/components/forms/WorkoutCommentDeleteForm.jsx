@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
@@ -10,11 +11,13 @@ const WorkoutCommentDeleteForm = ({
     closeModal,
     removeComment,
 }) => {
+    const { t } = useTranslation()
+
     const [isSubmitting, setIsSubmitting] = useState(false)
     const { id, text } = currentComment
 
     const onHandleSubmit = async (ev) =>
-        handleSubmit(ev, id, setIsSubmitting, closeModal, removeComment)
+        handleSubmit(ev, id, setIsSubmitting, closeModal, removeComment, t)
 
     return (
         <form className='p-5 text-center' onSubmit={onHandleSubmit}>
@@ -24,7 +27,7 @@ const WorkoutCommentDeleteForm = ({
                 }
             />
             <p className='mb-1 text-gray-500 dark:text-gray-300'>
-                Estas seguro que quieres elimar el comentario:
+                {t('workouts.comments.modal.delete.description')}
             </p>
             <p className='mb-6 text-gray-500 dark:text-gray-300'>{text}</p>
             <div className='flex justify-center items-center gap-4'>
@@ -33,7 +36,7 @@ const WorkoutCommentDeleteForm = ({
                     loading={isSubmitting}
                     onClick={closeModal}
                 >
-                    Cancelar
+                    {t('workouts.comments.modal.delete.buttons.cancel')}
                 </Button>
                 <Button
                     type='submit'
@@ -41,7 +44,7 @@ const WorkoutCommentDeleteForm = ({
                     icon={TrashIcon}
                     loading={isSubmitting}
                 >
-                    Eliminar
+                    {t('workouts.comments.modal.delete.buttons.delete')}
                 </Button>
             </div>
         </form>
@@ -53,7 +56,8 @@ const handleSubmit = async (
     commentId,
     setIsSubmitting,
     closeModal,
-    removeComment
+    removeComment,
+    t
 ) => {
     ev.preventDefault()
     setIsSubmitting(true)
@@ -63,11 +67,9 @@ const handleSubmit = async (
     if (res.status === 204) {
         removeComment(commentId)
         closeModal()
-        toast.success('¡Comentario eliminado exitosamente!')
+        toast.success(t('workouts.comments.modal.delete.toast.success'))
     } else {
-        toast.error(
-            'Ha ocurrido un error al eliminar el comentario. Por favor, inténtalo de nuevo'
-        )
+        toast.error(t('workouts.comments.modal.delete.toast.error'))
     }
 
     setIsSubmitting(false)

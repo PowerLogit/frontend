@@ -4,12 +4,15 @@ import { toast } from 'sonner'
 import Button from '../../../../components/ui/components/buttons/Button'
 import { editWorkoutCommentService } from '../../libs/services/comment.service'
 import useCommentEditForm from '../../libs/hooks/useCommentEditForm'
+import { useTranslation } from 'react-i18next'
 
 const WorkoutCommnetEditForm = ({
     currentComment,
     updateComment,
     closeModal,
 }) => {
+    const { t } = useTranslation()
+
     const { form, isFormInvalid, handleInputChange, setText } =
         useCommentEditForm(currentComment)
 
@@ -22,7 +25,8 @@ const WorkoutCommnetEditForm = ({
             currentComment,
             setIsSubmitting,
             updateComment,
-            closeModal
+            closeModal,
+            t
         )
 
     return (
@@ -42,7 +46,7 @@ const WorkoutCommnetEditForm = ({
                     ></textarea>
                     {form.text.error && (
                         <span className='mt-2 text-sm text-red-600 dark:text-red-500'>
-                            {form.text.error}
+                            {t(form.text.error)}
                         </span>
                     )}
                 </div>
@@ -53,7 +57,7 @@ const WorkoutCommnetEditForm = ({
                         onClick={closeModal}
                         className={'max-w-40'}
                     >
-                        Cancelar
+                        {t('workouts.comments.modal.edit.buttons.cancel')}
                     </Button>
                     <Button
                         type='submit'
@@ -61,7 +65,7 @@ const WorkoutCommnetEditForm = ({
                         disabled={isFormInvalid}
                         className={'max-w-40'}
                     >
-                        Editar
+                        {t('workouts.comments.modal.edit.buttons.edit')}
                     </Button>
                 </div>
             </div>
@@ -75,7 +79,8 @@ const handleSubmit = async (
     currentComment,
     setIsSubmitting,
     updateComment,
-    closeModal
+    closeModal,
+    t
 ) => {
     ev.preventDefault()
     setIsSubmitting(true)
@@ -88,11 +93,9 @@ const handleSubmit = async (
     if (status === 200) {
         updateComment(data)
         closeModal()
-        toast.success('¡Comentario actualizado exitosamente!')
+        toast.success(t('workouts.comments.modal.edit.toast.success'))
     } else {
-        toast.error(
-            'Ha ocurrido un error al actualizar el comentario. Por favor, inténtalo de nuevo.'
-        )
+        toast.error(t('workouts.comments.modal.edit.toast.error'))
     }
 
     setIsSubmitting(false)

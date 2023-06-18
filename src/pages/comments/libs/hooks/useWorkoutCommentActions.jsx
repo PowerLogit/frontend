@@ -1,16 +1,19 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import WorkoutCommentDeleteForm from '../../components/forms/WorkoutCommentDeleteForm'
 import WorkoutCommnetEditForm from '../../components/forms/WorkoutCommnetEditForm'
 
 const useWorkoutCommentActions = (comment, settersComment) => {
+    const { t } = useTranslation()
+
     const [modalContent, setModalContent] = useState(initialStateModal)
 
     const { updateComment, removeComment } = settersComment
 
     const setEditForm = () => {
         setModalContent({
-            title: 'Editar comentario',
+            title: t('workouts.comments.modal.edit.title'),
             body: (
                 <WorkoutCommnetEditForm
                     currentComment={comment}
@@ -23,7 +26,7 @@ const useWorkoutCommentActions = (comment, settersComment) => {
 
     const setDeleteForm = () => {
         setModalContent({
-            title: 'Eliminar comentario',
+            title: t('workouts.comments.modal.delete.title'),
             body: (
                 <WorkoutCommentDeleteForm
                     currentComment={comment}

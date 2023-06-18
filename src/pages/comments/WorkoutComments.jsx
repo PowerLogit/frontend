@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 
@@ -9,12 +10,13 @@ import useWorkout from './libs/hooks/useWorkout'
 
 const WorkoutComments = () => {
     const { idWorkout } = useParams()
+    const { t } = useTranslation()
 
     const workoutData = useWorkout(idWorkout)
     const { comments, loading, error, settersComment } =
         useCommentsWorkout(idWorkout)
 
-    const workout = getWorkout(workoutData)
+    const workout = getWorkout({ ...workoutData, t })
 
     return (
         <div className='max-w-3xl mx-auto px-5 md:px-0 mt-5'>
@@ -35,10 +37,10 @@ const WorkoutComments = () => {
     )
 }
 
-const getWorkout = ({ workout, workoutLoading, workoutError }) => {
-    if (workoutLoading) return <p>Cargando...</p>
+const getWorkout = ({ workout, workoutLoading, workoutError, t }) => {
+    if (workoutLoading) return <p>{t('workouts.comments.rows.loading')}</p>
     else if (workoutError || !workout) {
-        toast.error('Ha ocurrido un error al cargar el entrenamiento')
+        toast.error(t('workouts.comments.rows.errorWorkout'))
         return
     }
 

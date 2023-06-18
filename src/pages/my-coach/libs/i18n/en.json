@@ -1,0 +1,21 @@
+{
+    "title": "My Coach",
+    "leaveCoach": "Leave Coach",
+    "openChat": "Open Chat",
+    "modal": {
+        "title": "Leave Coach",
+        "content": "By clicking the 'Leave Coach' button, you confirm that you understand the consequences of this action and are willing to relinquish your roles and privileges of having a coach in PowerLog.",
+        "buttons": {
+            "cancel": "No, Cancel",
+            "leave": "Yes, Leave"
+        },
+        "toast": {
+            "success": "You have successfully left your coach.",
+            "error": "Unable to leave your coach."
+        }
+    },
+    "chat": {
+        "placeholder": "Type a message...",
+        "send": "Send"
+    }
+}

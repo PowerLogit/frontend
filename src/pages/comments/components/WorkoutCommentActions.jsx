@@ -1,12 +1,15 @@
 import { Dropdown } from 'flowbite-react'
+import { useTranslation } from 'react-i18next'
 
 import Modal from '../../../components/Modal'
-import useWorkoutCommentActions from '../libs/hooks/useWorkoutCommentActions'
+import PencilIcon from '../../../components/ui/svg/PencilIcon'
 import ThreeDotsIcon from '../../../components/ui/svg/ThreeDotsIcon'
 import TrashIcon from '../../../components/ui/svg/TrashIcon'
-import PencilIcon from '../../../components/ui/svg/PencilIcon'
+import useWorkoutCommentActions from '../libs/hooks/useWorkoutCommentActions'
 
 const WorkoutCommentActions = ({ comment, settersComment }) => {
+    const { t } = useTranslation()
+
     const { modalContent, setEditForm, setDeleteForm, resetModalContent } =
         useWorkoutCommentActions(comment, settersComment)
 
@@ -18,10 +21,14 @@ const WorkoutCommentActions = ({ comment, settersComment }) => {
 
             <Dropdown arrowIcon={false} inline={true} label={<ThreeDotsIcon />}>
                 <Dropdown.Item icon={PencilIcon} onClick={setEditForm}>
-                    <span className='pl-2'>Editar</span>
+                    <span className='pl-2'>
+                        {t('workouts.comments.card.actions.edit')}
+                    </span>
                 </Dropdown.Item>
                 <Dropdown.Item icon={TrashIcon} onClick={setDeleteForm}>
-                    <span className='pl-2'>Eliminar</span>
+                    <span className='pl-2'>
+                        {t('workouts.comments.card.actions.delete')}
+                    </span>
                 </Dropdown.Item>
             </Dropdown>
         </>

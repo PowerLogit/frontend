@@ -1,4 +1,5 @@
 import { PAGINATION } from '@constant/pagination'
+import { useTranslation } from 'react-i18next'
 
 import {
     setLimit,
@@ -8,6 +9,8 @@ import Select from '../form/Select'
 import PageSelector from './PageSelector'
 
 const ListPagination = ({ page, limit, dispatchFilters, totalWorkouts }) => {
+    const { t } = useTranslation()
+
     if (!totalWorkouts || totalWorkouts <= 6) return
 
     return (
@@ -26,7 +29,7 @@ const ListPagination = ({ page, limit, dispatchFilters, totalWorkouts }) => {
                         </option>
                     ))}
                 </Select>
-                <p>Elementos por pagina</p>
+                <p>{t('pagination.rowsPerPage')}</p>
             </div>
             {totalWorkouts > limit && (
                 <PageSelector

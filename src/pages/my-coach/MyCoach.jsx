@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
@@ -11,15 +12,17 @@ import useCoachProfile from './libs/hooks/useCoachProfile'
 import { leaveCoachService } from './libs/services/athlete.service'
 
 const MyCoach = () => {
+    const navigate = useNavigate()
+    const { t } = useTranslation()
+
     const { user, dispatchAuth } = useAuthContext()
     const { data, isLoading, error } = useCoachProfile()
-    const navigate = useNavigate()
 
     const [showModal, setShowModal] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const onHandleSubmit = async (ev) =>
-        handleSubmit(ev, setIsSubmitting, dispatchAuth, navigate)
+        handleSubmit(ev, setIsSubmitting, dispatchAuth, navigate, t)
 
     const openChat = () => {
         navigate(`/coach-chat/${user.coach}`)
@@ -30,7 +33,7 @@ const MyCoach = () => {
 
     return (
         <div className='mx-auto flex flex-col justify-center items-center gap-6 pb-1'>
-            <h2 className='text-4xl font-bold'>Mi entrenador</h2>
+            <h2 className='text-4xl font-bold'>{t('myCoach.title')}</h2>
             <CardCoach coach={data} />
             <div className='w-full max-w-sm flex gap-4'>
                 <Button
@@ -38,25 +41,21 @@ const MyCoach = () => {
                     kind='outline'
                     onClick={() => setShowModal(true)}
                 >
-                    Dejar el entrenador
+                    {t('myCoach.modal.title')}
                 </Button>
                 <Button className='w-full' onClick={openChat}>
-                    Abrir chat
+                    {t('myCoach.openChat')}
                 </Button>
             </div>
 
             {showModal && (
                 <Modal
-                    title='Dejar el entrenador'
+                    title={t('myCoach.modal.title')}
                     closeModal={() => setShowModal(false)}
                 >
                     <form className='p-5' onSubmit={onHandleSubmit}>
                         <p className='mb-6 text-gray-500 dark:text-gray-300'>
-                            Al hacer clic en el botón &quot;Dejar de tener
-                            Entrenador&quot;, confirmas que comprendes las
-                            consecuencias de esta acción y que estás dispuesto a
-                            renunciar a tus funciones y privilegios de tener un
-                            entrenador en PowerLog.
+                            {t('myCoach.modal.content')}
                         </p>
                         <div className='flex justify-center items-center gap-4'>
                             <Button
@@ -64,14 +63,14 @@ const MyCoach = () => {
                                 loading={isSubmitting}
                                 onClick={() => setShowModal(false)}
                             >
-                                No, cancelar
+                                {t('myCoach.modal.buttons.cancel')}
                             </Button>
                             <Button
                                 kind='danger'
                                 type='submit'
                                 loading={isSubmitting}
                             >
-                                Si, dejarlo
+                                {t('myCoach.modal.buttons.leave')}
                             </Button>
                         </div>
                     </form>
@@ -80,21 +79,22 @@ const MyCoach = () => {
         </div>
     )
 }
-const handleSubmit = async (ev, setIsSubmitting, dispatchAuth, navigate) => {
+
+const handleSubmit = async (ev, setIsSubmitting, dispatchAuth, navigate, t) => {
     ev.preventDefault()
+
     setIsSubmitting(true)
 
     const { data, status } = await leaveCoachService()
     if (status === 200) {
         dispatchAuth(setNewAuth(data.access_token))
-        toast.success('¡Solicitud enviada exitosamente!')
+        toast.success(t('myCoach.modal.toast.success'))
         navigate('/coaches')
     } else {
-        toast.error(
-            'Ha ocurrido un error al enviar la solicitud. Por favor, inténtalo de nuevo.'
-        )
+        toast.error(t('myCoach.modal.toast.error'))
     }
 
     setIsSubmitting(false)
 }
+
 export default MyCoach

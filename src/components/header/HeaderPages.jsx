@@ -6,8 +6,11 @@ import {
     headerPagesPublic,
 } from '../../constant/headerPages'
 import NavLinkTo from '../ui/components/navigation/NavLinkTo'
+import { useTranslation } from 'react-i18next'
 
 const HeaderPages = () => {
+    const { t } = useTranslation()
+
     const { isAuthenticated, user } = useAuthContext()
 
     const hasCoach = user?.coach
@@ -19,7 +22,7 @@ const HeaderPages = () => {
             {!isAuthenticated &&
                 headerPagesPublic.map(({ title, url }) => (
                     <li key={url}>
-                        <NavLinkTo url={url} title={title} />
+                        <NavLinkTo url={url} title={t(title)} />
                     </li>
                 ))}
             {isAthlete &&
@@ -32,14 +35,14 @@ const HeaderPages = () => {
 
                     return (
                         <li key={url}>
-                            <NavLinkTo url={url} title={title} />
+                            <NavLinkTo url={url} title={t(title)} />
                         </li>
                     )
                 })}
             {isCoach &&
                 headerPagesCoach.map(({ title, url }) => (
                     <li key={url}>
-                        <NavLinkTo url={url} title={title} />
+                        <NavLinkTo url={url} title={t(title)} />
                     </li>
                 ))}
         </>

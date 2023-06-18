@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
 import Button from '../../../../components/ui/components/buttons/Button'
@@ -7,6 +8,7 @@ import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 import { editWorkoutAthleteService } from '../../libs/services/workoutAthlete.service'
 
 const WorkoutCompleteForm = ({ currentWorkout, closeModal }) => {
+    const { t } = useTranslation()
     const { onSuccess } = useContext(WorkoutFormsContext)
 
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -17,14 +19,15 @@ const WorkoutCompleteForm = ({ currentWorkout, closeModal }) => {
             isSuccessful,
             setIsSubmitting,
             onSuccess,
-            closeModal
+            closeModal,
+            t
         )
 
     return (
         <div className='p-5 text-center'>
             <AlertIcon className='mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200' />
             <h3 className='mb-5 text-lg font-normal text-gray-500 dark:text-gray-400'>
-                Has completado de forma exitosa el workout ?
+                {t('workouts.modal.complete.description')}
             </h3>
             <Button
                 kind='normal'
@@ -32,14 +35,14 @@ const WorkoutCompleteForm = ({ currentWorkout, closeModal }) => {
                 loading={isSubmitting}
                 onClick={() => onHandleSubmit(true)}
             >
-                Si, exitoso
+                {t('workouts.modal.complete.buttons.success')}
             </Button>
             <Button
                 kind='danger'
                 loading={isSubmitting}
                 onClick={() => onHandleSubmit(false)}
             >
-                No, fallido
+                {t('workouts.modal.complete.buttons.fail')}
             </Button>
         </div>
     )
@@ -50,7 +53,8 @@ const handleSubmit = async (
     isSuccessful,
     setIsSubmitting,
     onSuccess,
-    closeModal
+    closeModal,
+    t
 ) => {
     setIsSubmitting(true)
 
@@ -65,11 +69,9 @@ const handleSubmit = async (
     if (res.status === 204) {
         onSuccess()
         closeModal()
-        toast.success('¡Entrenamiento completado exitosamente!')
+        toast.success(t('workouts.modal.complete.toast.success'))
     } else {
-        toast.error(
-            'Ha ocurrido un error al completar el entrenamiento. Por favor, inténtalo de nuevo'
-        )
+        toast.error(t('workouts.modal.complete.toast.error'))
     }
 }
 

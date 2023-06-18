@@ -1,10 +1,16 @@
+import { useTranslation } from 'react-i18next'
+
 import { normalizeDateUTC } from '../../../helpers/normaliceDate'
 import WorkoutActions from './WorkoutActions'
 import WorkoutStatus from './WorkoutStatus'
 
 const WorkoutCard = ({ workout }) => {
+    const { i18n } = useTranslation()
+
     const { name, sets, reps, weight, date, isCompleted, isSuccessful } =
         workout
+
+    const dateFormat = normalizeDateUTC(date, i18n.language)
 
     return (
         <>
@@ -14,7 +20,7 @@ const WorkoutCard = ({ workout }) => {
                         {name}: {sets}x{reps}x{weight} Kg
                     </h5>
                     <span className='text-sm text-gray-500 dark:text-gray-400'>
-                        {normalizeDateUTC(date)}
+                        {dateFormat}
                     </span>
                     <WorkoutStatus
                         isCompleted={isCompleted}

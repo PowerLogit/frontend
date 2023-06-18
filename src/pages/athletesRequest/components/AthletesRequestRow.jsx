@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
 import AthletesRequestCard from './AthletesRequestCard'
@@ -9,15 +10,19 @@ const AthletesRequestRow = ({
     onSuccess,
     handlers,
 }) => {
+    const { t } = useTranslation()
+
     if (error) {
-        toast.error(
-            'Ha ocurrido un error al cargar los atletas. Por favor, inténtalo de nuevo.'
+        toast.error(t('athletesRequest.error'))
+        return (
+            <p className='dark:text-white'>{t('athletesRequest.noAthletes')}</p>
         )
-        return <p className='dark:text-white'>Sin Atletas</p>
     } else if (isLoading) {
-        return <p className='dark:text-white'>Cargando ...</p>
+        return <p className='dark:text-white'>{t('athletesRequest.loading')}</p>
     } else if (!data.length) {
-        return <p className='dark:text-white'>Sin Atletas</p>
+        return (
+            <p className='dark:text-white'>{t('athletesRequest.noAthletes')}</p>
+        )
     }
 
     return (

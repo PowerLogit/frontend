@@ -1,16 +1,19 @@
 import { useAuthContext } from '@auth/libs/context/auth.context'
 import { Sidebar } from 'flowbite-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import UserToAthlete from './components/athlete/UserToAthlete'
 import UserToCoach from './components/coach/UserToCoach'
 import Profile from './components/profile/Profile'
 
 const Settings = () => {
+    const { t } = useTranslation()
     const { user } = useAuthContext()
-    const [showPage, setShowPage] = useState(initialState)
 
-    const pages = getPages(user)
+    const [showPage, setShowPage] = useState(() => getInitialState(t))
+
+    const pages = getPages(user, t)
 
     return (
         <div className='max-w-screen-xl mx-auto mt-8 flex gap-8 px-4 xl:px-0'>
@@ -40,17 +43,15 @@ const Settings = () => {
     )
 }
 
-const initialState = {
-    name: 'Mi Perfil',
-    component: Profile,
-}
+const getPages = (user, t) => {
+    const isAthlete = user.role.includes('athlete')
+    const isCoach = user.role.includes('coach')
 
-const getPages = (user) => {
-    const athleteTitle = getTitle(user?.roles?.includes('athlete'), 'Atleta')
-    const coachTitle = getTitle(user?.roles?.includes('coach'), 'Entrenador')
+    const athleteTitle = getTitle(isAthlete, 'athlete', t)
+    const coachTitle = getTitle(isCoach, 'coach', t)
 
     const pages = [
-        initialState,
+        getInitialState(t),
         { name: athleteTitle, component: UserToAthlete },
         { name: coachTitle, component: UserToCoach },
     ]
@@ -58,7 +59,12 @@ const getPages = (user) => {
     return pages
 }
 
-const getTitle = (conditional, title) =>
-    conditional ? `Dejar de ser ${title}` : `Ser ${title}`
+const getTitle = (haveRole, role, t) =>
+    t(`settings.sidebar.${role}.${haveRole ? 'remove' : 'add'}`)
+
+const getInitialState = (t) => ({
+    name: t('settings.sidebar.profile'),
+    component: Profile,
+})
 
 export default Settings

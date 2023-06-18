@@ -1,0 +1,20 @@
+{
+    "title": "Athlete Requests",
+    "noAthletes": "No Athletes",
+    "loading": "Loading...",
+    "error": "An error occurred while loading the athletes. Please try again.",
+    "card": {
+        "accept": "Accept",
+        "decline": "Decline"
+    },
+    "toast": {
+        "accept": {
+            "success": "Athlete accepted successfully!",
+            "error": "An error occurred while accepting the athlete. Please try again."
+        },
+        "decline": {
+            "success": "Athlete declined successfully!",
+            "error": "An error occurred while declining the athlete. Please try again."
+        }
+    }
+}

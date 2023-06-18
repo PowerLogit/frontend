@@ -1,5 +1,6 @@
 import ListPagination from '@ui/components/pagination/ListPagination'
 import { useReducer } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import WorkoutFilters from './components/WorkoutFilters'
 import WorkoutRows from './components/WorkoutRows'
@@ -12,6 +13,8 @@ import {
 } from './libs/reducers/useFilters.reducer'
 
 const Workout = () => {
+    const { t } = useTranslation()
+
     const [filters, dispatchFilters] = useReducer(
         filterReducer,
         getFiltersInitialState()
@@ -22,7 +25,9 @@ const Workout = () => {
 
     return (
         <div className='max-w-3xl mx-auto px-5 md:px-0 mt-5'>
-            <h1 className='text-4xl font -bold text-center mb-4'>Workout</h1>
+            <h1 className='text-4xl font -bold text-center mb-4'>
+                {t('workouts.title')}
+            </h1>
             <WorkoutFormsProvider
                 ressetFilters={() => dispatchFilters(reset())}
             >

@@ -15,8 +15,10 @@ import {
 import { WorkoutFormsContext } from '../../libs/context/WorkoutForms.context'
 import useEditForm from '../../libs/hooks/useEditForm'
 import { editWorkoutAthleteService } from '../../libs/services/workoutAthlete.service'
+import { useTranslation } from 'react-i18next'
 
 const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
+    const { t } = useTranslation()
     const { onSuccess } = useContext(WorkoutFormsContext)
 
     const { fomrValues, isFormInvalid, dispatchFormValues } =
@@ -36,21 +38,21 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
     }
 
     const onHandleSubmit = async (ev) =>
-        handleSubmit(ev, fomrValues, setIsSubmitting, onSuccess, closeModal)
+        handleSubmit(ev, fomrValues, setIsSubmitting, onSuccess, closeModal, t)
 
     return (
         <form className='p-5' onSubmit={onHandleSubmit}>
             <div className='flex gap-4 mb-6'>
                 <InputText
-                    label='Nombre'
-                    placeholder='SQLB'
+                    label={t('workouts.form.name.label')}
+                    placeholder={t('workouts.form.name.placeholder')}
                     value={name.value}
-                    error={name.error}
+                    error={t(t(name).error)}
                     onChange={handleInputChange(setName)}
                     className={'w-full'}
                 />
                 <InputText
-                    label='Fecha'
+                    label={t('workouts.form.date.label')}
                     type='date'
                     value={date}
                     onChange={handleInputChange(setDate)}
@@ -59,32 +61,38 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
             </div>
             <div className='flex gap-4 mb-8'>
                 <InputText
-                    label='Series'
-                    placeholder='4'
+                    label={t('workouts.form.sets.label')}
+                    placeholder={t('workouts.form.sets.placeholder')}
+                    type='number'
+                    min={1}
+                    max={99}
                     value={sets.value}
-                    error={sets.error}
+                    error={t(sets.error)}
                     onChange={handleInputChange(setSets)}
                     className={'w-full'}
                 />
                 <InputText
-                    label='Repes'
-                    placeholder='4'
+                    label={t('workouts.form.reps.label')}
+                    placeholder={t('workouts.form.reps.placeholder')}
+                    type='number'
+                    min={1}
+                    max={999}
                     value={reps.value}
-                    error={reps.error}
+                    error={t(reps.error)}
                     onChange={handleInputChange(setReps)}
                     className={'w-full'}
                 />
                 <InputText
-                    label='Peso'
-                    placeholder='110'
+                    label={t('workouts.form.weight.label')}
+                    placeholder={t('workouts.form.weight.placeholder')}
                     value={weight.value}
-                    error={weight.error}
+                    error={t(weight.error)}
                     onChange={handleInputChange(setWeight)}
                     className={'w-full'}
                 />
                 {isCompleted && (
                     <InputCheckbox
-                        label='Exitoso'
+                        label={t('workouts.form.isSuccessful.label')}
                         name='isSuccessful'
                         value={isSuccessful}
                         checked={isSuccessful}
@@ -98,14 +106,14 @@ const WorkoutEditForm = ({ currentWorkout, closeModal }) => {
                     loading={isSubmitting}
                     onClick={closeModal}
                 >
-                    Cancelar
+                    {t('workouts.modal.edit.buttons.cancel')}
                 </Button>
                 <Button
                     type='submit'
                     loading={isSubmitting}
                     disabled={isFormInvalid}
                 >
-                    Editar
+                    {t('workouts.modal.edit.buttons.edit')}
                 </Button>
             </div>
         </form>
@@ -117,7 +125,8 @@ const handleSubmit = async (
     workout,
     setIsSubmitting,
     onSuccess,
-    closeModal
+    closeModal,
+    t
 ) => {
     ev.preventDefault()
     setIsSubmitting(true)
@@ -137,11 +146,9 @@ const handleSubmit = async (
     if (res.status === 204) {
         onSuccess()
         closeModal()
-        toast.success('¡Entrenamiento actualizado exitosamente!')
+        toast.success(t('workouts.modal.edit.toast.success'))
     } else {
-        toast.error(
-            'Ha ocurrido un error al actualizar el entrenamiento. Por favor, inténtalo de nuevo'
-        )
+        toast.error(t('workouts.modal.edit.toast.error'))
     }
 
     setIsSubmitting(false)

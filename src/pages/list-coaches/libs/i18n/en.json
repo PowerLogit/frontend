@@ -1,0 +1,20 @@
+{
+    "title": "Coaches List",
+    "search": "Search for a coach...",
+    "noCoaches": "No Coaches",
+    "loading": "Loading...",
+    "card": {
+        "send": "Send request",
+        "cancel": "Cancel request"
+    },
+    "toast": {
+        "send": {
+            "success": "Request sent successfully!",
+            "error": "An error occurred while sending the request. Please try again."
+        },
+        "cancel": {
+            "success": "Request canceled successfully!",
+            "error": "An error occurred while canceling the request. Please try again."
+        }
+    }
+}

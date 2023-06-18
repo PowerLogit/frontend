@@ -1,27 +1,31 @@
-const REGEX = {
-    NAME: /^[a-zA-Z ]{1,50}$/,
-    SETS: /^[0-9]{1,2}$/,
-    REPS: /^[0-9]{1,3}$/,
-    WEIGHT: /^[0-9]{1,4}$/,
-}
-
 export const validateName = (name) => {
-    if (name.includes('  ')) return 'No puede contener doble espacio'
-    if (!REGEX.NAME.test(name)) return 'Longitud entre 1 y 50 caracteres'
+    if (!name) return 'workouts.errors.name.required'
+    if (name.includes('  ')) return 'workouts.errors.name.doubleSpace'
+    if (name.length > 50) return 'workouts.errors.name.max'
 }
 
 export const validateSets = (set) => {
-    if (!REGEX.SETS.test(set)) return 'Valor entre 1 y 99'
-    if (set < 1) return 'Series minimas 1'
+    if (!set) return 'workouts.errors.sets.required'
+    if (isNaN(set)) return 'workouts.errors.sets.number'
+    if (set < 1) return 'workouts.errors.sets.min'
+    if (set > 99) return 'workouts.errors.sets.max'
 }
 
 export const validateReps = (rep) => {
-    if (!REGEX.REPS.test(rep)) return 'Valor entre 1 y 999'
-    if (rep < 1) return 'Repes minimas 1'
+    if (!rep) return 'workouts.errors.reps.required'
+    if (isNaN(rep)) return 'workouts.errors.reps.number'
+    if (rep < 1) return 'workouts.errors.reps.min'
+    if (rep > 999) return 'workouts.errors.reps.max'
 }
 
 export const validateWeight = (weight) => {
-    if (!REGEX.WEIGHT.test(weight)) return 'Valor entre 1 y 1500'
-    if (weight < 1) return 'Peso minimo 1kg'
-    if (weight > 1500) return 'Peso maximo 1500kg'
+    if (!weight) return 'workouts.errors.weight.required'
+
+    if (!/^(\d+@\d+|\d+|@\d+)$/.test(weight))
+        return 'workouts.errors.weight.invalidFormat'
+
+    const numericValue = parseInt(weight.split('@')[0])
+    if (!!numericValue && numericValue < 1) return 'workouts.errors.weight.min'
+    if (!!numericValue && numericValue > 1999)
+        return 'workouts.errors.weight.max'
 }

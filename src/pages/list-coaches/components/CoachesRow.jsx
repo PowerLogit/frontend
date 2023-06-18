@@ -1,16 +1,16 @@
-import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
+
 import CardCoach from './CardCoach'
 
 const CoachesRow = ({ data, isLoading, error, toogleData }) => {
+    const { t } = useTranslation()
+
     if (error) {
-        toast.error(
-            'Ha ocurrido un error al cargar los entrenadores. Por favor, inténtalo de nuevo.'
-        )
-        return <p className='dark:text-white'>Sin Entrenadores</p>
+        return <p className='dark:text-white'>{t('coaches.noCoaches')}</p>
     } else if (isLoading) {
-        return <p className='dark:text-white'>Cargando ...</p>
+        return <p className='dark:text-white'>{t('coaches.loading')}</p>
     } else if (!data.length) {
-        return <p className='dark:text-white'>Sin Entrenadores</p>
+        return <p className='dark:text-white'>{t('coaches.noCoaches')}</p>
     }
 
     return (

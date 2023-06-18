@@ -1,0 +1,10 @@
+{
+    "title": "Athlete List",
+    "search": "Search athlete...",
+    "noAthletes": "No Athletes",
+    "loading": "Loading...",
+    "chat": {
+        "placeholder": "Type a message...",
+        "send": "Send"
+    }
+}

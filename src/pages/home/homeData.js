@@ -16,15 +16,15 @@ export const coaches = [
 
 export const statistics = [
     {
-        name: 'Sentadilla',
+        name: 'SQ',
         weight: 200,
     },
     {
-        name: 'Press de banca',
+        name: 'BP',
         weight: 125,
     },
     {
-        name: 'Peso muerto',
+        name: 'DL',
         weight: 250,
     },
 ]
