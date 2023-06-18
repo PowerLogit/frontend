@@ -1,14 +1,17 @@
 import { useAuthContext } from '@auth/libs/context/auth.context'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { connectSocket } from '../../../../api/socket.api'
+import MessageOtherChat from '../../../../components/chat/MessageOtherChat'
+import MessageOwnerChat from '../../../../components/chat/MessageOwnerChat'
 import Button from '../../../../components/ui/components/buttons/Button'
 import InputText from '../../../../components/ui/components/form/InputText'
 import useCoachProfile from '../../libs/hooks/useCoachProfile'
-import MessageOwnerChat from '../../../../components/chat/MessageOwnerChat'
-import MessageOtherChat from '../../../../components/chat/MessageOtherChat'
 
 const ChatAthlete = () => {
+    const { t } = useTranslation()
+
     const { user, token } = useAuthContext()
     const { data } = useCoachProfile()
 
@@ -87,14 +90,14 @@ const ChatAthlete = () => {
 
                 <div className='w-full flex gap-2'>
                     <InputText
-                        placeholder='Escribe un mesaje aquí'
+                        placeholder={t('myCoach.chat.placeholder')}
                         value={newMessage}
                         onChange={handleChange}
                         onKeyPress={handleKeyPress}
                         className='flex-grow'
                     />
                     <Button onClick={sendMessage} disabled={!newMessage}>
-                        Enviar
+                        {t('myCoach.chat.send')}
                     </Button>
                 </div>
             </div>

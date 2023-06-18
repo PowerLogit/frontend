@@ -13,6 +13,8 @@ import homeEN from '../pages/home/i18n/en.json'
 import homeES from '../pages/home/i18n/es.json'
 import coachesEN from '../pages/list-coaches/libs/i18n/en.json'
 import coachesES from '../pages/list-coaches/libs/i18n/es.json'
+import myCoachEN from '../pages/my-coach/libs/i18n/en.json'
+import myCoachES from '../pages/my-coach/libs/i18n/es.json'
 import footerEN from './footer/en.json'
 import footerES from './footer/es.json'
 import headerEN from './header/en.json'
@@ -35,6 +37,7 @@ i18n.use(initReactI18next).init({
                 coaches: coachesES,
                 athletes: athletesES,
                 pagination: paginationES,
+                myCoach: myCoachES,
             },
         },
         en: {
@@ -48,6 +51,7 @@ i18n.use(initReactI18next).init({
                 coaches: coachesEN,
                 athletes: athletesEN,
                 pagination: paginationEN,
+                myCoach: myCoachEN,
             },
         },
     },

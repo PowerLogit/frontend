@@ -1,0 +1,21 @@
+{
+    "title": "Mi entrenador",
+    "leaveCoach": "Dejar el entrenador",
+    "openChat": "Abrir chat",
+    "modal": {
+        "title": "Dejar el entrenador",
+        "content": "Al hacer clic en el botón 'Dejar de tener Entrenador', confirmas que comprendes las consecuencias de esta acción y que estás dispuesto a renunciar a tus funciones y privilegios de tener un entrenador en PowerLog.",
+        "buttons": {
+            "cancel": "No, cancelar",
+            "leave": "Si, dejarlo"
+        },
+        "toast": {
+            "success": "Has dejado de tener un entrenador",
+            "error": "No se pudo dejar de tener un entrenador"
+        }
+    },
+    "chat": {
+        "placeholder": "Escribe un mensaje...",
+        "send": "Enviar"
+    }
+}
