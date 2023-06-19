@@ -28,7 +28,9 @@ const CommentCard = ({ comment, settersComment }) => {
                     <p className='inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white'>
                         <img
                             className='mr-2 w-6 h-6 rounded-full'
-                            src={'/default.png'}
+                            src={
+                                'https://cdn-icons-png.flaticon.com/256/727/727399.png'
+                            }
                             alt={avatarAlt}
                         />
                         {name} {surname}
