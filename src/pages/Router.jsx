@@ -22,6 +22,7 @@ import ListCoaches from './list-coaches/ListCoaches'
 import ChatAthlete from './my-coach/components/chat/Chat'
 import MyCoach from './my-coach/MyCoach'
 import Settings from './settings/SideBar'
+import About from './about/About'
 
 const Router = () => {
     return (
@@ -51,6 +52,7 @@ const RouterMain = () => {
                     {/* Public routes */}
                     <Route path='/' element={<Home />} />
                     <Route path='/authenticate' element={<Authenticate />} />
+                    <Route path='/about' element={<About />} />
 
                     {/* Private routes */}
                     <Route element={<PrivateRoute />}>

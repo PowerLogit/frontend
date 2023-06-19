@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 
 import useTheme from '../hooks/useTheme'
 import Button from './ui/components/buttons/Button'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
     const { theme, toggleTheme } = useTheme()
@@ -15,7 +16,8 @@ const Footer = () => {
                 {t('footer.themeMode', { theme: themeText })}
             </Button>
             <p className='mb-4 text-sm text-center text-gray-500 dark:text-gray-400 sm:mb-0'>
-                &copy; 2023 PowerLog.es - {t('footer.allRightsReserved')}
+                &copy; 2023 PowerLog.es - {t('footer.allRightsReserved')} -{' '}
+                <Link to={'/about'}>{t('footer.about')}</Link>
             </p>
             <div className='flex gap-2'>
                 {Object.keys(lngs).map((lng) => (

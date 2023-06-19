@@ -24,8 +24,8 @@ const CoachAthleteWorkout = () => {
         useWorkouts(idAthlete, filters)
 
     return (
-        <div className='max-w-3xl mx-auto px-5 md:px-0 mt-5'>
-            <h1 className='text-4xl font -bold text-center mb-4'>
+        <div className='max-w-3xl mx-auto px-5 md:px-0 mt-4'>
+            <h1 className='text-4xl text-center font-bold mb-8'>
                 Workout de @{username}
             </h1>
             <WorkoutFormsProvider
