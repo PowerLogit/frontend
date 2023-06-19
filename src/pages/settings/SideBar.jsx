@@ -16,7 +16,7 @@ const Settings = () => {
     const pages = getPages(user, t)
 
     return (
-        <div className='max-w-screen-xl mx-auto mt-8 flex gap-8 px-4 xl:px-0'>
+        <div className='max-w-screen-xl mx-auto mt-4 flex gap-8 px-4 xl:px-0'>
             <div className='h-full'>
                 <Sidebar aria-label='Sidebar with call to action button example'>
                     <Sidebar.Items>

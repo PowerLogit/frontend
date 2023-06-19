@@ -1,6 +1,8 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
+import aboutEN from '../pages/about/libs/i18n/en.json'
+import aboutES from '../pages/about/libs/i18n/es.json'
 import athletesRequestEN from '../pages/athletesRequest/libs/i18n/en.json'
 import athletesRequestES from '../pages/athletesRequest/libs/i18n/es.json'
 import authEN from '../pages/auth/libs/i18n/en.json'
@@ -47,6 +49,7 @@ i18n.use(initReactI18next).init({
                 workouts: workoutsES,
                 common: commonES,
                 settings: settingsES,
+                about: aboutES,
             },
         },
         en: {
@@ -64,6 +67,7 @@ i18n.use(initReactI18next).init({
                 workouts: workoutsEN,
                 common: commonEN,
                 settings: settingsEN,
+                about: aboutEN,
             },
         },
     },

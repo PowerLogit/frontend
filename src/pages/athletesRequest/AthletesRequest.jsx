@@ -9,7 +9,7 @@ const AthletesRequest = ({ athletesRequest }) => {
     const { totalPages, filters, setPage, ...rest } = athletesRequest
 
     return (
-        <div className='max-w-screen-xl mx-auto mt-8 px-4 xl:px-0'>
+        <div className='max-w-screen-xl mx-auto mt-4 px-4 xl:px-0'>
             <h1 className='text-4xl text-center font-bold mb-8'>
                 {t('athletesRequest.title')}
             </h1>

@@ -32,8 +32,10 @@ const MyCoach = () => {
     if (error) return <p>Error</p>
 
     return (
-        <div className='mx-auto flex flex-col justify-center items-center gap-6 pb-1'>
-            <h2 className='text-4xl font-bold'>{t('myCoach.title')}</h2>
+        <div className='mx-auto flex flex-col justify-center items-center gap-6 mt-4'>
+            <h2 className='text-4xl text-center font-bold mb-3'>
+                {t('myCoach.title')}
+            </h2>
             <CardCoach coach={data} />
             <div className='w-full max-w-sm flex gap-4'>
                 <Button
